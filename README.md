@@ -10,7 +10,7 @@ Generate a Markdown Documentation for a Vue file
 npm install --save @vuedoc/md
 
 # using in command line
-npm install -g @vuedoc/md
+npm install --global @vuedoc/md
 ```
 
 ## Usage
@@ -20,12 +20,12 @@ const options = {
   filename: 'test/fixtures/checkbox.vue'
 }
 
-vuedoc.md(filename)
-  .then((mardown) => console.log(mardown))
+vuedoc.md(options)
+  .then((document) => console.log(document))
   .catch((err) => console.error(err))
 ```
 
-This will print this JSON output:
+The `document` variable contains this string:
 
 ```md
 # checkbox 
