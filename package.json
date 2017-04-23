@@ -1,6 +1,6 @@
 {
   "name": "@vuedoc/md",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Generate a Markdown Documentation for a Vue file component",
   "main": "index.js",
   "bin": {
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/vuedoc/md#readme",
   "dependencies": {
-    "@vuedoc/parser": "^0.1.1"
+    "@vuedoc/parser": "^0.1.2"
   },
   "devDependencies": {
     "istanbul": "^0.4.5",
