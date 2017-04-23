@@ -1,6 +1,6 @@
 {
   "name": "@vuedoc/md",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Generate a Markdown Documentation for a Vue file component",
   "main": "index.js",
   "bin": {
@@ -9,7 +9,8 @@
   "scripts": {
     "pretest": "standard index.js lib/* test/*.spec.js",
     "test": "mocha --harmony test/*.spec.js",
-    "coverage": "istanbul --harmony cover _mocha test"
+    "coverage": "istanbul --harmony cover _mocha test",
+    "prepublish": "npm test"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,7 @@
   },
   "homepage": "https://github.com/vuedoc/md#readme",
   "dependencies": {
-    "@vuedoc/parser": "^0.1.2"
+    "@vuedoc/parser": "^0.2.0"
   },
   "devDependencies": {
     "istanbul": "^0.4.5",
