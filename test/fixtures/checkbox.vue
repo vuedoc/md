@@ -2,7 +2,8 @@
   <label>
     <input :disabled="disabled" type="text" v-model="checkbox">
     <slot></slot>
-    <slot name="label" description="Use this slot to set the checbox label"></slot>
+    <!-- Use this slot to set the checkbox label -->
+    <slot name="label"></slot>
   </label>
 </template>
 
@@ -16,7 +17,7 @@ export default {
   name: 'checkbox',
   props: {
     /**
-     * The checbox model
+     * The checkbox model
      */
     model: {
       type: Array,
@@ -25,16 +26,34 @@ export default {
     },
     
     /** 
-     * Initial checbox state
+     * Initial checkbox state
      */
     disabled: Boolean,
     
     /**
-     * Initial checbox value
+     * Initial checkbox value
      */
     enabled: {
       type: Boolean,
       default: true
+    },
+    
+    /**
+     * The checkbox label
+     */
+    label: {
+      type: String,
+      default: 'Unamed checkbox'
+    },
+    
+    object: {
+      type: Object,
+      default: null
+    },
+    
+    boolFalse: {
+      type: Boolean,
+      default: false
     }
   },
   

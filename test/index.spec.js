@@ -16,12 +16,72 @@ vuedoc.md(options)
 
 /* global describe it */
 
-describe('header', () => {
-  it('should render the component name as main title', () =>
+describe('options', () => {
+  let document = null
+  const _options = {}
+
+  Object.assign(_options, options)
+  
+  _options.ignoreName = true
+  _options.ignoreDescription = true
+
+  vuedoc.md(_options)
+    .then((_document) => (document = _document))
+    .catch((err) => { throw err })
+
+  it('should render without main title', () =>
+    assert.equal(/# checkbox/.test(document), false))
+
+  it('should render without description', () =>
+    assert.equal(/A simple checkbox component/.test(document), false))
+})
+
+describe('component', () => {
+  it('should have name as main title', () =>
     assert.ok(/# checkbox/.test(document)))
 
-  it('should render the component description', () =>
-    assert.ok(/A simple checkbox component/.test(document)))
+  it('should have main title with default level', () => {
+    const _options = {}
+
+    Object.assign(_options, options)
+
+    vuedoc.md(_options)
+      .then((document) => {
+        assert.equal(/# checkbox/.test(document), true)
+      })
+      .catch((err) => { throw err })
+  })
+
+  it('should have main title with level 2 notation', () => {
+    const _options = {}
+
+    Object.assign(_options, options)
+
+    _options.level = 2
+
+    vuedoc.md(_options)
+      .then((document) => {
+        assert.equal(/## checkbox/.test(document), true)
+      })
+      .catch((err) => { throw err })
+  })
+
+  it('should have main title with level 7 to 6', () => {
+    const _options = {}
+
+    Object.assign(_options, options)
+
+    _options.level = 7
+
+    vuedoc.md(_options)
+      .then((document) => {
+        assert.equal(/###### checkbox/.test(document), true)
+      })
+      .catch((err) => { throw err })
+  })
+
+  it('should have a description', () =>
+    assert.equal(/A simple checkbox component/.test(document), true))
 })
 
 describe('props', () => {
@@ -30,17 +90,17 @@ describe('props', () => {
 
   it('should render props.model with a description', () => {
     assert.ok(/- .model. \*\*\*Array\*\*\* \(\*required\*\) .twoWay = true./.test(document))
-    assert.ok(/The checbox model/.test(document))
+    assert.ok(/The checkbox model/.test(document))
   })
 
   it('should render props.disabled with a description', () => {
     assert.ok(/- .disabled. \*\*\*Boolean\*\*\* \(\*optional\*\)/.test(document))
-    assert.ok(/Initial checbox state/.test(document))
+    assert.ok(/Initial checkbox state/.test(document))
   })
 
   it('should render props.checked with a description', () => {
     assert.ok(/- .enabled. \*\*\*Boolean\*\*\* \(\*optional\*\) .default: true../.test(document))
-    assert.ok(/Initial checbox value/.test(document))
+    assert.ok(/Initial checkbox value/.test(document))
   })
 })
 
@@ -53,7 +113,7 @@ describe('slots', () => {
   })
 
   it('should render the nammed slot with a description', () => {
-    assert.ok(/- .label. Use this slot to set the checbox label/.test(document))
+    assert.ok(/- .label. Use this slot to set the checkbox label/.test(document))
   })
 })
 
