@@ -9,7 +9,8 @@
   "scripts": {
     "pretest": "standard index.js lib/* test/*.spec.js",
     "test": "mocha --harmony test/*.spec.js",
-    "coverage": "istanbul --harmony cover _mocha test"
+    "coverage": "istanbul --harmony cover _mocha test",
+    "prepublish": "npm test"
   },
   "repository": {
     "type": "git",

@@ -21,7 +21,7 @@ describe('options', () => {
   const _options = {}
 
   Object.assign(_options, options)
-  
+
   _options.ignoreName = true
   _options.ignoreDescription = true
 
