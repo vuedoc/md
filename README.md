@@ -1,8 +1,7 @@
 # The vuedoc Markdown Documentation Generator
 Generate a Markdown Documentation for a Vue file
 
-[![Build Status](https://travis-ci.org/vuedoc/md.svg?branch=master)](https://travis-ci.org/vuedoc/md)
-[![bitHound Dependencies](https://www.bithound.io/github/vuedoc/md/badges/dependencies.svg)](https://www.bithound.io/github/vuedoc/md/master/dependencies/npm)
+[![Build Status](https://travis-ci.org/vuedoc/md.svg?branch=master)](https://travis-ci.org/vuedoc/md) [![Coverage Status](https://coveralls.io/repos/github/vuedoc/md/badge.svg?branch=master)](https://coveralls.io/github/vuedoc/md?branch=master)
 
 ## Install
 ```sh
@@ -14,6 +13,121 @@ npm install --global @vuedoc/md
 ```
 
 ## Usage
+
+First use comments to document your component:
+
+```vue
+<template>
+  <div>
+    <!-- Use this slot to set the label -->
+    <label :for="id"><slot name="label"></slot></label>
+    <textarea :id="id" @keyup="keyup" @input="input">
+      <!-- Use this slot to set the devault value -->
+      <slot></slot></textarea>
+  </div>
+</template>
+
+<script>
+  import _ from 'lodash'
+
+  /**
+   * The custom HTML `<textarea>` component.
+   */
+  export default {
+    name: 'my-textarea',
+    props: {
+      /**
+       * Use this directive to create two-way data bindings with the component. It automatically picks the correct way to update the element based on the input type.
+       * @model
+       */
+      value: { type: String },
+      /**
+       * Defines a unique identifier (ID) which must be unique in the whole document.
+       */
+      id: { type: String, required: true },
+      /**
+       * This Boolean property indicates that the user cannot interact with the control.
+       */
+      disable: { type: Boolean, default: false }
+    },
+    methods: {
+      /**
+       * Define if the control value is empty of not.
+       */
+      isEmpty () {
+        return !this.value || this.value.length === 0
+      },
+      /**
+       * @private
+       */
+      input (e) {
+        this.value = e.target.value
+        this.clearError()
+        /**
+         * Fired when the value is changed.
+         */
+        this.$emit('input', this.value)
+      },
+      /**
+       * @private
+       */
+      keyup (e) {
+        /**
+         * Fired when a key is released.
+         */
+        this.$emit('keyup')
+      }
+    }
+  }
+</script>
+```
+
+Then use the CLI to generate the documentation:
+
+```sh
+# generate a Markdown documentation
+# this print documentation in the standard output
+vuedoc.md components/textarea.vue
+
+# generate a Markdown documentation in a file
+vuedoc.md components/textarea.vue > docs/textarea.md
+
+# generate a Markdown documentation all your components
+vuedoc.md components/*.vue > docs.md
+```
+
+Output:
+
+```md
+# my-textarea 
+The custom HTML `<textarea>` component. 
+
+## props 
+- `v-model` ***String*** (*optional*) 
+Use this directive to create two-way data bindings with the component. It automatically picks the correct way to update the element based on the input type. 
+
+- `id` ***String*** (*required*) 
+Defines a unique identifier (ID) which must be unique in the whole document. 
+
+- `disable` ***Boolean*** (*optional*) `default: false` 
+This Boolean property indicates that the user cannot interact with the control. 
+
+## slots 
+- `label` Use this slot to set the label 
+
+- `default` Use this slot to set the devault value 
+
+## events 
+- `input` Fired when the value is changed. 
+
+- `keyup` Fired when a key is released. 
+
+## methods 
+- `isEmpty()` 
+Define if the control value is empty of not.
+```
+
+## Programmatic Usage
 ```js
 const vuedoc = require('@vuedoc/md')
 const options = {
@@ -25,45 +139,18 @@ vuedoc.md(options)
   .catch((err) => console.error(err))
 ```
 
-The `document` variable contains this string:
+## Keywords
+- `@public` By default all commented members are public; this mean they will be part of the documented members.
+- `@private` Commented members with this will be ignored.
 
-```md
-# checkbox 
-A simple checkbox component 
 
-## props 
-- `model` ***Array*** (*required*) `twoWay = true` 
-The checbox model 
+## Examples:
+`vuedoc.md` has been used to generate documentation of bellow components:
+- `vx-input`: [https://github.com/vx-components/textarea](https://github.com/vx-components/input)
+- `vx-checkbox`: [https://github.com/vx-components/textarea](https://github.com/vx-components/checkbox)
+- `vx-textarea`: [https://github.com/vx-components/textarea](https://github.com/vx-components/textarea)
+- `vue-json-schema`: [https://github.com/demsking/vue-json-schema](https://github.com/demsking/vue-json-schema)
 
-- `disabled` ***Boolean*** (*optional*) 
-Initial checbox state
-
-- `checked` ***Boolean*** (*optional*) `default: true` 
-Initial checbox value
-
-## slots 
-- `default` Use this slot to set the checbox label 
-
-## events 
-- `loaded` Emitted when the component has been loaded
-
-## methods 
-- `check()` 
-Check the checbox
-```
-
-## CLI Usage
-```sh
-# generate a Markdown documentation
-# this print documentation in the standard output
-vuedoc.md components/checkbox.vue
-
-# generate a Markdown documentation in a file
-vuedoc.md components/checkbox.vue > docs/checbox.md
-
-# generate a Markdown documentation all your components
-vuedoc.md components/*.vue > docs.md
-```
 
 ## License
 
