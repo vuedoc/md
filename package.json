@@ -1,17 +1,21 @@
 {
   "name": "@vuedoc/md",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "description": "Generate a Markdown Documentation for a Vue file component",
   "main": "index.js",
   "bin": {
     "vuedoc.md": "./bin/cli.js"
   },
   "scripts": {
-    "pretest": "standard index.js lib/* test/*.spec.js",
-    "test": "mocha --harmony test/*.spec.js",
-    "coverage": "istanbul --harmony cover _mocha test",
     "prepublish": "npm test",
-    "coveralls": "standard index.js lib test && istanbul cover _mocha --report lcovonly -- -R spec test/*.spec.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js --verbose"
+    "pretest": "npm run lint",
+    "test": "mocha --harmony test/*.spec.js",
+    "lint": "standard index.js lib/* test/*.spec.js",
+    "lintd": "nodemon -x 'npm run lint'",
+    "testd": "nodemon -x 'mocha --harmony --trace-warnings test/tests.js'",
+    "coverage": "istanbul --harmony cover _mocha test",
+    "coveraged": "nodemon -x 'npm run coverage'",
+    "coveralls": "npm run lint && istanbul cover _mocha --report lcovonly -- -R spec test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js --verbose"
   },
   "repository": {
     "type": "git",
@@ -31,12 +35,13 @@
   },
   "homepage": "https://github.com/vuedoc/md#readme",
   "dependencies": {
-    "@vuedoc/parser": "^0.3.4"
+    "@vuedoc/parser": "^0.4.0"
   },
   "devDependencies": {
     "coveralls": "^2.13.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.5.0",
+    "nodemon": "^1.12.0",
     "standard": "^10.0.3"
   },
   "engines": {
