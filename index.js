@@ -6,7 +6,7 @@ const md = require('./lib/markdown')
 module.exports.md = (options) => {
   const _options = Object.assign({}, options)
 
-  return vuedoc.parse(_options).then((component) => {
+  return vuedoc.parse(_options).then((component) =>
     new Promise((resolve) => {
       let document = ''
 
@@ -18,6 +18,5 @@ module.exports.md = (options) => {
           document += text
         })
         .on('end', () => resolve(document))
-    })
-  })
+    }))
 }
