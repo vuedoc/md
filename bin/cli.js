@@ -9,7 +9,7 @@ if (process.argv.length < 2) {
 }
 
 const vuedoc = require('../')
-const options = { stdout: true }
+const options = { stream: true }
 
 const argv = process.argv.slice(2)
 const filenames = []
@@ -76,7 +76,12 @@ if (options.output) {
     vuedoc.md(options).then(() => wstream.end())
   })
 } else {
+  options.stream = process.stdout
+
   filenames.forEach((filename) => {
-    vuedoc.md(options).catch((e) => process.stderr.write(e))
+    options.filename = filename
+
+    vuedoc.md(options)
+      .catch((e) => process.stderr.write(e))
   })
 }
