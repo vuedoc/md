@@ -127,6 +127,13 @@ This Boolean property indicates that the user cannot interact with the control.
 Define if the control value is empty of not.
 ```
 
+## Command line options
+```
+--level [integer]     - Set the title level. An integer betwen 1 and 6
+--ignore-name         - Ignore the component name on parsing
+--ignore-description  - Ignore the component description on parsing
+```
+
 ## Programmatic Usage
 ```js
 const vuedoc = require('@vuedoc/md')
