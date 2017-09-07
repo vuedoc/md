@@ -33,6 +33,15 @@ for (let i = 0; i < argv.length; i++) {
       i++
       continue
 
+    case '--output':
+      if (!argv[i + 1]) {
+        return process.stderr.write('Missing output directory value. Usage: --output [directory]\n')
+      }
+
+      options.output = argv[i + 1]
+      i++
+      continue
+
     case '--ignore-name':
       options.ignoreName = true
       continue
@@ -50,5 +59,24 @@ if (filenames.length === 0) {
   return process.stderr.write(MISSING_FILENAME_MESSAGE)
 }
 
-filenames.forEach((filename) =>
-  vuedoc.md(options).catch((e) => process.stderr.write(e)))
+if (options.output) {
+  const fs = require('fs')
+  const path = require('path')
+
+  filenames.forEach((filename) => {
+    const info = path.parse(filename)
+    const mdname = `${info.name}.md`
+    const dest = path.join(options.output, mdname)
+    const wstream = fs.createWriteStream(dest)
+
+    options.stream = wstream
+
+    process.stdout.write(`${filename} -> ${dest}\n`)
+
+    vuedoc.md(options).then(() => wstream.end())
+  })
+} else {
+  filenames.forEach((filename) => {
+    vuedoc.md(options).catch((e) => process.stderr.write(e))
+  })
+}

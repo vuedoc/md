@@ -6,14 +6,18 @@ const md = require('./lib/markdown')
 module.exports.md = (options) => {
   const _options = Object.assign({}, options)
 
+  if (typeof _options.stream === 'boolean') {
+    _options.stream = process.stdout
+  }
+
   return vuedoc.parse(_options).then((component) => {
     return new Promise((resolve) => {
       let document = ''
 
       md.render(component, _options)
         .on('write', (text) => {
-          if (_options.stdout) {
-            return process.stdout.write(text)
+          if (_options.stream) {
+            return _options.stream.write(text)
           }
           document += text
         })

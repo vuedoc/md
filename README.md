@@ -89,11 +89,11 @@ Then use the CLI to generate the documentation:
 # this print documentation in the standard output
 vuedoc.md components/textarea.vue
 
-# generate a Markdown documentation in a file
-vuedoc.md components/textarea.vue > docs/textarea.md
+# generate a Markdown documentation in a file docs/textarea.md
+vuedoc.md components/textarea.vue --output docs/
 
 # generate a Markdown documentation all your components
-vuedoc.md components/*.vue > docs.md
+vuedoc.md components/*.vue --output docs/
 ```
 
 Output:
@@ -130,6 +130,7 @@ Define if the control value is empty of not.
 ## Command line options
 ```
 --level [integer]     - Set the title level. An integer betwen 1 and 6
+--output [directory]  - The output directory. If absent, the STDOUT will be used
 --ignore-name         - Ignore the component name on parsing
 --ignore-description  - Ignore the component description on parsing
 ```
