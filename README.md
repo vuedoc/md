@@ -148,10 +148,11 @@ vuedoc.md(options)
 
 ## Keywords
 - `@public` By default all commented members are public; this mean they will be part of the documented members.
+- `@protected` Commented members with this will be ignored.
 - `@private` Commented members with this will be ignored.
 
 
-## Examples:
+## Examples
 `vuedoc.md` has been used to generate documentation of bellow components:
 - `vx-input`: [https://github.com/vx-components/textarea](https://github.com/vx-components/input)
 - `vx-checkbox`: [https://github.com/vx-components/textarea](https://github.com/vx-components/checkbox)
@@ -160,5 +161,4 @@ vuedoc.md(options)
 
 
 ## License
-
 Under the MIT license. See [LICENSE](https://github.com/vuedoc/md/blob/master/LICENSE) file for more details.
