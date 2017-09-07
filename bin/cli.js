@@ -2,10 +2,10 @@
 
 'use strict'
 
-const MISSING_FILENAME_MESSAGE = 'Missing filename. Usage: vuedoc.md [*.vue files]...'
+const MISSING_FILENAME_MESSAGE = 'Missing filename. Usage: vuedoc.md [*.vue files]...\n'
 
 if (process.argv.length < 2) {
-  return console.error(MISSING_FILENAME_MESSAGE)
+  return process.stderr.write(MISSING_FILENAME_MESSAGE)
 }
 
 const vuedoc = require('../')
@@ -20,13 +20,13 @@ for (let i = 0; i < argv.length; i++) {
   switch (arg) {
     case '--level':
       if (!argv[i + 1]) {
-        return console.error('Missing level value. Usage: --level [integer]')
+        return process.stderr.write('Missing level value. Usage: --level [integer]\n')
       }
 
       const value = parseInt(argv[i + 1])
 
       if (isNaN(value)) {
-        return console.error('Invalid level value. Usage: --level [integer]')
+        return process.stderr.write('Invalid level value. Usage: --level [integer]\n')
       }
 
       options.level = value
@@ -47,11 +47,8 @@ for (let i = 0; i < argv.length; i++) {
 }
 
 if (filenames.length === 0) {
-  return console.error(MISSING_FILENAME_MESSAGE)
+  return process.stderr.write(MISSING_FILENAME_MESSAGE)
 }
 
-filenames.forEach((filename) => {
-  options.filename = filename
-
-  vuedoc.md(options).catch((e) => console.error(e))
-})
+filenames.forEach((filename) =>
+  vuedoc.md(options).catch((e) => process.stderr.write(e)))
