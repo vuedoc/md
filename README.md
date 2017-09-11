@@ -94,6 +94,9 @@ vuedoc.md components/textarea.vue --output docs/
 
 # generate a Markdown documentation all your components
 vuedoc.md components/*.vue --output docs/
+
+# using pipe
+cat components/textarea.vue | vuedoc.md
 ```
 
 Output:

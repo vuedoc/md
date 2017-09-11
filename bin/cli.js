@@ -10,78 +10,111 @@ if (process.argv.length < 2) {
 
 const vuedoc = require('../')
 const options = { stream: true }
-
-const argv = process.argv.slice(2)
 const filenames = []
 
-for (let i = 0; i < argv.length; i++) {
-  const arg = argv[i]
+const parseArgs = (requireFiles) => {
+  const argv = process.argv.slice(2)
 
-  switch (arg) {
-    case '--level':
-      if (!argv[i + 1]) {
-        return process.stderr.write('Missing level value. Usage: --level [integer]\n')
-      }
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i]
 
-      const value = parseInt(argv[i + 1])
+    switch (arg) {
+      case '--level':
+        if (!argv[i + 1]) {
+          return process.stderr.write('Missing level value. Usage: --level [integer]\n')
+        }
 
-      if (isNaN(value)) {
-        return process.stderr.write('Invalid level value. Usage: --level [integer]\n')
-      }
+        const value = parseInt(argv[i + 1])
 
-      options.level = value
-      i++
-      continue
+        if (isNaN(value)) {
+          return process.stderr.write('Invalid level value. Usage: --level [integer]\n')
+        }
 
-    case '--output':
-      if (!argv[i + 1]) {
-        return process.stderr.write('Missing output directory value. Usage: --output [directory]\n')
-      }
+        options.level = value
+        i++
+        continue
 
-      options.output = argv[i + 1]
-      i++
-      continue
+      case '--output':
+        if (!argv[i + 1]) {
+          return process.stderr.write('Missing output directory value. Usage: --output [directory]\n')
+        }
 
-    case '--ignore-name':
-      options.ignoreName = true
-      continue
+        options.output = argv[i + 1]
+        i++
+        continue
 
-    case '--ignore-description':
-      options.ignoreDescription = true
-      continue
+      case '--ignore-name':
+        options.ignoreName = true
+        continue
 
-    default:
-      filenames.push(arg)
+      case '--ignore-description':
+        options.ignoreDescription = true
+        continue
+
+      default:
+        filenames.push(arg)
+    }
+  }
+
+  if (requireFiles && filenames.length === 0) {
+    return process.stderr.write(MISSING_FILENAME_MESSAGE)
   }
 }
 
-if (filenames.length === 0) {
-  return process.stderr.write(MISSING_FILENAME_MESSAGE)
+const run = (componentRawContent) => {
+  if (componentRawContent) {
+    parseArgs(false)
+
+    options.stream = process.stdout
+    options.filecontent = componentRawContent
+
+    return vuedoc.md(options).catch((e) => console.error(e))
+  }
+
+  parseArgs(true)
+
+  if (options.output) {
+    const fs = require('fs')
+    const path = require('path')
+
+    filenames.forEach((filename) => {
+      const info = path.parse(filename)
+      const mdname = `${info.name}.md`
+      const dest = path.join(options.output, mdname)
+      const wstream = fs.createWriteStream(dest)
+
+      options.stream = wstream
+
+      process.stdout.write(`${filename} -> ${dest}\n`)
+
+      vuedoc.md(options).then(() => wstream.end())
+    })
+  } else {
+    options.stream = process.stdout
+
+    filenames.forEach((filename) => {
+      options.filename = filename
+
+      vuedoc.md(options)
+        .catch((e) => process.stderr.write(e))
+    })
+  }
 }
 
-if (options.output) {
-  const fs = require('fs')
-  const path = require('path')
-
-  filenames.forEach((filename) => {
-    const info = path.parse(filename)
-    const mdname = `${info.name}.md`
-    const dest = path.join(options.output, mdname)
-    const wstream = fs.createWriteStream(dest)
-
-    options.stream = wstream
-
-    process.stdout.write(`${filename} -> ${dest}\n`)
-
-    vuedoc.md(options).then(() => wstream.end())
-  })
-} else {
-  options.stream = process.stdout
-
-  filenames.forEach((filename) => {
-    options.filename = filename
-
-    vuedoc.md(options)
-      .catch((e) => process.stderr.write(e))
-  })
+if (process.argv.length > 2) {
+  return run()
 }
+
+process.stdin.setEncoding('utf8')
+
+let componentRawContent = ''
+
+process.stdin.on('readable', () => {
+  let chunk
+
+  while ((chunk = process.stdin.read())) {
+    componentRawContent += chunk
+  }
+})
+
+process.stdin.on('end', () => run(componentRawContent))
