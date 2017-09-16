@@ -132,10 +132,11 @@ Define if the control value is empty of not.
 
 ## Command line options
 ```
---level [integer]     - Set the title level. An integer betwen 1 and 6
---output [directory]  - The output directory. If absent, the STDOUT will be used
---ignore-name         - Ignore the component name on parsing
---ignore-description  - Ignore the component description on parsing
+--level [integer]        - Set the title level. An integer betwen 1 and 6
+--output [file or dir]   - The output directory. If absent, the STDOUT will be used
+--section [section name] - Set the README's section name to update. Works with `--output file`
+--ignore-name            - Ignore the component name on parsing
+--ignore-description     - Ignore the component description on parsing
 ```
 
 ## Programmatic Usage

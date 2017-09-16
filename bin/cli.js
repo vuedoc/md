@@ -43,6 +43,15 @@ const parseArgs = (requireFiles) => {
         i++
         continue
 
+      case '--section':
+        if (!argv[i + 1]) {
+          return process.stderr.write('Missing section value. Usage: --section [section name]\n')
+        }
+
+        options.section = argv[i + 1]
+        i++
+        continue
+
       case '--ignore-name':
         options.ignoreName = true
         continue
@@ -61,6 +70,27 @@ const parseArgs = (requireFiles) => {
   }
 }
 
+const validateArgs = (argv) => {
+  if (argv.section) {
+    if (!argv.output) {
+      throw new Error('`--output file` is required when using --section')
+    }
+
+    const fs = require('fs')
+    const stats = fs.lstatSync(options.output)
+
+    if (!stats.isFile()) {
+      throw new Error('`--output` value must be a file when using --section')
+    }
+  }
+}
+
+const inject = require('mdast-util-inject')
+const toString = require('mdast-util-to-string')
+const findSectionNode = (node) => {
+  return node.type === 'Header' && toString(node) === options.section
+}
+
 const run = (componentRawContent) => {
   if (componentRawContent) {
     parseArgs(false)
@@ -73,22 +103,65 @@ const run = (componentRawContent) => {
 
   parseArgs(true)
 
+  validateArgs(options)
+
   if (options.output) {
     const fs = require('fs')
     const path = require('path')
+    const ast = require('markdown-to-ast')
+    const cache = {}
 
-    filenames.forEach((filename) => {
-      const info = path.parse(filename)
-      const mdname = `${info.name}.md`
-      const dest = path.join(options.output, mdname)
-      const wstream = fs.createWriteStream(dest)
+    const stats = fs.lstatSync(options.output)
+    const processes = filenames.reduce((mergedOutput, filename) => {
+      options.filename = filename
 
-      options.stream = wstream
+      if (options.section) {
+        const readme = fs.readFileSync(options.output, 'utf8')
 
-      process.stdout.write(`${filename} -> ${dest}\n`)
+        cache.target = ast.parse(readme.toString())
 
-      vuedoc.md(options).then(() => wstream.end())
-    })
+        const node = cache.target.children.find(findSectionNode)
+
+        if (node && !options.level) {
+          options.level = node.depth + 1
+        }
+
+        delete options.stream
+
+        mergedOutput.push(vuedoc.md(options))
+      } else {
+        if (stats.isDirectory()) {
+          const info = path.parse(filename)
+          const mdname = `${info.name}.md`
+          const dest = path.join(options.output, mdname)
+
+          options.stream = fs.createWriteStream(dest)
+        } else {
+          options.stream = fs.createWriteStream(options.output)
+        }
+
+        vuedoc.md(options).then(() => options.stream.end())
+      }
+
+      return mergedOutput
+    }, [])
+
+    Promise.all(processes).then((generatedDocs) => {
+      const toMarkdown = require('ast-to-markdown')
+      const inject = require('md-node-inject')
+      const docs = generatedDocs.reduce((docs, doc) => {
+        ast.parse(doc).children.forEach((node) => docs.children.push(node))
+
+        return docs
+      }, { children: [] })
+
+      Promise.resolve(inject(options.section, cache.target, docs))
+        .then((doc) => toMarkdown(doc))
+        .then((doc) => {
+          
+        })
+        .catch((err) => console.error(err))
+    }).catch((err) => console.error(err))
   } else {
     options.stream = process.stdout
 
