@@ -140,28 +140,37 @@ const run = (componentRawContent) => {
           options.stream = fs.createWriteStream(options.output)
         }
 
-        vuedoc.md(options).then(() => options.stream.end())
+        vuedoc.md(options)
+          .then(() => options.stream.end())
+          .catch((e) => process.stderr.write(e))
       }
 
       return mergedOutput
     }, [])
 
-    Promise.all(processes).then((generatedDocs) => {
-      const toMarkdown = require('ast-to-markdown')
-      const inject = require('md-node-inject')
-      const docs = generatedDocs.reduce((docs, doc) => {
-        ast.parse(doc).children.forEach((node) => docs.children.push(node))
+    Promise.all(processes)
+      .then((generatedDocs) => {
+        const toMarkdown = require('ast-to-markdown')
+        const inject = require('md-node-inject')
+        const docs = generatedDocs.reduce((docs, doc) => {
+          ast.parse(doc)
+            .children.forEach((node) => docs.children.push(node))
 
-        return docs
-      }, { children: [] })
+          return docs
+        }, { children: [] })
 
-      Promise.resolve(inject(options.section, cache.target, docs))
-        .then((doc) => toMarkdown(doc))
-        .then((doc) => {
-          
-        })
-        .catch((err) => console.error(err))
-    }).catch((err) => console.error(err))
+        Promise.resolve(inject(options.section, cache.target, docs))
+          .then((doc) => toMarkdown(doc))
+          .then((doc) => {
+            fs.writeFile(options.output, doc, (err) => {
+              if (err) {
+                throw err
+              }
+            })
+          })
+          .catch((err) => process.stderr.write(err))
+      })
+      .catch((e) => process.stderr.write(e))
   } else {
     options.stream = process.stdout
 
