@@ -8,9 +8,9 @@
   },
   "scripts": {
     "prepublish": "npm test",
-    "pretest": "npm run lint",
+    "pretestX": "npm run lint",
     "test": "mocha --harmony test/tests.js",
-    "lint": "standard index.js bin/* lib/* test/*.js",
+    "lint": "standard index.js lib/* test/*.js",
     "coverage": "istanbul --harmony cover _mocha test",
     "coveralls": "npm run lint && istanbul cover _mocha --report lcovonly -- -R spec test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js --verbose"
   },
@@ -42,6 +42,7 @@
     "coveralls": "^2.13.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.5.0",
+    "mock-fs": "^4.4.1",
     "standard": "^10.0.3"
   },
   "engines": {
