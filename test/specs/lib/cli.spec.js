@@ -409,7 +409,7 @@ describe('lib/cli', () => {
     })
   })
 
-  describe('run(argv, componentRawContent)', () => {
+  describe('exec(argv, componentRawContent)', () => {
     beforeEach(() => {
       process.__defineGetter__('stdout', function() {
         return new OutputStream()
@@ -427,11 +427,11 @@ describe('lib/cli', () => {
       const filename = checkboxfile
       const componentRawContent = fs.readFileSync(filename, 'utf8')
 
-      return cli.run(argv, componentRawContent)
+      return cli.exec(argv, componentRawContent)
     })
   })
 
-  describe('run(argv)', () => {
+  describe('exec(argv)', () => {
     const argv = [ checkboxfile ]
 
     beforeEach(() => {
@@ -447,19 +447,22 @@ describe('lib/cli', () => {
     })
 
     it('should successfully generate the component documentation with --output', () => {
-      return cli.run(argv.concat(['--output', fixturesPath]))
+      return cli.exec(argv.concat(['--output', fixturesPath]))
     })
 
     it('should successfully generate the component documentation', () => {
-      return cli.run(argv)
+      return cli.exec(argv)
     })
   })
 
-  describe('silenceRun(argv)', () => {
+  describe('silenceExec(argv)', () => {
     const originalStderr = process.stderr
+    const originalConsoleError = console.error
 
     beforeEach(() => {
       streamContent = ''
+
+      console.error = (message) => (streamContent = message)
 
       process.__defineGetter__('stdout', function() {
         return new OutputStream()
@@ -471,6 +474,8 @@ describe('lib/cli', () => {
     })
 
     afterEach(() => {
+      console.error = originalConsoleError
+
       process.__defineGetter__('stdout', function() {
         return originalStdout
       })
@@ -481,13 +486,17 @@ describe('lib/cli', () => {
     })
 
     it('should successfully generate the component documentation with --output', () => {
-      cli.silenceRun([ checkboxfile ])
+      cli.silenceExec([ checkboxfile ])
     })
 
-    it('should failed generate the component documentation', () => {
-      cli.silenceRun([])
+    it('should failed with an exception', () => {
+      cli.silenceExec([])
 
       assert.notEqual(streamContent.search(/Missing filename/), -1)
+    })
+
+    it('should failed promise error catching', () => {
+      cli.silenceExec([notfoundfile])
     })
   })
 })

@@ -9,7 +9,7 @@ if (process.argv.length < 2) {
 }
 
 if (process.argv.length > 2) {
-  return cli.silenceRun(process.argv.slice(2))
+  return cli.silenceExec(process.argv.slice(2))
 }
 
 process.stdin.setEncoding('utf8')
@@ -24,4 +24,4 @@ process.stdin.on('readable', () => {
   }
 })
 
-process.stdin.on('end', () => cli.silenceRun(process.argv.slice(2), rawContent))
+process.stdin.on('end', () => cli.silenceExec(process.argv.slice(2), rawContent))
