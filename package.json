@@ -8,7 +8,7 @@
   },
   "scripts": {
     "prepublish": "npm test",
-    "pretestX": "npm run lint",
+    "pretest": "npm run lint",
     "test": "mocha --harmony test/tests.js",
     "lint": "standard index.js lib/* test/*.js",
     "coverage": "istanbul --harmony cover _mocha test",
