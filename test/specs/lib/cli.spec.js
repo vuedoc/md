@@ -11,14 +11,30 @@ const readmefile = path.join(fixturesPath, 'README.md')
 const notfoundfile = path.join(fixturesPath, 'notfound.vue')
 const checkboxfile = path.join(fixturesPath, 'checkbox.vue')
 
+let streamContent = ''
+
 class OutputStream extends stream.Writable {
   _write(chunk, enc, next) {
+    streamContent += chunk.toString()
     next()
   }
 }
 
+const vuecomponent = `
+  <script>
+    /**
+     * Void component
+     */
+    export default {
+      name: 'void',
+      render () {
+        return null
+      }
+    }
+  </script>
+`
+
 const originalStdout = process.stdout
-const writer = new OutputStream()
 
 /* global describe it */
 
@@ -40,7 +56,7 @@ describe('lib/cli', () => {
         const _options = Object.assign({}, options, { output })
 
         assert.throws(
-          () => cli.validateOptions(_options), /--output value must be a file/)
+          () => cli.validateOptions(_options), /--output value must be an existing file/)
       })
 
       it('should successfully validate', () => {
@@ -233,7 +249,7 @@ describe('lib/cli', () => {
   describe('processRawContent(argv, componentRawContent)', () => {
     beforeEach(() => {
       process.__defineGetter__('stdout', function() {
-        return writer
+        return new OutputStream()
       })
     })
 
@@ -267,40 +283,108 @@ describe('lib/cli', () => {
   })
 
   describe('processWithOutputOption(options)', () => {
-    const mock = require('mock-fs')
-    const output = path.join(fixturesPath, 'output.md')
-    const readmeContent = fs.readFileSync(readmefile, 'utf8')
+    const output = readmefile
+    const filenames = [ checkboxfile ]
 
-    beforeEach(() => {
-      mock({
-        [output]: readmeContent
+    describe('should successfully generate the component documentation', () => {
+      const originalCreateWriteStream = fs.createWriteStream
+      const originalReadFileSync = fs.readFileSync
+      const originalWriteFile = fs.writeFileSync
+      const voidfile = '/tmp/void.vue'
+      const filenames = [ voidfile ]
+      const files = {
+        [voidfile]: vuecomponent,
+        [readmefile]: '# Sample\nDescription\n\n# API\n**WIP**\n\n# License\nMIT'
+      }
+      let writeFileContent = ''
+
+      beforeEach(() => {
+        streamContent = ''
+        writeFileContent = ''
+
+        fs.writeFileSync = (filename, content) => {
+          writeFileContent = content
+        }
+
+        fs.readFileSync = (filename, encoding) => {
+          if (!files.hasOwnProperty(filename)) {
+            return originalReadFileSync.call(fs, filename, encoding)
+          }
+
+          if (encoding) {
+            return files[filename]
+          }
+
+          return {
+            toString () {
+              return files[filename]
+            }
+          }
+        }
+
+        fs.createWriteStream = (filename) => {
+          return new OutputStream()
+        }
+      })
+
+      afterEach(() => {
+        fs.writeFileSync = originalWriteFile
+        fs.readFileSync = originalReadFileSync
+        fs.createWriteStream = originalCreateWriteStream
+      })
+
+      it('with --section', () => {
+        const section = 'API'
+        const options = { output, filenames, section }
+        const expected = '# Sample\nDescription\n\n# API\n\n## void\nVoid component\n\n# License\nMIT'
+
+        return cli.processWithOutputOption(options).then(() => {
+          assert.notEqual(writeFileContent.search(/\n## void/), -1)
+          assert.notEqual(writeFileContent.search(/\nVoid component/), -1)
+        })
+      })
+
+      it('with --section and --level', () => {
+        const section = 'API'
+        const level = 3
+        const options = { output, filenames, section, level }
+
+        return cli.processWithOutputOption(options).then(() => {
+          assert.notEqual(writeFileContent.search(/\n### void/), -1)
+          assert.notEqual(writeFileContent.search(/\nVoid component/), -1)
+        })
+      })
+
+      it('should successfully generate the component documentation', () => {
+        const options = { output, filenames }
+
+        return cli.processWithOutputOption(options)
+      })
+
+      it('should successfully generate the component documentation with output directory', () => {
+        const output = fixturesPath
+        const options = { output, filenames }
+
+        return cli.processWithOutputOption(options)
       })
     })
 
-    afterEach(mock.restore)
+    describe('should failed to generate the component documentation', () => {
+      it('without --section', (done) => {
+        const filenames = [ notfoundfile ]
+        const options = { output, filenames }
 
-    it('should failed to generate the component documentation', (done) => {
-      const filenames = [ notfoundfile ]
-      const options = { output, filenames }
-
-      cli.processWithOutputOption(options)
-        .then(() => done(new Error()))
-        .catch(() => done())
-    })
-
-    it('should successfully generate the component documentation', () => {
-      const filenames = [ output ]
-      const options = { output, filenames }
-
-      cli.processWithOutputOption(options)
-        .catch((err) => console.error(err))
+        cli.processWithOutputOption(options)
+          .then(() => done(new Error()))
+          .catch(() => done())
+      })
     })
   })
 
   describe('processWithoutOutputOption(options)', () => {
     beforeEach(() => {
       process.__defineGetter__('stdout', function() {
-        return writer
+        return new OutputStream()
       })
     })
 
@@ -322,6 +406,88 @@ describe('lib/cli', () => {
       const options = { filenames: [ checkboxfile ] }
 
       return cli.processWithoutOutputOption(options)
+    })
+  })
+
+  describe('run(argv, componentRawContent)', () => {
+    beforeEach(() => {
+      process.__defineGetter__('stdout', function() {
+        return new OutputStream()
+      })
+    })
+
+    afterEach(() => {
+      process.__defineGetter__('stdout', function() {
+        return originalStdout
+      })
+    })
+
+    it('should successfully generate the component documentation', () => {
+      const argv = []
+      const filename = checkboxfile
+      const componentRawContent = fs.readFileSync(filename, 'utf8')
+
+      return cli.run(argv, componentRawContent)
+    })
+  })
+
+  describe('run(argv)', () => {
+    const argv = [ checkboxfile ]
+
+    beforeEach(() => {
+      process.__defineGetter__('stdout', function() {
+        return new OutputStream()
+      })
+    })
+
+    afterEach(() => {
+      process.__defineGetter__('stdout', function() {
+        return originalStdout
+      })
+    })
+
+    it('should successfully generate the component documentation with --output', () => {
+      return cli.run(argv.concat(['--output', fixturesPath]))
+    })
+
+    it('should successfully generate the component documentation', () => {
+      return cli.run(argv)
+    })
+  })
+
+  describe('silenceRun(argv)', () => {
+    const originalStderr = process.stderr
+
+    beforeEach(() => {
+      streamContent = ''
+
+      process.__defineGetter__('stdout', function() {
+        return new OutputStream()
+      })
+
+      process.__defineGetter__('stderr', function() {
+        return new OutputStream()
+      })
+    })
+
+    afterEach(() => {
+      process.__defineGetter__('stdout', function() {
+        return originalStdout
+      })
+
+      process.__defineGetter__('stderr', function() {
+        return originalStderr
+      })
+    })
+
+    it('should successfully generate the component documentation with --output', () => {
+      cli.silenceRun([ checkboxfile ])
+    })
+
+    it('should failed generate the component documentation', () => {
+      cli.silenceRun([])
+
+      assert.notEqual(streamContent.search(/Missing filename/), -1)
     })
   })
 })

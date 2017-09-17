@@ -42,7 +42,6 @@
     "coveralls": "^2.13.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.5.0",
-    "mock-fs": "^4.4.1",
     "standard": "^10.0.3"
   },
   "engines": {
