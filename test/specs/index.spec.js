@@ -1,11 +1,11 @@
 'use strict'
 
-const vuedoc = require('..')
+const vuedoc = require('../..')
 const assert = require('assert')
 const path = require('path')
 
 const options = {
-  filename: path.join(__dirname, 'fixtures/checkbox.vue')
+  filename: path.join(__dirname, '../fixtures/checkbox.vue')
 }
 
 let document = null

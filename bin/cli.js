@@ -85,7 +85,6 @@ const validateArgs = (argv) => {
   }
 }
 
-const inject = require('mdast-util-inject')
 const toString = require('mdast-util-to-string')
 const findSectionNode = (node) => {
   return node.type === 'Header' && toString(node) === options.section

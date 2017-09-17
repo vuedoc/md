@@ -9,8 +9,8 @@
   "scripts": {
     "prepublish": "npm test",
     "pretest": "npm run lint",
-    "test": "mocha --harmony test/*.spec.js",
-    "lint": "standard index.js lib/* test/*.spec.js",
+    "test": "mocha --harmony test/tests.js",
+    "lint": "standard index.js bin/* lib/* test/*.js",
     "coverage": "istanbul --harmony cover _mocha test",
     "coveralls": "npm run lint && istanbul cover _mocha --report lcovonly -- -R spec test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js --verbose"
   },
@@ -35,7 +35,8 @@
     "@vuedoc/parser": "^0.4.0",
     "ast-to-markdown": "^0.2.0",
     "markdown-to-ast": "^4.0.0",
-    "md-node-inject": "^0.1.0"
+    "md-node-inject": "^0.1.0",
+    "mdast-util-to-string": "^1.0.4"
   },
   "devDependencies": {
     "coveralls": "^2.13.1",
