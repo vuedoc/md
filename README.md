@@ -85,7 +85,6 @@ First use comments to document your component:
 Then use the CLI to generate the documentation:
 
 ```sh
-# generate a Markdown documentation
 # this print documentation in the standard output
 vuedoc.md components/textarea.vue
 
@@ -94,6 +93,9 @@ vuedoc.md components/textarea.vue --output docs/
 
 # generate a Markdown documentation all your components
 vuedoc.md components/*.vue --output docs/
+
+# update the API section of README.md with generated documentation
+vuedoc.md components/textarea.vue --section "API" --output README.md
 
 # using pipe
 cat components/textarea.vue | vuedoc.md
@@ -132,10 +134,11 @@ Define if the control value is empty of not.
 
 ## Command line options
 ```
---level [integer]     - Set the title level. An integer betwen 1 and 6
---output [directory]  - The output directory. If absent, the STDOUT will be used
---ignore-name         - Ignore the component name on parsing
---ignore-description  - Ignore the component description on parsing
+--level [integer]        - Set the title level. An integer betwen 1 and 6
+--output [file or dir]   - The output directory. If absent, the STDOUT will be used
+--section [section name] - Inject the generated documentation to a section. Works with `--output file`
+--ignore-name            - Ignore the component name on parsing
+--ignore-description     - Ignore the component description on parsing
 ```
 
 ## Programmatic Usage
