@@ -164,11 +164,23 @@ describe('methods', () => {
   it('should render methods title', () =>
     assert.ok(/## methods/.test(document)))
 
-  it('should render an event with a description', () => {
+  it('should render a method with a description', () => {
     assert.ok(/- .check\(\).\s+Check if the input is checked/.test(document))
   })
 
-  it('should render an event without a description', () => {
+  it('should render a method without a description', () => {
     assert.ok(/- .prop\(\)./.test(document))
+  })
+
+  it('should render a method with a dynamic name', () => {
+    assert.ok(/- .dynamic\(\).\s+Make component dynamic/.test(document))
+  })
+
+  it('should render a method with a recursive dynamic name', () => {
+    assert.ok(/- .dynamic2\(\).\s+Enter to dynamic mode/.test(document))
+  })
+
+  it('should render a method with its params', () => {
+    assert.ok(/- .enable\(value\).\s+Enable the checkbox/.test(document))
   })
 })
