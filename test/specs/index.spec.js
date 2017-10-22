@@ -104,6 +104,36 @@ describe('props', () => {
   })
 })
 
+describe('data', () => {
+  it('should render data title', () =>
+    assert.ok(/## data/.test(document)))
+
+  it('should render a data with its description and initial value', () => {
+    assert.ok(/- `initialValue` The initial component value\. Used to detect changes and restore the initial value\.\s+\*initial value:\* `''`/.test(document))
+  })
+
+  it('should render a data without a description', () => {
+    assert.ok(/- `currentValue`\s+\*initial value:\* `''`/.test(document))
+  })
+})
+
+describe('computed', () => {
+  it('should render computed properties title', () =>
+    assert.ok(/## computed properties/.test(document)))
+
+  it('should render a computed property with its description and dependencies', () => {
+    assert.ok(/- `id` The component identifier. Generated using the `initialValue` data.\s+\*dependencies:\* `initialValue`/.test(document))
+  })
+
+  it('should render a computed property without a description', () => {
+    assert.ok(/- `changed`\s+\*dependencies:\* `currentValue` `initialValue`/.test(document))
+  })
+
+  it('should render a computed property without a description and dependencies', () => {
+    assert.ok(/- `withNoDependencies`/.test(document))
+  })
+})
+
 describe('slots', () => {
   it('should render slots title', () =>
     assert.ok(/## slots/.test(document)))
