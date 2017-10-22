@@ -14,7 +14,7 @@ npm install --global @vuedoc/md
 
 ## Usage
 
-First use comments to document your component:
+First use comments to document your component (see [test/fixtures/checkbox.vue](https://github.com/vuedoc/md/blob/develop/test/fixtures/checkbox.vue) for a complete example):
 
 ```vue
 <template>
@@ -37,7 +37,8 @@ First use comments to document your component:
     name: 'my-textarea',
     props: {
       /**
-       * Use this directive to create two-way data bindings with the component. It automatically picks the correct way to update the element based on the input type.
+       * Use this directive to create two-way data bindings with the component.
+       * It automatically picks the correct way to update the element based on the input type.
        * @model
        */
       value: { type: String },
@@ -62,7 +63,7 @@ First use comments to document your component:
        */
       input (e) {
         this.value = e.target.value
-        this.clearError()
+
         /**
          * Fired when the value is changed.
          */
