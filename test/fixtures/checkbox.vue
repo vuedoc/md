@@ -63,6 +63,35 @@ export default {
      */
     this.$emit('loaded')
   },
+
+  data () {
+    return {
+      /**
+       * The initial component value.
+       * Used to detect changes and restore the initial value.
+       */
+      initialValue: '',
+      currentValue: ''
+    }
+  },
+
+  computed: {
+    /**
+     * The component identifier.
+     * Generated using the `initialValue` data.
+     */
+    id () {
+      return `checkbox-${this.initialValue}`
+    },
+
+    changed () {
+      return this.currentValue !== this.initialValue
+    },
+
+    withNoDependencies () {
+      return 'yeah'
+    }
+  },
   
   methods: {
     /**
