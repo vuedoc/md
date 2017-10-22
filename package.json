@@ -32,16 +32,16 @@
   },
   "homepage": "https://github.com/vuedoc/md#readme",
   "dependencies": {
-    "@vuedoc/parser": "^0.4.1",
+    "@vuedoc/parser": "^0.6.0",
     "ast-to-markdown": "^0.2.0",
     "markdown-to-ast": "^4.0.0",
     "md-node-inject": "^0.1.0",
     "mdast-util-to-string": "^1.0.4"
   },
   "devDependencies": {
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.0",
     "istanbul": "^0.4.5",
-    "mocha": "^3.5.3",
+    "mocha": "^4.0.1",
     "standard": "^10.0.3"
   },
   "engines": {
