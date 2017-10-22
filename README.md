@@ -12,6 +12,14 @@ npm install --save @vuedoc/md
 npm install --global @vuedoc/md
 ```
 
+## Features
+- Generate documentation for component props
+- Generate documentation for component data
+- Generate documentation for computed properties with their dependencies
+- Generate documentation for component events
+- Generate documentation for component slots
+- Generate documentation for component methods
+
 ## Usage
 
 First use comments to document your component (see [test/fixtures/checkbox.vue](https://github.com/vuedoc/md/blob/develop/test/fixtures/checkbox.vue) for a complete example):
