@@ -1,0 +1,9 @@
+test
+coverage
+.*
+sample.js
+result.json
+yarn.lock
+*.tgz
+*.svg
+*.png
