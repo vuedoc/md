@@ -114,7 +114,10 @@ Output:
 
 ```md
 # my-textarea 
-The custom HTML `<textarea>` component. 
+The custom HTML `<textarea>` component.
+
+- **author** - Sébastien 
+- **license** - MIT 
 
 ## props 
 - `v-model` ***String*** (*optional*) 
@@ -158,6 +161,16 @@ Define if the control value is empty of not.
 ```
 
 ## Programmatic Usage
+**Options**
+| name    | type    | description                                                                                                |
+|---------|---------|------------------------------------------------------------------------------------------------------------|
+| level   | integer | Set the title level. An integer betwen 1 and 6                                                             |
+| output  | string  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used |
+| section | string  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
+
+For parsing options please read the [@vuedoc/parser documentation](https://github.com/vuedoc/parser#options)
+
+**Usage**
 ```js
 const vuedoc = require('@vuedoc/md')
 const options = {
