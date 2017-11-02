@@ -164,7 +164,9 @@ Define if the control value is empty of not.
 ```
 
 ## Programmatic Usage
+
 **Options**
+
 | name    | type    | description                                                                                                |
 |---------|---------|------------------------------------------------------------------------------------------------------------|
 | level   | integer | Set the title level. An integer betwen 1 and 6                                                             |
