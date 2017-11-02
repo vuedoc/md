@@ -4,6 +4,7 @@ const fs = require('fs')
 const path = require('path')
 const stream = require('stream')
 const assert = require('assert')
+const Parser = require('@vuedoc/parser/lib/parser')
 
 const cli = require('../../../lib/cli')
 const fixturesPath = path.join(__dirname, '../../fixtures')
@@ -35,6 +36,12 @@ const vuecomponent = `
 `
 
 const originalStdout = process.stdout
+
+const defaultOptions = {
+  stream: true,
+  filenames: [],
+  features: Parser.SUPPORTED_FEATURES
+}
 
 /* global describe it */
 
@@ -76,7 +83,6 @@ describe('lib/cli', () => {
 
   describe('parseArgs(argv)', () => {
     let options
-    const defaultOptions = { stream: true, filenames: [] }
 
     beforeEach(() => {
       options = {}
@@ -149,27 +155,19 @@ describe('lib/cli', () => {
       })
     })
 
-    describe('--ignore-name', () => {
-      it('should successfully set the ignore-name option', () => {
-        const argv = [ '--ignore-name' ]
+    defaultOptions.features.forEach((feature) => {
+      describe(`--ignore-${feature}`, () => {
+        it(`should successfully set the ignore-${feature} option`, () => {
+          const argv = [ `--ignore-${feature}` ]
+          const features = defaultOptions.features.filter((item) => item !== feature)
+          const expected = Object.assign({}, defaultOptions, { features })
 
-        assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
+          assert.doesNotThrow(() => {
+            const options = cli.parseArgs(argv)
 
-        const expected = Object.assign({}, defaultOptions, { ignoreName: true })
-
-        assert.deepEqual(options, expected)
-      })
-    })
-
-    describe('--ignore-description', () => {
-      it('should successfully set the ignore-description option', () => {
-        const argv = [ '--ignore-description' ]
-
-        assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
-
-        const expected = Object.assign({}, defaultOptions, { ignoreDescription: true })
-
-        assert.deepEqual(options, expected)
+            assert.deepEqual(options, expected)
+          })
+        })
       })
     })
 
@@ -177,12 +175,13 @@ describe('lib/cli', () => {
       it('should successfully set files', () => {
         const filenames = [ '/tmp/checkbox.vue', '/tmp/textarea.vue' ]
         const argv = filenames
-
-        assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
-
         const expected = Object.assign({}, defaultOptions, { filenames })
 
-        assert.deepEqual(options, expected)
+        assert.doesNotThrow(() => {
+          const options = cli.parseArgs(argv)
+
+          assert.deepEqual(options, expected)
+        })
       })
     })
   })
@@ -190,7 +189,6 @@ describe('lib/cli', () => {
   describe('parseArgs(argv, requireFiles)', () => {
     let options
     const argv = ['node', 'vuedoc.md']
-    const defaultOptions = { stream: true, filenames: [] }
 
     beforeEach(() => {
       options = {}

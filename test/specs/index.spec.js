@@ -3,6 +3,7 @@
 const vuedoc = require('../..')
 const assert = require('assert')
 const path = require('path')
+const Parser = require('@vuedoc/parser/lib/parser')
 
 const options = {
   filename: path.join(__dirname, '../fixtures/checkbox.vue')
@@ -19,11 +20,11 @@ vuedoc.md(options)
 describe('options', () => {
   let document = null
   const _options = {}
+  const ignore = ['name', 'description']
 
   Object.assign(_options, options)
 
-  _options.ignoreName = true
-  _options.ignoreDescription = true
+  _options.features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
 
   vuedoc.md(_options)
     .then((_document) => (document = _document))

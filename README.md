@@ -148,6 +148,13 @@ Define if the control value is empty of not.
 --section [section name] - Inject the generated documentation to a section. Works with `--output file`
 --ignore-name            - Ignore the component name on parsing
 --ignore-description     - Ignore the component description on parsing
+--ignore-keywords        - Ignore the component keywords on parsing
+--ignore-slots           - Ignore the component slots on parsing
+--ignore-props           - Ignore the component props on parsing
+--ignore-computed        - Ignore the component computed properties on parsing
+--ignore-data            - Ignore the component data on parsing
+--ignore-methods         - Ignore the component methods on parsing
+--ignore-events          - Ignore the component events on parsing
 ```
 
 ## Programmatic Usage
