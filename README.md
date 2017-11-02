@@ -40,6 +40,9 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
 
   /**
    * The custom HTML `<textarea>` component.
+   * 
+   * @author Sébastien
+   * @license MIT
    */
   export default {
     name: 'my-textarea',
@@ -114,7 +117,10 @@ Output:
 
 ```md
 # my-textarea 
-The custom HTML `<textarea>` component. 
+The custom HTML `<textarea>` component.
+
+- **author** - Sébastien 
+- **license** - MIT 
 
 ## props 
 - `v-model` ***String*** (*optional*) 
@@ -148,9 +154,26 @@ Define if the control value is empty of not.
 --section [section name] - Inject the generated documentation to a section. Works with `--output file`
 --ignore-name            - Ignore the component name on parsing
 --ignore-description     - Ignore the component description on parsing
+--ignore-keywords        - Ignore the component keywords on parsing
+--ignore-slots           - Ignore the component slots on parsing
+--ignore-props           - Ignore the component props on parsing
+--ignore-computed        - Ignore the component computed properties on parsing
+--ignore-data            - Ignore the component data on parsing
+--ignore-methods         - Ignore the component methods on parsing
+--ignore-events          - Ignore the component events on parsing
 ```
 
 ## Programmatic Usage
+**Options**
+| name    | type    | description                                                                                                |
+|---------|---------|------------------------------------------------------------------------------------------------------------|
+| level   | integer | Set the title level. An integer betwen 1 and 6                                                             |
+| output  | string  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used |
+| section | string  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
+
+For parsing options please read the [@vuedoc/parser documentation](https://github.com/vuedoc/parser#options)
+
+**Usage**
 ```js
 const vuedoc = require('@vuedoc/md')
 const options = {
@@ -162,7 +185,7 @@ vuedoc.md(options)
   .catch((err) => console.error(err))
 ```
 
-## Keywords
+## Visibility Keywords
 - `@public` By default all commented members are public; this mean they will be part of the documented members.
 - `@protected` Commented members with this will be ignored.
 - `@private` Commented members with this will be ignored.

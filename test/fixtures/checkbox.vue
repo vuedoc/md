@@ -12,6 +12,9 @@ const dynamic2 = 'dynamicMode'
 
 /**
  * A simple checkbox component
+ *
+ * @author Sébastien
+ * @license MIT
  */
 export default {
   name: 'checkbox',
