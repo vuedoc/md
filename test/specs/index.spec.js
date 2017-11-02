@@ -41,6 +41,12 @@ describe('component', () => {
   it('should have name as main title', () =>
     assert.ok(/# checkbox/.test(document)))
 
+  it('should have author keyword', () =>
+    assert.ok(/- \*\*author\*\* - Sébastien/.test(document)))
+
+  it('should have license keyword', () =>
+    assert.ok(/- \*\*license\*\* - MIT/.test(document)))
+
   it('should have main title with default level', () => {
     const _options = {}
 
