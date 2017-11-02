@@ -40,6 +40,9 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
 
   /**
    * The custom HTML `<textarea>` component.
+   * 
+   * @author Sébastien
+   * @license MIT
    */
   export default {
     name: 'my-textarea',
@@ -182,7 +185,7 @@ vuedoc.md(options)
   .catch((err) => console.error(err))
 ```
 
-## Keywords
+## Visibility Keywords
 - `@public` By default all commented members are public; this mean they will be part of the documented members.
 - `@protected` Commented members with this will be ignored.
 - `@private` Commented members with this will be ignored.
