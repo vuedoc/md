@@ -15,6 +15,7 @@ const dynamic2 = 'dynamicMode'
  *
  * @author Sébastien
  * @license MIT
+ * @input
  */
 export default {
   name: 'checkbox',

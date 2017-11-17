@@ -47,6 +47,9 @@ describe('component', () => {
   it('should have license keyword', () =>
     assert.ok(/- \*\*license\*\* - MIT/.test(document)))
 
+  it('should have input keyword without a description', () =>
+    assert.ok(/- \*\*input\*\*\s\n/.test(document)))
+
   it('should have main title with default level', () => {
     const _options = {}
 
@@ -164,6 +167,31 @@ describe('events', () => {
 
   it('should render an event with a multiline description', () => {
     assert.ok(/- .enabled. Emitted the event .enabled. when loaded\s+Multilign/.test(document))
+  })
+})
+
+describe('methods', () => {
+  it('should render methods title', () =>
+    assert.ok(/## methods/.test(document)))
+
+  it('should render a method with a description', () => {
+    assert.ok(/- .check\(\).\s+Check if the input is checked/.test(document))
+  })
+
+  it('should render a method without a description', () => {
+    assert.ok(/- .prop\(\)./.test(document))
+  })
+
+  it('should render a method with a dynamic name', () => {
+    assert.ok(/- .dynamic\(\).\s+Make component dynamic/.test(document))
+  })
+
+  it('should render a method with a recursive dynamic name', () => {
+    assert.ok(/- .dynamic2\(\).\s+Enter to dynamic mode/.test(document))
+  })
+
+  it('should render a method with its params', () => {
+    assert.ok(/- .enable\(value\).\s+Enable the checkbox/.test(document))
   })
 })
 
