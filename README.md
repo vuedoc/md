@@ -199,6 +199,7 @@ vuedoc.md(options)
 - `vx-checkbox`: [https://github.com/vx-components/textarea](https://github.com/vx-components/checkbox)
 - `vx-textarea`: [https://github.com/vx-components/textarea](https://github.com/vx-components/textarea)
 - `vue-json-schema`: [https://github.com/demsking/vue-json-schema](https://github.com/demsking/vue-json-schema)
+- `jsdoc-vuedoc`:[https://github.com/ccqgithub/jsdoc-vuedoc](https://github.com/ccqgithub/jsdoc-vuedoc)
 
 
 ## License
