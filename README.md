@@ -200,6 +200,9 @@ vuedoc.md(options)
 - `vx-textarea`: [https://github.com/vx-components/textarea](https://github.com/vx-components/textarea)
 - `vue-json-schema`: [https://github.com/demsking/vue-json-schema](https://github.com/demsking/vue-json-schema)
 
+## Related projects
+- `jsdoc-vuedoc`:[https://github.com/ccqgithub/jsdoc-vuedoc](https://github.com/ccqgithub/jsdoc-vuedoc)
+
 
 ## License
 Under the MIT license. See [LICENSE](https://github.com/vuedoc/md/blob/master/LICENSE) file for more details.
