@@ -201,7 +201,7 @@ vuedoc.md(options)
 - `vue-json-schema`: [https://github.com/demsking/vue-json-schema](https://github.com/demsking/vue-json-schema)
 
 ## Related projects
-- `jsdoc-vuedoc`:[https://github.com/ccqgithub/jsdoc-vuedoc](https://github.com/ccqgithub/jsdoc-vuedoc)
+- `jsdoc-vuedoc`: [https://github.com/ccqgithub/jsdoc-vuedoc](https://github.com/ccqgithub/jsdoc-vuedoc)
 
 
 ## License
