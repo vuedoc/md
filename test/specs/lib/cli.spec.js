@@ -444,6 +444,19 @@ describe('lib/cli', () => {
       })
     })
 
+    it('should successfully print version with --version', (done) => {
+      const { version } = require('../../../package')
+      const expected = `@vuedoc/md (MIT) ${version}\nMade with <3 by Sébastien Demanou\n`
+
+      const { spawn } = require('child_process')
+      const cli = spawn('node', ['bin/cli.js', '--version'])
+
+      cli.stdout.on('data', (data) => {
+        assert.equal(data.toString(), expected)
+        done()
+      })
+    })
+
     it('should successfully generate the component documentation with --output', () => {
       return cli.exec(argv.concat(['--output', fixturesPath]))
     })
