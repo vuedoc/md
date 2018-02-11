@@ -5,6 +5,7 @@ const path = require('path')
 const stream = require('stream')
 const assert = require('assert')
 const Parser = require('@vuedoc/parser/lib/parser')
+const { spawn } = require('child_process')
 
 const cli = require('../../../lib/cli')
 const fixturesPath = path.join(__dirname, '../../fixtures')
@@ -38,6 +39,7 @@ const vuecomponent = `
 const originalStdout = process.stdout
 
 const defaultOptions = {
+  join: false,
   stream: true,
   filenames: [],
   features: Parser.SUPPORTED_FEATURES
@@ -46,6 +48,35 @@ const defaultOptions = {
 /* global describe it */
 
 describe('lib/cli', () => {
+  const originalStderr = process.stderr
+  const originalConsoleError = console.error
+
+  beforeEach(() => {
+    streamContent = ''
+
+    console.error = (message) => (streamContent = message)
+
+    process.__defineGetter__('stdout', function() {
+      return new OutputStream()
+    })
+
+    process.__defineGetter__('stderr', function() {
+      return new OutputStream()
+    })
+  })
+
+  afterEach(() => {
+    console.error = originalConsoleError
+
+    process.__defineGetter__('stdout', function() {
+      return originalStdout
+    })
+
+    process.__defineGetter__('stderr', function() {
+      return originalStderr
+    })
+  })
+
   describe('validateOptions(options)', () => {
     const defaultOptions = { stream: true, filenames: [] }
 
@@ -64,6 +95,26 @@ describe('lib/cli', () => {
 
         assert.throws(
           () => cli.validateOptions(_options), /--output value must be an existing file/)
+      })
+
+      it('should successfully validate', () => {
+        const output = readmefile
+        const _options = Object.assign({}, options, { output })
+
+        assert.doesNotThrow(() => cli.validateOptions(_options))
+      })
+    })
+
+    describe('--join', () => {
+      const join = true
+      const options = Object.assign({}, defaultOptions, { join })
+
+      it('should failed with invalid --output option value', () => {
+        const output = fixturesPath
+        const _options = Object.assign({}, options, { output })
+
+        assert.throws(
+          () => cli.validateOptions(_options), /--output value must be a file when using --join/)
       })
 
       it('should successfully validate', () => {
@@ -150,6 +201,18 @@ describe('lib/cli', () => {
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
         const expected = Object.assign({}, defaultOptions, { section, output })
+
+        assert.deepEqual(options, expected)
+      })
+    })
+
+    describe('--join', () => {
+      it('should successfully set the join option', () => {
+        const argv = [ '--join' ]
+
+        assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
+
+        const expected = Object.assign({}, defaultOptions, { join: true })
 
         assert.deepEqual(options, expected)
       })
@@ -245,18 +308,6 @@ describe('lib/cli', () => {
   })
 
   describe('processRawContent(argv, componentRawContent)', () => {
-    beforeEach(() => {
-      process.__defineGetter__('stdout', function() {
-        return new OutputStream()
-      })
-    })
-
-    afterEach(() => {
-      process.__defineGetter__('stdout', function() {
-        return originalStdout
-      })
-    })
-
     it('should failed to generate the component documentation', (done) => {
       const argv = []
       const componentRawContent = `
@@ -365,6 +416,18 @@ describe('lib/cli', () => {
 
         return cli.processWithOutputOption(options)
       })
+
+      it('with --join', () => {
+        const join = true
+        const file1 = path.join(fixturesPath, 'join.component.1.js')
+        const file2 = path.join(fixturesPath, 'join.component.2.vue')
+        const filenames = [ file1, file2 ]
+        const options = { join, filenames }
+        const expected = '# checkbox \nA simple checkbox component \n\n\n- **author** - Sébastien \n- **license** - MIT \n- **input** \n\n## slots \n- `default` null \n\n- `label` Use this slot to set the checkbox label \n\n## props \n- `schema` ***[object Object]*** (*required*) \nThe JSON Schema object. Use the `v-if` directive \n\n- `v-model` ***Object*** (*optional*) `default: [object Object]` \nUse this directive to create two-way data bindings \n\n- `model` ***Array*** (*required*) `twoWay = true` \nThe checkbox model \n\n- `disabled` ***Boolean*** (*optional*) \nInitial checkbox state \n\n\n\n## events \n- `created` Emitted when the component has been created \n\n- `loaded` Emitted when the component has been loaded \n\n\n'
+
+        return cli.processWithOutputOption(options)
+          .then(() => assert.equal(streamContent, expected))
+      })
     })
 
     describe('should failed to generate the component documentation', () => {
@@ -380,18 +443,6 @@ describe('lib/cli', () => {
   })
 
   describe('processWithoutOutputOption(options)', () => {
-    beforeEach(() => {
-      process.__defineGetter__('stdout', function() {
-        return new OutputStream()
-      })
-    })
-
-    afterEach(() => {
-      process.__defineGetter__('stdout', function() {
-        return originalStdout
-      })
-    })
-
     it('should failed to generate the component documentation', (done) => {
       const options = { filenames: [ notfoundfile ] }
 
@@ -405,21 +456,21 @@ describe('lib/cli', () => {
 
       return cli.processWithoutOutputOption(options)
     })
+
+    it('should successfully generate the component documentation with --join', () => {
+      const join = true
+      const file1 = path.join(fixturesPath, 'join.component.1.js')
+      const file2 = path.join(fixturesPath, 'join.component.2.vue')
+      const filenames = [ file1, file2 ]
+      const options = { join, filenames }
+      const expected = '# checkbox \nA simple checkbox component \n\n\n- **author** - Sébastien \n- **license** - MIT \n- **input** \n\n## slots \n- `default` null \n\n- `label` Use this slot to set the checkbox label \n\n## props \n- `schema` ***[object Object]*** (*required*) \nThe JSON Schema object. Use the `v-if` directive \n\n- `v-model` ***Object*** (*optional*) `default: [object Object]` \nUse this directive to create two-way data bindings \n\n- `model` ***Array*** (*required*) `twoWay = true` \nThe checkbox model \n\n- `disabled` ***Boolean*** (*optional*) \nInitial checkbox state \n\n\n\n## events \n- `created` Emitted when the component has been created \n\n- `loaded` Emitted when the component has been loaded \n\n\n'
+
+      return cli.processWithoutOutputOption(options)
+        .then(() => assert.equal(streamContent, expected))
+    })
   })
 
   describe('exec(argv, componentRawContent)', () => {
-    beforeEach(() => {
-      process.__defineGetter__('stdout', function() {
-        return new OutputStream()
-      })
-    })
-
-    afterEach(() => {
-      process.__defineGetter__('stdout', function() {
-        return originalStdout
-      })
-    })
-
     it('should successfully generate the component documentation', () => {
       const argv = []
       const filename = checkboxfile
@@ -430,59 +481,37 @@ describe('lib/cli', () => {
   })
 
   describe('exec(argv)', () => {
-    const argv = [ checkboxfile ]
+    it('should successfully print version with --version', () => {
+      const { version } = require('../../../package')
+      const expected = `@vuedoc/md (MIT) ${version}\nMade with <3 by Sébastien Demanou\n`
+      const cli = spawn('node', ['bin/cli.js', '--version'])
 
-    beforeEach(() => {
-      process.__defineGetter__('stdout', function() {
-        return new OutputStream()
-      })
-    })
-
-    afterEach(() => {
-      process.__defineGetter__('stdout', function() {
-        return originalStdout
+      cli.stdout.on('data', (data) => {
+        assert.equal(data.toString(), expected)
+        done()
       })
     })
 
     it('should successfully generate the component documentation with --output', () => {
-      return cli.exec(argv.concat(['--output', fixturesPath]))
+      return cli.exec([ checkboxfile, '--output', fixturesPath ])
     })
 
     it('should successfully generate the component documentation', () => {
-      return cli.exec(argv)
+      return cli.exec([ checkboxfile ])
+    })
+
+    it('should successfully generate the joined components documentation', () => {
+      const joinExpectedDoc = path.join(fixturesPath, 'join.expected.doc.md')
+      const expected = 'A simple checkbox component \n\n\n- **author** - Sébastien \n- **license** - MIT \n- **input** \n\n# slots \n- `default` null \n\n- `label` Use this slot to set the checkbox label \n\n# props \n- `schema` ***[object Object]*** (*required*) \nThe JSON Schema object. Use the `v-if` directive \n\n- `v-model` ***Object*** (*optional*) `default: [object Object]` \nUse this directive to create two-way data bindings \n\n- `model` ***Array*** (*required*) `twoWay = true` \nThe checkbox model \n\n- `disabled` ***Boolean*** (*optional*) \nInitial checkbox state \n\n\n\n# events \n- `created` Emitted when the component has been created \n\n- `loaded` Emitted when the component has been loaded \n\n\n'
+      const file1 = path.join(fixturesPath, 'join.component.1.js')
+      const file2 = path.join(fixturesPath, 'join.component.2.vue')
+
+      return cli.exec([ '--ignore-name', '--join', file1, file2 ])
+        .then(() => assert.equal(streamContent, expected))
     })
   })
 
   describe('silenceExec(argv)', () => {
-    const originalStderr = process.stderr
-    const originalConsoleError = console.error
-
-    beforeEach(() => {
-      streamContent = ''
-
-      console.error = (message) => (streamContent = message)
-
-      process.__defineGetter__('stdout', function() {
-        return new OutputStream()
-      })
-
-      process.__defineGetter__('stderr', function() {
-        return new OutputStream()
-      })
-    })
-
-    afterEach(() => {
-      console.error = originalConsoleError
-
-      process.__defineGetter__('stdout', function() {
-        return originalStdout
-      })
-
-      process.__defineGetter__('stderr', function() {
-        return originalStderr
-      })
-    })
-
     it('should successfully generate the component documentation with --output', () => {
       cli.silenceExec([ checkboxfile ])
     })

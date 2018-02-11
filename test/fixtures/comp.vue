@@ -1,8 +1,8 @@
 <template>
   <label>
-    <input :disabled="disabled" type="text" v-model="checkbox">
+    <input :disabled="disabled" type="text" v-model="textarea">
     <slot></slot>
-    <!-- Use this slot to set the checkbox label -->
+    <!-- Use this slot to set the textarea label -->
     <slot name="label"></slot>
   </label>
 </template>
@@ -11,17 +11,13 @@
 const dynamic2 = 'dynamicMode'
 
 /**
- * A simple checkbox component
- *
- * @author Sébastien
- * @license MIT
- * @input
+ * A simple textarea component
  */
 export default {
-  name: 'checkbox',
+  name: 'textarea',
   props: {
     /**
-     * The checkbox model
+     * The textarea model
      */
     model: {
       type: Array,
@@ -30,12 +26,12 @@ export default {
     },
     
     /** 
-     * Initial checkbox state
+     * Initial textarea state
      */
     disabled: Boolean,
     
     /**
-     * Initial checkbox value
+     * Initial textarea value
      */
     enabled: {
       type: Boolean,
@@ -43,11 +39,11 @@ export default {
     },
     
     /**
-     * The checkbox label
+     * The textarea label
      */
     label: {
       type: String,
-      default: 'Unamed checkbox'
+      default: 'Unamed textarea'
     },
     
     object: {
@@ -66,35 +62,6 @@ export default {
      * Emitted when the component has been loaded
      */
     this.$emit('loaded')
-  },
-
-  data () {
-    return {
-      /**
-       * The initial component value.
-       * Used to detect changes and restore the initial value.
-       */
-      initialValue: '',
-      currentValue: ''
-    }
-  },
-
-  computed: {
-    /**
-     * The component identifier.
-     * Generated using the `initialValue` data.
-     */
-    id () {
-      return `checkbox-${this.initialValue}`
-    },
-
-    changed () {
-      return this.currentValue !== this.initialValue
-    },
-
-    withNoDependencies () {
-      return 'yeah'
-    }
   },
   
   methods: {
@@ -129,7 +96,7 @@ export default {
     // @private
     anotherIgnored () {},
     
-    // Enable the checkbox
+    // Enable the textarea
     enable (value) {
       const x = true
       /** 
