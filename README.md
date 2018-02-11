@@ -97,17 +97,23 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
 Then use the CLI to generate the documentation:
 
 ```sh
+# display the vuedoc.md version
+vuedoc.md --version
+
 # this print documentation in the standard output
 vuedoc.md components/textarea.vue
 
 # generate a Markdown documentation in a file docs/textarea.md
 vuedoc.md components/textarea.vue --output docs/
 
-# generate a Markdown documentation all your components
+# generate a Markdown documentation all components
 vuedoc.md components/*.vue --output docs/
 
 # update the API section of README.md with generated documentation
 vuedoc.md components/textarea.vue --section "API" --output README.md
+
+# comone generated documentations of all components into one
+vuedoc.md --join components/*.vue --output README.md
 
 # using pipe
 cat components/textarea.vue | vuedoc.md
@@ -149,6 +155,7 @@ Define if the control value is empty of not.
 
 ## Command line options
 ```
+--join                   - Combine generated documentation for multiple component files into only one
 --level [integer]        - Set the title level. An integer betwen 1 and 6
 --output [file or dir]   - The output directory. If absent, the STDOUT will be used
 --section [section name] - Inject the generated documentation to a section. Works with `--output file`
@@ -172,6 +179,7 @@ Define if the control value is empty of not.
 | level   | integer | Set the title level. An integer betwen 1 and 6                                                             |
 | output  | string  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used |
 | section | string  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
+| join    | boolean | Combine generated documentation for multiple component files into only one                                 |
 
 For parsing options please read the [@vuedoc/parser documentation](https://github.com/vuedoc/parser#options)
 
@@ -192,7 +200,6 @@ vuedoc.md(options)
 - `@protected` Commented members with this will be ignored.
 - `@private` Commented members with this will be ignored.
 
-
 ## Examples
 `vuedoc.md` has been used to generate documentation of bellow components:
 - `vx-input`: [https://github.com/vx-components/textarea](https://github.com/vx-components/input)
@@ -202,7 +209,6 @@ vuedoc.md(options)
 
 ## Related projects
 - `jsdoc-vuedoc`: [https://github.com/ccqgithub/jsdoc-vuedoc](https://github.com/ccqgithub/jsdoc-vuedoc)
-
 
 ## License
 Under the MIT license. See [LICENSE](https://github.com/vuedoc/md/blob/master/LICENSE) file for more details.
