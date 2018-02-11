@@ -481,9 +481,9 @@ describe('lib/cli', () => {
   })
 
   describe('exec(argv)', () => {
-    it('should successfully print version with --version', () => {
+    it('should successfully print version with --version', (done) => {
       const { version } = require('../../../package')
-      const expected = `@vuedoc/md (MIT) ${version}\nMade with <3 by Sébastien Demanou\n`
+      const expected = `@vuedoc/md ${version}\n`
       const cli = spawn('node', ['bin/cli.js', '--version'])
 
       cli.stdout.on('data', (data) => {
