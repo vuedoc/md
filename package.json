@@ -34,7 +34,7 @@
   "dependencies": {
     "@vuedoc/parser": "^1.1.0",
     "ast-to-markdown": "^0.2.0",
-    "deepmerge": "^2.1.0",
+    "deepmerge": "^2.1.1",
     "markdown-to-ast": "^6.0.3",
     "md-node-inject": "^0.1.0",
     "mdast-util-to-string": "^1.0.4"
@@ -42,7 +42,7 @@
   "devDependencies": {
     "coveralls": "^3.0.1",
     "istanbul": "^0.4.5",
-    "mocha": "^5.1.1",
+    "mocha": "^5.2.0",
     "standard": "^11.0.1"
   },
   "engines": {
