@@ -278,11 +278,11 @@ describe('rendering', () => {
     })
 
     it('should render a data with its description and initial value', () => {
-      assert.ok(/- `initialValue` The initial component value\. Used to detect changes and restore the initial value\.\s+\*initial value:\* `''`/.test(doc))
+      assert.ok(/- `initialValue`\s+The initial component value\. Used to detect changes and restore the initial value\.\s+\*\*initial value:\*\* `''`/.test(doc))
     })
 
     it('should render a data without a description', () => {
-      assert.ok(/- `currentValue`\s+\*initial value:\* `''`/.test(doc))
+      assert.ok(/- `currentValue`\s+\*\*initial value:\*\* `''`/.test(doc))
     })
   })
 
@@ -292,11 +292,11 @@ describe('rendering', () => {
     })
 
     it('should render a computed property with its description and dependencies', () => {
-      assert.ok(/- `id` The component identifier. Generated using the `initialValue` data.\s+\*dependencies:\* `initialValue`/.test(doc))
+      assert.ok(/- `id`\s+The component identifier\. Generated using the `initialValue` data\.\s+\*\*dependencies:\*\* `initialValue`/.test(doc))
     })
 
     it('should render a computed property without a description', () => {
-      assert.ok(/- `changed`\s+\*dependencies:\* `currentValue` `initialValue`/.test(doc))
+      assert.ok(/- `changed`\s+\*\*dependencies:\*\* `currentValue`, `initialValue`/.test(doc))
     })
 
     it('should render a computed property without a description and dependencies', () => {
@@ -324,11 +324,11 @@ describe('rendering', () => {
     })
 
     it('should render an event with a description', () => {
-      assert.ok(/- .loaded. Emitted when the component has been loaded/.test(doc))
+      assert.ok(/- .loaded.\s+Emitted when the component has been loaded/.test(doc))
     })
 
     it('should render an event with a multiline description', () => {
-      assert.ok(/- .enabled. Emitted the event .enabled. when loaded\s+Multilign/.test(doc))
+      assert.ok(/- .enabled.\s+Emitted the event .enabled. when loaded\s+Multilign/.test(doc))
     })
   })
 
