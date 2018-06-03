@@ -5,50 +5,39 @@ const assert = require('assert')
 const path = require('path')
 const Parser = require('@vuedoc/parser/lib/parser')
 
-const options = {
-  filename: path.join(__dirname, '../fixtures/checkbox.vue')
-}
+/* global describe it beforeEach */
 
-let document = null
-
-vuedoc.md(options)
-  .then((_document) => (document = _document))
-  .catch((err) => { throw err })
-
-/* global describe it */
+const filename = path.join(__dirname, '../fixtures/checkbox.vue')
 
 describe('options', () => {
-  let document = null
-  const _options = {}
+  let doc = null
   const ignore = ['name', 'description']
+  const features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+  const options = { filename, features }
 
-  Object.assign(_options, options)
+  beforeEach(() => {
+    return vuedoc.md(options)
+      .then((_doc) => (doc = _doc))
+      .catch((err) => { throw err })
+  })
 
-  _options.features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
-
-  vuedoc.md(_options)
-    .then((_document) => (document = _document))
-    .catch((err) => { throw err })
-
-  it('should render without main title', () =>
-    assert.equal(/# checkbox/.test(document), false))
+  it('should render without main title', () => {
+    assert.equal(/# checkbox/.test(doc), false)
+  })
 
   it('should render without description', () =>
-    assert.equal(/A simple checkbox component/.test(document), false))
+    assert.equal(/A simple checkbox component/.test(doc), false))
 
   it('should successfully joined parsed files', () => {
-    let document = null
+    let doc = null
     const join = true
     const filenames = [
       path.join(__dirname, '../fixtures/join.component.1.js'),
       path.join(__dirname, '../fixtures/join.component.2.vue')
     ]
-    const _options = { join, filenames }
     const ignore = ['name']
-
-    Object.assign(_options, options)
-
-    _options.features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+    const features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+    const options = { join, filenames, features }
 
     const expected = {
       "description": "A simple checkbox component",
@@ -202,35 +191,37 @@ describe('options', () => {
       "methods": []
     }
 
-    return vuedoc.join(_options)
+    return vuedoc.join(options)
       .then((ast) => assert.deepEqual(ast, expected))
   })
 })
 
 describe('rendering', () => {
+  let doc = null
+  const options = { filename }
+
+  beforeEach(() => {
+    return vuedoc.md(options)
+      .then((_doc) => (doc = _doc))
+  })
+
   describe('component', () => {
-    it('should have name as main title', () =>
-      assert.ok(/# checkbox/.test(document)))
+    it('should have name as main title', () => {
+      assert.ok(/# checkbox/.test(doc))
+    })
 
     it('should have author keyword', () =>
-      assert.ok(/- \*\*author\*\* - Sébastien/.test(document)))
+      assert.ok(/- \*\*author\*\* - Sébastien/.test(doc)))
 
     it('should have license keyword', () =>
-      assert.ok(/- \*\*license\*\* - MIT/.test(document)))
+      assert.ok(/- \*\*license\*\* - MIT/.test(doc)))
 
     it('should have input keyword without a description', () =>
-      assert.ok(/- \*\*input\*\*\s\n/.test(document)))
+      assert.ok(/- \*\*input\*\*\s\n/.test(doc)))
 
     it('should have main title with default level', () => {
-      const _options = {}
-
-      Object.assign(_options, options)
-
-      vuedoc.md(_options)
-        .then((document) => {
-          assert.equal(/# checkbox/.test(document), true)
-        })
-        .catch((err) => { throw err })
+      return vuedoc.md(options)
+        .then((doc) => assert.equal(/# checkbox/.test(doc), true))
     })
 
     it('should have main title with level 2 notation', () => {
@@ -240,11 +231,8 @@ describe('rendering', () => {
 
       _options.level = 2
 
-      vuedoc.md(_options)
-        .then((document) => {
-          assert.equal(/## checkbox/.test(document), true)
-        })
-        .catch((err) => { throw err })
+      return vuedoc.md(_options)
+        .then((doc) => assert.equal(/## checkbox/.test(doc), true))
     })
 
     it('should have main title with level 7 to 6', () => {
@@ -254,115 +242,119 @@ describe('rendering', () => {
 
       _options.level = 7
 
-      vuedoc.md(_options)
-        .then((document) => {
-          assert.equal(/###### checkbox/.test(document), true)
-        })
-        .catch((err) => { throw err })
+      return vuedoc.md(_options)
+        .then((doc) => assert.equal(/###### checkbox/.test(doc), true))
     })
 
-    it('should have a description', () =>
-      assert.equal(/A simple checkbox component/.test(document), true))
+    it('should have a description', () => {
+      assert.equal(/A simple checkbox component/.test(doc), true)
+    })
   })
 
   describe('props', () => {
-    it('should render props title', () =>
-      assert.ok(/## props/.test(document)))
+    it('should render props title', () => {
+      assert.ok(/## props/.test(doc))
+    })
 
     it('should render props.model with a description', () => {
-      assert.ok(/- .model. \*\*\*Array\*\*\* \(\*required\*\) .twoWay = true./.test(document))
-      assert.ok(/The checkbox model/.test(document))
+      assert.ok(/- .model. \*\*\*Array\*\*\* \(\*required\*\) .twoWay = true./.test(doc))
+      assert.ok(/The checkbox model/.test(doc))
     })
 
     it('should render props.disabled with a description', () => {
-      assert.ok(/- .disabled. \*\*\*Boolean\*\*\* \(\*optional\*\)/.test(document))
-      assert.ok(/Initial checkbox state/.test(document))
+      assert.ok(/- .disabled. \*\*\*Boolean\*\*\* \(\*optional\*\)/.test(doc))
+      assert.ok(/Initial checkbox state/.test(doc))
     })
 
     it('should render props.checked with a description', () => {
-      assert.ok(/- .enabled. \*\*\*Boolean\*\*\* \(\*optional\*\) .default: true../.test(document))
-      assert.ok(/Initial checkbox value/.test(document))
+      assert.ok(/- .enabled. \*\*\*Boolean\*\*\* \(\*optional\*\) .default: true../.test(doc))
+      assert.ok(/Initial checkbox value/.test(doc))
     })
   })
 
   describe('data', () => {
-    it('should render data title', () =>
-      assert.ok(/## data/.test(document)))
+    it('should render data title', () => {
+      assert.ok(/## data/.test(doc))
+    })
 
     it('should render a data with its description and initial value', () => {
-      assert.ok(/- `initialValue` The initial component value\. Used to detect changes and restore the initial value\.\s+\*initial value:\* `''`/.test(document))
+      assert.ok(/- `initialValue` The initial component value\. Used to detect changes and restore the initial value\.\s+\*initial value:\* `''`/.test(doc))
     })
 
     it('should render a data without a description', () => {
-      assert.ok(/- `currentValue`\s+\*initial value:\* `''`/.test(document))
+      assert.ok(/- `currentValue`\s+\*initial value:\* `''`/.test(doc))
     })
   })
 
   describe('computed', () => {
-    it('should render computed properties title', () =>
-      assert.ok(/## computed properties/.test(document)))
+    it('should render computed properties title', () => {
+      assert.ok(/## computed properties/.test(doc))
+    })
 
     it('should render a computed property with its description and dependencies', () => {
-      assert.ok(/- `id` The component identifier. Generated using the `initialValue` data.\s+\*dependencies:\* `initialValue`/.test(document))
+      assert.ok(/- `id` The component identifier. Generated using the `initialValue` data.\s+\*dependencies:\* `initialValue`/.test(doc))
     })
 
     it('should render a computed property without a description', () => {
-      assert.ok(/- `changed`\s+\*dependencies:\* `currentValue` `initialValue`/.test(document))
+      assert.ok(/- `changed`\s+\*dependencies:\* `currentValue` `initialValue`/.test(doc))
     })
 
     it('should render a computed property without a description and dependencies', () => {
-      assert.ok(/- `withNoDependencies`/.test(document))
+      assert.ok(/- `withNoDependencies`/.test(doc))
     })
   })
 
   describe('slots', () => {
-    it('should render slots title', () =>
-      assert.ok(/## slots/.test(document)))
+    it('should render slots title', () => {
+      assert.ok(/## slots/.test(doc))
+    })
 
     it('should render the default slot without a description', () => {
-      assert.ok(/- .default./.test(document))
+      assert.ok(/- .default./.test(doc))
     })
 
     it('should render the nammed slot with a description', () => {
-      assert.ok(/- .label. Use this slot to set the checkbox label/.test(document))
+      assert.ok(/- .label. Use this slot to set the checkbox label/.test(doc))
     })
   })
 
   describe('events', () => {
-    it('should render events title', () =>
-      assert.ok(/## events/.test(document)))
+    it('should render events title', () => {
+      assert.ok(/## events/.test(doc))
+    })
 
     it('should render an event with a description', () => {
-      assert.ok(/- .loaded. Emitted when the component has been loaded/.test(document))
+      assert.ok(/- .loaded. Emitted when the component has been loaded/.test(doc))
     })
 
     it('should render an event with a multiline description', () => {
-      assert.ok(/- .enabled. Emitted the event .enabled. when loaded\s+Multilign/.test(document))
+      assert.ok(/- .enabled. Emitted the event .enabled. when loaded\s+Multilign/.test(doc))
     })
   })
 
   describe('methods', () => {
-    it('should render methods title', () =>
-      assert.ok(/## methods/.test(document)))
+    it('should render methods title', () => {
+      assert.ok(/## methods/.test(doc))
+    })
 
     it('should render a method with a description', () => {
-      assert.ok(/- .check\(\).\s+Check if the input is checked/.test(document))
+      assert.ok(/- .check\(\).\s+Check if the input is checked/.test(doc))
     })
 
     it('should render a method without a description', () => {
-      assert.ok(/- .prop\(\)./.test(document))
+      assert.ok(/- .prop\(\)./.test(doc))
     })
 
     it('should render a method with a dynamic name', () => {
-      assert.ok(/- .dynamic\(\).\s+Make component dynamic/.test(document))
+      assert.ok(/- .dynamic\(\).\s+Make component dynamic/.test(doc))
     })
 
     it('should render a method with a recursive dynamic name', () => {
-      assert.ok(/- .dynamic2\(\).\s+Enter to dynamic mode/.test(document))
+      assert.ok(/- .dynamic2\(\).\s+Enter to dynamic mode/.test(doc))
     })
 
     it('should render a method with its params', () => {
-      assert.ok(/- .enable\(value\).\s+Enable the checkbox/.test(document))
+      assert.ok(/- .enable\(value\).\s+Enable the checkbox/.test(doc))
     })
   })
 })
