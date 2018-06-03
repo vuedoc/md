@@ -14,7 +14,7 @@ A simple checkbox component
 
 ## props 
 
-- `model` ***Array*** (*required*) `twoWay = true` 
+- `model` ***Array*** (*required*) 
 
    The checkbox model 
 

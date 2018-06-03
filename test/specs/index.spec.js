@@ -159,8 +159,7 @@ describe('options', () => {
           "description": "The checkbox model",
           "value": {
             "type": "Array",
-            "required": true,
-            "twoWay": true
+            "required": true
           },
           "name": "model"
         },
@@ -257,7 +256,7 @@ describe('rendering', () => {
     })
 
     it('should render props.model with a description', () => {
-      assert.ok(/- .model. \*\*\*Array\*\*\* \(\*required\*\) .twoWay = true./.test(doc))
+      assert.ok(/- .model. \*\*\*Array\*\*\* \(\*required\*\)/.test(doc))
       assert.ok(/The checkbox model/.test(doc))
     })
 

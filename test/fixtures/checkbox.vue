@@ -25,8 +25,7 @@ export default {
      */
     model: {
       type: Array,
-      required: true,
-      twoWay: true
+      required: true
     },
     
     /** 
