@@ -26,6 +26,7 @@ test on nodejs lts 8:
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
 
 publish to npm:
+  stage: publish
   only:
     - tags
     - triggers
