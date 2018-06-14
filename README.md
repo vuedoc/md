@@ -23,7 +23,7 @@ npm install --global @vuedoc/md
 
 ## Usage
 
-First use comments to document your component (see [test/fixtures/checkbox.vue](https://github.com/vuedoc/md/blob/develop/test/fixtures/checkbox.vue) for a complete example):
+First use comments to document your component (see [test/fixtures/checkbox.vue](https://gitlab.com/vuedoc/md/blob/develop/test/fixtures/checkbox.vue) for a complete example):
 
 ```vue
 <template>
@@ -184,7 +184,7 @@ Define if the control value is empty of not.
 | section | string  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
 | join    | boolean | Combine generated documentation for multiple component files into only one                                 |
 
-For parsing options please read the [@vuedoc/parser documentation](https://github.com/vuedoc/parser#options)
+For parsing options please read the [@vuedoc/parser documentation](https://gitlab.com/vuedoc/parser#options)
 
 **Usage**
 ```js
@@ -205,13 +205,13 @@ vuedoc.md(options)
 
 ## Examples
 `vuedoc.md` has been used to generate documentation of bellow components:
-- `vx-input`: [https://github.com/vx-components/textarea](https://github.com/vx-components/input)
-- `vx-checkbox`: [https://github.com/vx-components/textarea](https://github.com/vx-components/checkbox)
-- `vx-textarea`: [https://github.com/vx-components/textarea](https://github.com/vx-components/textarea)
-- `vue-json-schema`: [https://github.com/demsking/vue-json-schema](https://github.com/demsking/vue-json-schema)
+- `vx-input`: [https://gitlab.com/vx-components/textarea](https://gitlab.com/vx-components/input)
+- `vx-checkbox`: [https://gitlab.com/vx-components/textarea](https://gitlab.com/vx-components/checkbox)
+- `vx-textarea`: [https://gitlab.com/vx-components/textarea](https://gitlab.com/vx-components/textarea)
+- `FormSchema/native`: [https://gitlab.com/formschema/native](https://gitlab.com/formschema/native)
 
 ## Related projects
 - `jsdoc-vuedoc`: [https://github.com/ccqgithub/jsdoc-vuedoc](https://github.com/ccqgithub/jsdoc-vuedoc)
 
 ## License
-Under the MIT license. See [LICENSE](https://github.com/vuedoc/md/blob/master/LICENSE) file for more details.
+Under the MIT license. See [LICENSE](https://gitlab.com/vuedoc/md/blob/master/LICENSE) file for more details.
