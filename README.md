@@ -28,11 +28,14 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
 ```vue
 <template>
   <div>
-    <!-- Use this slot to set the label -->
-    <label :for="id"><slot name="label"></slot></label>
+    <label :for="id">
+      <!-- Use this slot to set the label -->
+      <slot name="label"></slot>
+    </label>
     <textarea :id="id" @keyup="keyup" @input="input">
       <!-- Use this slot to set the devault value -->
-      <slot></slot></textarea>
+      <slot></slot>
+    </textarea>
   </div>
 </template>
 
