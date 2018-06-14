@@ -23,7 +23,7 @@ npm install --global @vuedoc/md
 
 ## Usage
 
-First use comments to document your component (see [test/fixtures/checkbox.vue](https://gitlab.com/vuedoc/md/blob/develop/test/fixtures/checkbox.vue) for a complete example):
+First use comments to document your component (see [test/fixtures/checkbox.vue](https://gitlab.com/vuedoc/md/blob/master/test/fixtures/checkbox.vue) for a complete example):
 
 ```vue
 <template>
