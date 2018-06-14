@@ -1,7 +1,7 @@
 # The vuedoc Markdown Documentation Generator
 Generate a Markdown Documentation for a Vue file
 
-[![Build Status](https://travis-ci.org/vuedoc/md.svg?branch=master)](https://travis-ci.org/vuedoc/md) [![Coverage Status](https://coveralls.io/repos/github/vuedoc/md/badge.svg?branch=master)](https://coveralls.io/github/vuedoc/md?branch=master)
+[![npm](https://img.shields.io/npm/v/@vuedoc/md.svg)](https://www.npmjs.com/package/md) [![Build status](https://gitlab.com/vuedoc/md/badges/master/build.svg)](https://gitlab.com/vuedoc/md/commits/master) [![Test coverage](https://gitlab.com/vuedoc/md/badges/master/coverage.svg)](https://gitlab.com/vuedoc/md/pipelines)
 
 ## Install
 ```sh
@@ -19,19 +19,23 @@ npm install --global @vuedoc/md
 - Generate documentation for component events
 - Generate documentation for component slots
 - Generate documentation for component methods
+- Support of JSDoc
 
 ## Usage
 
-First use comments to document your component (see [test/fixtures/checkbox.vue](https://github.com/vuedoc/md/blob/develop/test/fixtures/checkbox.vue) for a complete example):
+First use comments to document your component (see [test/fixtures/checkbox.vue](https://gitlab.com/vuedoc/md/blob/master/test/fixtures/checkbox.vue) for a complete example):
 
 ```vue
 <template>
   <div>
-    <!-- Use this slot to set the label -->
-    <label :for="id"><slot name="label"></slot></label>
+    <label :for="id">
+      <!-- Use this slot to set the label -->
+      <slot name="label"></slot>
+    </label>
     <textarea :id="id" @keyup="keyup" @input="input">
       <!-- Use this slot to set the devault value -->
-      <slot></slot></textarea>
+      <slot></slot>
+    </textarea>
   </div>
 </template>
 
@@ -65,6 +69,7 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
     methods: {
       /**
        * Define if the control value is empty of not.
+       * @return {boolean} true if empty; otherwise false
        */
       isEmpty () {
         return !this.value || this.value.length === 0
@@ -77,6 +82,7 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
 
         /**
          * Fired when the value is changed.
+         * @param {string} value - The updated value
          */
         this.$emit('input', this.value)
       },
@@ -112,7 +118,7 @@ vuedoc.md components/*.vue --output docs/
 # update the API section of README.md with generated documentation
 vuedoc.md components/textarea.vue --section "API" --output README.md
 
-# comone generated documentations of all components into one
+# combine generated documentations of all components into one
 vuedoc.md --join components/*.vue --output README.md
 
 # using pipe
@@ -181,7 +187,7 @@ Define if the control value is empty of not.
 | section | string  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
 | join    | boolean | Combine generated documentation for multiple component files into only one                                 |
 
-For parsing options please read the [@vuedoc/parser documentation](https://github.com/vuedoc/parser#options)
+For parsing options please read the [@vuedoc/parser documentation](https://gitlab.com/vuedoc/parser#options)
 
 **Usage**
 ```js
@@ -202,13 +208,13 @@ vuedoc.md(options)
 
 ## Examples
 `vuedoc.md` has been used to generate documentation of bellow components:
-- `vx-input`: [https://github.com/vx-components/textarea](https://github.com/vx-components/input)
-- `vx-checkbox`: [https://github.com/vx-components/textarea](https://github.com/vx-components/checkbox)
-- `vx-textarea`: [https://github.com/vx-components/textarea](https://github.com/vx-components/textarea)
-- `vue-json-schema`: [https://github.com/demsking/vue-json-schema](https://github.com/demsking/vue-json-schema)
+- `vx-input`: [https://gitlab.com/vx-components/textarea](https://gitlab.com/vx-components/input)
+- `vx-checkbox`: [https://gitlab.com/vx-components/textarea](https://gitlab.com/vx-components/checkbox)
+- `vx-textarea`: [https://gitlab.com/vx-components/textarea](https://gitlab.com/vx-components/textarea)
+- `FormSchema/native`: [https://gitlab.com/formschema/native](https://gitlab.com/formschema/native)
 
 ## Related projects
 - `jsdoc-vuedoc`: [https://github.com/ccqgithub/jsdoc-vuedoc](https://github.com/ccqgithub/jsdoc-vuedoc)
 
 ## License
-Under the MIT license. See [LICENSE](https://github.com/vuedoc/md/blob/master/LICENSE) file for more details.
+Under the MIT license. See [LICENSE](https://gitlab.com/vuedoc/md/blob/master/LICENSE) file for more details.
