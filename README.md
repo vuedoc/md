@@ -118,7 +118,7 @@ vuedoc.md components/*.vue --output docs/
 # update the API section of README.md with generated documentation
 vuedoc.md components/textarea.vue --section "API" --output README.md
 
-# comone generated documentations of all components into one
+# combine generated documentations of all components into one
 vuedoc.md --join components/*.vue --output README.md
 
 # using pipe
