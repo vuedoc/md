@@ -19,6 +19,7 @@ npm install --global @vuedoc/md
 - Generate documentation for component events
 - Generate documentation for component slots
 - Generate documentation for component methods
+- Support of JSDoc
 
 ## Usage
 
@@ -65,6 +66,7 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
     methods: {
       /**
        * Define if the control value is empty of not.
+       * @return {boolean} true if empty; otherwise false
        */
       isEmpty () {
         return !this.value || this.value.length === 0
@@ -77,6 +79,7 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
 
         /**
          * Fired when the value is changed.
+         * @param {string} value - The updated value
          */
         this.$emit('input', this.value)
       },
