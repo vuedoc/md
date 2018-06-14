@@ -2,6 +2,7 @@ test
 coverage
 .*
 sample.js
+jest.config.js
 result.json
 yarn.lock
 *.tgz
