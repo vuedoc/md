@@ -7,12 +7,9 @@
     "vuedoc.md": "./bin/cli.js"
   },
   "scripts": {
-    "prepublish": "npm test",
     "pretest": "npm run lint",
-    "test": "mocha --harmony test/tests.js",
-    "lint": "standard index.js lib/* test/*.js",
-    "coverage": "istanbul --harmony cover _mocha test",
-    "coveralls": "npm run lint && istanbul cover _mocha --report lcovonly -- -R spec test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js --verbose"
+    "test": "jest",
+    "lint": "standard index.js bin lib test"
   },
   "repository": {
     "type": "git",
@@ -40,9 +37,7 @@
     "mdast-util-to-string": "^1.0.4"
   },
   "devDependencies": {
-    "coveralls": "^3.0.1",
-    "istanbul": "^0.4.5",
-    "mocha": "^5.2.0",
+    "jest": "^23.1.0",
     "standard": "^11.0.1"
   },
   "engines": {
