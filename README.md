@@ -1,7 +1,7 @@
 # The vuedoc Markdown Documentation Generator
 Generate a Markdown Documentation for a Vue file
 
-[![Build Status](https://travis-ci.org/vuedoc/md.svg?branch=master)](https://travis-ci.org/vuedoc/md) [![Coverage Status](https://coveralls.io/repos/github/vuedoc/md/badge.svg?branch=master)](https://coveralls.io/github/vuedoc/md?branch=master)
+[![npm](https://img.shields.io/npm/v/@vuedoc/md.svg)](https://www.npmjs.com/package/md) [![Build status](https://gitlab.com/vuedoc/md/badges/master/build.svg)](https://gitlab.com/vuedoc/md/commits/master) [![Test coverage](https://gitlab.com/vuedoc/md/badges/master/coverage.svg)](https://gitlab.com/vuedoc/md/pipelines)
 
 ## Install
 ```sh
