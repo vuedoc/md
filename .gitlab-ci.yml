@@ -1,34 +1,58 @@
-image: node:8.11.3
+image: node:latest
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
 
 stages:
+  - setup
   - test
   - publish
 
-test on nodejs lts 6:
+npm ci:
+  stage: setup
+  script:
+    - npm ci
+
+code quality:
+  stage: test
+  script:
+    - npm run lint
+
+npm outdated:
+  stage: test
+  script:
+    - npm outdated
+  allow_failure: true
+
+security scan:
+  stage: test
+  script:
+    - npm audit
+  allow_failure: true
+
+test on nodejs 6:
   stage: test
   image: node:6.14.3
   script:
-    - npm install
     - npm test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
 
-test on nodejs lts 8:
+test on nodejs 8:
   stage: test
   image: node:8.11.3
   script:
-    - npm install
     - npm test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
 
 test on latest nodejs:
   stage: test
-  image: node:latest
   script:
-    - npm install
     - npm test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
 
-publish to npm:
+publish:
   stage: publish
   only:
     - tags
