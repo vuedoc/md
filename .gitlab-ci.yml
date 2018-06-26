@@ -51,6 +51,9 @@ test & coverage:
   script:
     - npm test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+  artifacts:
+    paths:
+      - coverage/
 
 coverage report:
   stage: publish
