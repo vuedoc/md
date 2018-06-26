@@ -46,11 +46,26 @@ test on nodejs 8:
     - npm it
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
 
-test on latest nodejs:
+test & coverage:
   stage: test
   script:
     - npm test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+
+coverage report:
+  stage: publish
+  dependencies:
+    - test & coverage
+  script:
+    - mv coverage/lcov-report/ public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+  environment:
+    name: coverage report
+    url: https://vuedoc.gitlab.io/md
 
 package:
   stage: publish
