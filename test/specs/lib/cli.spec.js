@@ -343,7 +343,7 @@ describe('lib/cli', () => {
       const filenames = [ voidfile ]
       const files = {
         [voidfile]: vuecomponent,
-        [readmefile]: '# Sample\nDescription\n\n# API\n**WIP**\n\n# License\nMIT'
+        [readmefile]: '# Sample\n\nDescription\n\n# API\n**WIP**\n\n# License\n\nMIT'
       }
       let writeFileContent = ''
 
@@ -385,11 +385,10 @@ describe('lib/cli', () => {
       it('with --section', () => {
         const section = 'API'
         const options = { output, filenames, section }
-        const expected = '# Sample\nDescription\n\n# API\n\n## void\nVoid component\n\n# License\nMIT'
+        const expected = '# Sample\n\nDescription\n\n# API\n\n## void \n\nVoid component \n\n# License\n\nMIT\n'
 
         return cli.processWithOutputOption(options).then(() => {
-          assert.notEqual(writeFileContent.search(/\n## void/), -1)
-          assert.notEqual(writeFileContent.search(/\nVoid component/), -1)
+          expect(writeFileContent).toEqual(expected)
         })
       })
 

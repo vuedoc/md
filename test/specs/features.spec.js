@@ -15,7 +15,7 @@ describe('features', () => {
       const expected = '# checkbox \n\n## events \n\n- `finished` \n\n   Emitted the event `finished` when loaded Multilign \n\n   **arguments:** \n\n     - `status` **Any** - The finishing status \n\n## methods \n\n- `set(id, name, order, values, ...rest)` \n\n   Set the checkbox ID \n\n   **parameters:** \n\n     - `id` **string** - The checkbox ID \n     - `name` **string** *(optional)* - The checkbox name \n     - `order` **number** *(optional)* `default: 1` - The checkbox order \n     - `values` **string|string[]** *(optional)* - The checkbox values \n     - `...rest` **Any** *(optional)* - The rest options \n\n   **return value:** \n\n     - **boolean** - True on success; ortherwise false \n'
 
       return vuedoc.md({ filename })
-        .then((md) => assert.equal(md, expected))
+        .then((md) => expect(md).toEqual(expected))
     })
   })
 })
