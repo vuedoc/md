@@ -30,14 +30,14 @@
   "homepage": "https://gitlab.com/vuedoc/md",
   "dependencies": {
     "@vuedoc/parser": "^1.3.1",
-    "ast-to-markdown": "^0.2.0",
+    "ast-to-markdown": "^0.2.1",
     "deepmerge": "^2.1.1",
     "markdown-to-ast": "^6.0.3",
     "md-node-inject": "^0.1.1",
     "mdast-util-to-string": "^1.0.4"
   },
   "devDependencies": {
-    "jest": "^23.1.0",
+    "jest": "^23.2.0",
     "standard": "^11.0.1"
   },
   "engines": {
