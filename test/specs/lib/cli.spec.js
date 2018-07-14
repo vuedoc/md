@@ -45,7 +45,7 @@ const defaultOptions = {
   features: Parser.SUPPORTED_FEATURES
 }
 
-/* global describe it */
+/* global describe it expect */
 
 describe('lib/cli', () => {
   const originalStderr = process.stderr
@@ -425,7 +425,7 @@ describe('lib/cli', () => {
         const expected = '# checkbox \n\nA simple checkbox component \n\n- **author** - Sébastien \n- **license** - MIT \n- **input** \n\n## slots \n\n- `default`  \n\n- `label` Use this slot to set the checkbox label \n\n## props \n\n- `schema` ***Object|Promise*** (*required*) \n\n   The JSON Schema object. Use the `v-if` directive \n\n- `v-model` ***Object*** (*optional*) `default: [object Object]` \n\n   Use this directive to create two-way data bindings \n\n- `model` ***Array*** (*required*) \n\n   The checkbox model \n\n- `disabled` ***Boolean*** (*optional*) \n\n   Initial checkbox state \n\n## events \n\n- `created` \n\n   Emitted when the component has been created \n\n- `loaded` \n\n   Emitted when the component has been loaded \n\n'
 
         return cli.processWithOutputOption(options)
-          .then(() => assert.equal(streamContent, expected))
+          .then(() => expect(streamContent).toEqual(expected))
       })
     })
 
@@ -465,7 +465,7 @@ describe('lib/cli', () => {
       const expected = '# checkbox \n\nA simple checkbox component \n\n- **author** - Sébastien \n- **license** - MIT \n- **input** \n\n## slots \n\n- `default`  \n\n- `label` Use this slot to set the checkbox label \n\n## props \n\n- `schema` ***Object|Promise*** (*required*) \n\n   The JSON Schema object. Use the `v-if` directive \n\n- `v-model` ***Object*** (*optional*) `default: [object Object]` \n\n   Use this directive to create two-way data bindings \n\n- `model` ***Array*** (*required*) \n\n   The checkbox model \n\n- `disabled` ***Boolean*** (*optional*) \n\n   Initial checkbox state \n\n## events \n\n- `created` \n\n   Emitted when the component has been created \n\n- `loaded` \n\n   Emitted when the component has been loaded \n\n'
 
       return cli.processWithoutOutputOption(options)
-        .then(() => assert.equal(streamContent, expected))
+        .then(() => expect(streamContent).toEqual(expected))
     })
   })
 
@@ -486,7 +486,7 @@ describe('lib/cli', () => {
       const cli = spawn('node', ['bin/cli.js', '--version'])
 
       cli.stdout.on('data', (data) => {
-        assert.equal(data.toString(), expected)
+        expect(data.toString()).toEqual(expected)
         done()
       })
     })
@@ -506,7 +506,7 @@ describe('lib/cli', () => {
       const file2 = path.join(fixturesPath, 'join.component.2.vue')
 
       return cli.exec([ '--ignore-name', '--join', file1, file2 ])
-        .then(() => assert.equal(streamContent, expected))
+        .then(() => expect(streamContent).toEqual(expected))
     })
   })
 
