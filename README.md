@@ -208,8 +208,8 @@ vuedoc.md(options)
 
 ## Examples
 `vuedoc.md` has been used to generate documentation of bellow components:
-- `vx-input`: [https://gitlab.com/vx-components/textarea](https://gitlab.com/vx-components/input)
-- `vx-checkbox`: [https://gitlab.com/vx-components/textarea](https://gitlab.com/vx-components/checkbox)
+- `vx-input`: [https://gitlab.com/vx-components/input](https://gitlab.com/vx-components/input)
+- `vx-checkbox`: [https://gitlab.com/vx-components/checkbox](https://gitlab.com/vx-components/checkbox)
 - `vx-textarea`: [https://gitlab.com/vx-components/textarea](https://gitlab.com/vx-components/textarea)
 - `FormSchema/native`: [https://gitlab.com/formschema/native](https://gitlab.com/formschema/native)
 
