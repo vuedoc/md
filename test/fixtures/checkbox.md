@@ -20,19 +20,19 @@ A simple checkbox component
 
 - `model` ***Array*** (*required*) 
 
-   The checkbox model 
+  The checkbox model 
 
 - `disabled` ***Boolean*** (*optional*) 
 
-   Initial checkbox state 
+  Initial checkbox state 
 
 - `enabled` ***Boolean*** (*optional*) `default: true` 
 
-   Initial checkbox value 
+  Initial checkbox value 
 
 - `label` ***String*** (*optional*) `default: 'Unamed checkbox'` 
 
-   The checkbox label 
+  The checkbox label 
 
 - `object` ***Object*** (*optional*) `default: null` 
 
@@ -42,8 +42,8 @@ A simple checkbox component
 
 - `initialValue` 
 
-   The initial component value.
-Used to detect changes and restore the initial value. 
+  The initial component value.
+  Used to detect changes and restore the initial value. 
 
 **initial value:** `''` 
 
@@ -55,8 +55,8 @@ Used to detect changes and restore the initial value.
 
 - `id` 
 
-   The component identifier.
-Generated using the `initialValue` data. 
+  The component identifier.
+  Generated using the `initialValue` data. 
 
    **dependencies:** `initialValue` 
 
@@ -70,30 +70,30 @@ Generated using the `initialValue` data.
 
 - `loaded` 
 
-   Emitted when the component has been loaded 
+  Emitted when the component has been loaded 
 
 - `enabled` 
 
-   Emitted the event `enabled` when loaded
-Multilign 
+  Emitted the event `enabled` when loaded
+  Multilign 
 
 ## methods 
 
 - `check()` 
 
-   Check if the input is checked 
+  Check if the input is checked 
 
 - `prop()` 
 
 - `dynamic()` 
 
-   Make component dynamic 
+  Make component dynamic 
 
 - `dynamic2()` 
 
-   Enter to dynamic mode 
+  Enter to dynamic mode 
 
 - `enable(value)` 
 
-   Enable the checkbox 
+  Enable the checkbox 
 
