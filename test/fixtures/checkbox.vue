@@ -13,6 +13,10 @@ const dynamic2 = 'dynamicMode'
 /**
  * A simple checkbox component
  *
+ * ```html
+ * <checkbox v-model="value"/>
+ * ```
+ *
  * @author Sébastien
  * @license MIT
  * @input
