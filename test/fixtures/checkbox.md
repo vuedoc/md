@@ -1,6 +1,10 @@
 # checkbox 
 
-A simple checkbox component 
+A simple checkbox component
+
+```html
+<checkbox v-model="value"/>
+``` 
 
 - **author** - Sébastien 
 - **license** - MIT 
@@ -38,7 +42,8 @@ A simple checkbox component
 
 - `initialValue` 
 
-   The initial component value. Used to detect changes and restore the initial value. 
+   The initial component value.
+Used to detect changes and restore the initial value. 
 
 **initial value:** `''` 
 
@@ -50,7 +55,8 @@ A simple checkbox component
 
 - `id` 
 
-   The component identifier. Generated using the `initialValue` data. 
+   The component identifier.
+Generated using the `initialValue` data. 
 
    **dependencies:** `initialValue` 
 
@@ -68,7 +74,8 @@ A simple checkbox component
 
 - `enabled` 
 
-   Emitted the event `enabled` when loaded Multilign 
+   Emitted the event `enabled` when loaded
+Multilign 
 
 ## methods 
 
