@@ -277,7 +277,7 @@ describe('rendering', () => {
     })
 
     it('should render a data with its description and initial value', () => {
-      assert.ok(/- `initialValue`\s+The initial component value\.\nUsed to detect changes and restore the initial value\.\s+\*\*initial value:\*\* `''`/.test(doc))
+      assert.ok(/- `initialValue`\s+The initial component value\.\n\s+Used to detect changes and restore the initial value\.\s+\*\*initial value:\*\* `''`/.test(doc))
     })
 
     it('should render a data without a description', () => {
@@ -291,7 +291,7 @@ describe('rendering', () => {
     })
 
     it('should render a computed property with its description and dependencies', () => {
-      assert.ok(/- `id`\s+The component identifier\.\nGenerated using the `initialValue` data\.\s+\*\*dependencies:\*\* `initialValue`/.test(doc))
+      assert.ok(/- `id`\s+The component identifier\.\n\s+Generated using the `initialValue` data\.\s+\*\*dependencies:\*\* `initialValue`/.test(doc))
     })
 
     it('should render a computed property without a description', () => {
