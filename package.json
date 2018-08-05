@@ -1,6 +1,6 @@
 {
   "name": "@vuedoc/md",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Generate a Markdown Documentation for a Vue file component",
   "main": "index.js",
   "bin": {
