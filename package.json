@@ -8,7 +8,7 @@
   },
   "scripts": {
     "pretest": "npm run lint",
-    "test": "jest --testURL='http://localhost'",
+    "test": "jest --testURL=http://localhost",
     "lint": "standard index.js bin lib test"
   },
   "repository": {
