@@ -61,6 +61,30 @@ export default {
     boolFalse: {
       type: Boolean,
       default: false
+    },
+
+    /**
+     * @default {}
+     */
+     propWithDefaultAsKeyworld: {
+      type: Object,
+      default: () => {}
+    },
+
+    /**
+     * @default
+     */
+     propWithEmptyDefaultAsKeyworld: {
+      type: Object,
+      default: () => {}
+    },
+
+    /**
+     * @default 0
+     */
+     propWithNumberDefaultAsKeyworld: {
+      type: Number,
+      default: 10
     }
   },
   

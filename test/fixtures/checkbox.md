@@ -38,6 +38,12 @@ A simple checkbox component
 
 - `bool-false` ***Boolean*** (*optional*) `default: false` 
 
+- `prop-with-default-as-keyworld` ***Object*** (*optional*) `default: {}` 
+
+- `prop-with-empty-default-as-keyworld` ***Object*** (*optional*) 
+
+- `prop-with-number-default-as-keyworld` ***Number*** (*optional*) `default: 0` 
+
 ## data 
 
 - `initialValue` 
