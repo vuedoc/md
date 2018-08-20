@@ -269,6 +269,19 @@ describe('rendering', () => {
       assert.ok(/- .enabled. \*\*\*Boolean\*\*\* \(\*optional\*\) .default: true../.test(doc))
       assert.ok(/Initial checkbox value/.test(doc))
     })
+
+    it('should render props.propWithDefaultAsKeyworld with default value from keyworlds', () => {
+      assert.ok(/- .prop-with-default-as-keyworld. \*\*\*Object\*\*\* \(\*optional\*\) .default: {}../.test(doc))
+    })
+
+    it('should render props.propWithEmptyDefaultAsKeyworld with default empty from keyworlds', () => {
+      assert.ok(/- .prop-with-empty-default-as-keyworld. \*\*\*Object\*\*\* \(\*optional\*\)/.test(doc))
+      assert.ok(!(/- .prop-with-empty-default-as-keyworld. \*\*\*Object\*\*\* \(\*optional\*\) .default:/.test(doc)))
+    })
+
+    it('should render props.propWithNumberDefaultAsKeyworld with default 0 from keyworlds', () => {
+      assert.ok(/- .prop-with-number-default-as-keyworld. \*\*\*Number\*\*\* \(\*optional\*\) .default: 0../.test(doc))
+    })
   })
 
   describe('data', () => {
