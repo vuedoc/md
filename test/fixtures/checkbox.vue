@@ -68,7 +68,14 @@ export default {
     /**
      * @default {}
      */
-     propWithDefaultAsKeyworld: {
+     propWithDefaultAsKeywordButWithoutDefault: {
+      type: Object
+    },
+
+    /**
+     * @default {}
+     */
+     propWithDefaultAsKeyword: {
       type: Object,
       default: () => ({})
     },
@@ -76,7 +83,7 @@ export default {
     /**
      * @default
      */
-     propWithEmptyDefaultAsKeyworld: {
+     propWithEmptyDefaultAsKeyword: {
       type: Object,
       default: {}
     },
@@ -84,7 +91,7 @@ export default {
     /**
      * @default 0
      */
-     numberPropWithDefaultAsKeyworld: {
+     numberPropWithDefaultAsKeyword: {
       type: Number,
       default: zero
     },
@@ -92,7 +99,7 @@ export default {
     /**
      * @default empty string
      */
-     stringPropWithDefaultAsKeyworld: {
+     stringPropWithDefaultAsKeyword: {
       type: String,
       default: ''
     },
@@ -100,7 +107,7 @@ export default {
     /**
      * @default default boolean
      */
-     booleanPropWithDefaultAsKeyworld: {
+     booleanPropWithDefaultAsKeyword: {
       type: Boolean,
       default: false
     },
@@ -108,7 +115,7 @@ export default {
     /**
      * @default empty array
      */
-     arrayPropWithDefaultAsKeyworld: {
+     arrayPropWithDefaultAsKeyword: {
       type: Array,
       default: []
     },
@@ -116,7 +123,7 @@ export default {
     /**
      * @default identity function
      */
-     functionPropWithDefaultAsKeyworld: {
+     functionPropWithDefaultAsKeyword: {
       type: Function,
       default: (x) => x
     },
@@ -124,7 +131,7 @@ export default {
     /**
      * @default null
      */
-     propWithNullAsDefaultKeyworld: {
+     propWithNullAsDefaultKeyword: {
       type: Object,
       default: nullValue
     },
@@ -132,7 +139,7 @@ export default {
     /**
      * @default undefined
      */
-     propWithUndefinedAsDefaultKeyworld: {
+     propWithUndefinedAsDefaultKeyword: {
       type: Object,
       default: undefinedValue
     }

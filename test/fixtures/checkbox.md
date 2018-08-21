@@ -38,23 +38,25 @@ A simple checkbox component
 
 - `bool-false` ***Boolean*** (*optional*) `default: false` 
 
-- `prop-with-default-as-keyworld` ***Object*** (*optional*) `default: {}` 
+- `prop-with-default-as-keyword-but-without-default` ***Object*** (*optional*) 
 
-- `prop-with-empty-default-as-keyworld` ***Object*** (*optional*) `default: [object Object]` 
+- `prop-with-default-as-keyword` ***Object*** (*optional*) `default: {}` 
 
-- `number-prop-with-default-as-keyworld` ***Number*** (*optional*) `default: 0` 
+- `prop-with-empty-default-as-keyword` ***Object*** (*optional*) `default: [object Object]` 
 
-- `string-prop-with-default-as-keyworld` ***String*** (*optional*) `default: empty string` 
+- `number-prop-with-default-as-keyword` ***Number*** (*optional*) `default: 0` 
 
-- `boolean-prop-with-default-as-keyworld` ***Boolean*** (*optional*) `default: default boolean` 
+- `string-prop-with-default-as-keyword` ***String*** (*optional*) `default: empty string` 
 
-- `array-prop-with-default-as-keyworld` ***Array*** (*optional*) `default: empty array` 
+- `boolean-prop-with-default-as-keyword` ***Boolean*** (*optional*) `default: default boolean` 
 
-- `function-prop-with-default-as-keyworld` ***Function*** (*optional*) `default: identity function` 
+- `array-prop-with-default-as-keyword` ***Array*** (*optional*) `default: empty array` 
 
-- `prop-with-null-as-default-keyworld` ***Object*** (*optional*) `default: null` 
+- `function-prop-with-default-as-keyword` ***Function*** (*optional*) `default: identity function` 
 
-- `prop-with-undefined-as-default-keyworld` ***Object*** (*optional*) `default: undefined` 
+- `prop-with-null-as-default-keyword` ***Object*** (*optional*) `default: null` 
+
+- `prop-with-undefined-as-default-keyword` ***Object*** (*optional*) `default: undefined` 
 
 ## data 
 
