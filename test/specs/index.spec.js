@@ -275,8 +275,7 @@ describe('rendering', () => {
     })
 
     it('should render props.propWithEmptyDefaultAsKeyworld with default empty from keyworlds', () => {
-      assert.ok(/- .prop-with-empty-default-as-keyworld. \*\*\*Object\*\*\* \(\*optional\*\)/.test(doc))
-      assert.ok(!(/- .prop-with-empty-default-as-keyworld. \*\*\*Object\*\*\* \(\*optional\*\) .default:/.test(doc)))
+      assert.ok(/- .prop-with-empty-default-as-keyworld. \*\*\*Object\*\*\* \(\*optional\*\) .default: \[object Object\]../.test(doc))
     })
 
     it('should render props.numberPropWithDefaultAsKeyworld with default 0 from keyworlds', () => {

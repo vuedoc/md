@@ -40,7 +40,7 @@ A simple checkbox component
 
 - `prop-with-default-as-keyworld` ***Object*** (*optional*) `default: {}` 
 
-- `prop-with-empty-default-as-keyworld` ***Object*** (*optional*) 
+- `prop-with-empty-default-as-keyworld` ***Object*** (*optional*) `default: [object Object]` 
 
 - `number-prop-with-default-as-keyworld` ***Number*** (*optional*) `default: 0` 
 

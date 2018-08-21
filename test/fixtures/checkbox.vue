@@ -9,6 +9,7 @@
 
 <script>
 const dynamic2 = 'dynamicMode'
+const zero = 0
 const nullValue = null
 const undefinedValue = undefined
 /**
@@ -77,7 +78,7 @@ export default {
      */
      propWithEmptyDefaultAsKeyworld: {
       type: Object,
-      default: () => ({})
+      default: {}
     },
 
     /**
@@ -85,7 +86,7 @@ export default {
      */
      numberPropWithDefaultAsKeyworld: {
       type: Number,
-      default: 10
+      default: zero
     },
 
     /**
