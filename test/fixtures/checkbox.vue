@@ -85,7 +85,7 @@ export default {
      */
      propWithEmptyDefaultAsKeyword: {
       type: Object,
-      default: {}
+      default: () => ({})
     },
 
     /**
