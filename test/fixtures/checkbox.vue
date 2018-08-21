@@ -9,7 +9,8 @@
 
 <script>
 const dynamic2 = 'dynamicMode'
-
+const nullValue = null
+const undefinedValue = undefined
 /**
  * A simple checkbox component
  *
@@ -68,7 +69,7 @@ export default {
      */
      propWithDefaultAsKeyworld: {
       type: Object,
-      default: () => {}
+      default: () => ({})
     },
 
     /**
@@ -76,15 +77,63 @@ export default {
      */
      propWithEmptyDefaultAsKeyworld: {
       type: Object,
-      default: () => {}
+      default: () => ({})
     },
 
     /**
      * @default 0
      */
-     propWithNumberDefaultAsKeyworld: {
+     numberPropWithDefaultAsKeyworld: {
       type: Number,
       default: 10
+    },
+
+    /**
+     * @default empty string
+     */
+     stringPropWithDefaultAsKeyworld: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * @default default boolean
+     */
+     booleanPropWithDefaultAsKeyworld: {
+      type: Boolean,
+      default: false
+    },
+
+    /**
+     * @default empty array
+     */
+     arrayPropWithDefaultAsKeyworld: {
+      type: Array,
+      default: []
+    },
+
+    /**
+     * @default identity function
+     */
+     functionPropWithDefaultAsKeyworld: {
+      type: Function,
+      default: (x) => x
+    },
+
+    /**
+     * @default null
+     */
+     propWithNullAsDefaultKeyworld: {
+      type: Object,
+      default: nullValue
+    },
+
+    /**
+     * @default undefined
+     */
+     propWithUndefinedAsDefaultKeyworld: {
+      type: Object,
+      default: undefinedValue
     }
   },
   

@@ -42,7 +42,19 @@ A simple checkbox component
 
 - `prop-with-empty-default-as-keyworld` ***Object*** (*optional*) 
 
-- `prop-with-number-default-as-keyworld` ***Number*** (*optional*) `default: 0` 
+- `number-prop-with-default-as-keyworld` ***Number*** (*optional*) `default: 0` 
+
+- `string-prop-with-default-as-keyworld` ***String*** (*optional*) `default: empty string` 
+
+- `boolean-prop-with-default-as-keyworld` ***Boolean*** (*optional*) `default: default boolean` 
+
+- `array-prop-with-default-as-keyworld` ***Array*** (*optional*) `default: empty array` 
+
+- `function-prop-with-default-as-keyworld` ***Function*** (*optional*) `default: identity function` 
+
+- `prop-with-null-as-default-keyworld` ***Object*** (*optional*) `default: null` 
+
+- `prop-with-undefined-as-default-keyworld` ***Object*** (*optional*) `default: undefined` 
 
 ## data 
 

@@ -279,8 +279,32 @@ describe('rendering', () => {
       assert.ok(!(/- .prop-with-empty-default-as-keyworld. \*\*\*Object\*\*\* \(\*optional\*\) .default:/.test(doc)))
     })
 
-    it('should render props.propWithNumberDefaultAsKeyworld with default 0 from keyworlds', () => {
-      assert.ok(/- .prop-with-number-default-as-keyworld. \*\*\*Number\*\*\* \(\*optional\*\) .default: 0../.test(doc))
+    it('should render props.numberPropWithDefaultAsKeyworld with default 0 from keyworlds', () => {
+      assert.ok(/- .number-prop-with-default-as-keyworld. \*\*\*Number\*\*\* \(\*optional\*\) .default: 0../.test(doc))
+    })
+
+    it('should render props.stringPropWithDefaultAsKeyworld with default string from keyworlds', () => {
+      assert.ok(/- .string-prop-with-default-as-keyworld. \*\*\*String\*\*\* \(\*optional\*\) .default: empty string../.test(doc))
+    })
+
+    it('should render props.propWithBooleanDefaultAsKeyworld with default string from keyworlds', () => {
+      assert.ok(/- .boolean-prop-with-default-as-keyworld. \*\*\*Boolean\*\*\* \(\*optional\*\) .default: default boolean../.test(doc))
+    })
+
+    it('should render props.arrayPropWithDefaultAsKeyworld with default string from keyworlds', () => {
+      assert.ok(/- .array-prop-with-default-as-keyworld. \*\*\*Array\*\*\* \(\*optional\*\) .default: empty array../.test(doc))
+    })
+
+    it('should render props.functionPropWithDefaultAsKeyworld with default string from keyworlds', () => {
+      assert.ok(/- .function-prop-with-default-as-keyworld. \*\*\*Function\*\*\* \(\*optional\*\) .default: identity function../.test(doc))
+    })
+
+    it('should render props.propWithNullAsDefaultKeyworld with default string from keyworlds', () => {
+      assert.ok(/- .prop-with-null-as-default-keyworld. \*\*\*Object\*\*\* \(\*optional\*\) .default: null../.test(doc))
+    })
+
+    it('should render props.propWithUndefinedAsDefaultKeyworld with default string from keyworlds', () => {
+      assert.ok(/- .prop-with-undefined-as-default-keyworld. \*\*\*Object\*\*\* \(\*optional\*\) .default: undefined../.test(doc))
     })
   })
 
