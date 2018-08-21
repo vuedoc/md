@@ -270,40 +270,44 @@ describe('rendering', () => {
       assert.ok(/Initial checkbox value/.test(doc))
     })
 
-    it('should render props.propWithDefaultAsKeyworld with default value from keyworlds', () => {
-      assert.ok(/- .prop-with-default-as-keyworld. \*\*\*Object\*\*\* \(\*optional\*\) .default: {}../.test(doc))
+    it('should render props.propWithDefaultAsKeyworldButWithoutDefault without default value from keywords', () => {
+      assert.ok(/- .prop-with-default-as-keyword-but-without-default. \*\*\*Object\*\*\* \(\*optional\*\)/.test(doc))
     })
 
-    it('should render props.propWithEmptyDefaultAsKeyworld with default empty from keyworlds', () => {
-      assert.ok(/- .prop-with-empty-default-as-keyworld. \*\*\*Object\*\*\* \(\*optional\*\) .default: \[object Object\]../.test(doc))
+    it('should render props.propWithDefaultAsKeyword with default value from keywords', () => {
+      assert.ok(/- .prop-with-default-as-keyword. \*\*\*Object\*\*\* \(\*optional\*\) .default: {}../.test(doc))
     })
 
-    it('should render props.numberPropWithDefaultAsKeyworld with default 0 from keyworlds', () => {
-      assert.ok(/- .number-prop-with-default-as-keyworld. \*\*\*Number\*\*\* \(\*optional\*\) .default: 0../.test(doc))
+    it('should render props.propWithEmptyDefaultAsKeyword with default empty from keywords', () => {
+      assert.ok(/- .prop-with-empty-default-as-keyword. \*\*\*Object\*\*\* \(\*optional\*\) .default: \[object Object\]../.test(doc))
     })
 
-    it('should render props.stringPropWithDefaultAsKeyworld with default string from keyworlds', () => {
-      assert.ok(/- .string-prop-with-default-as-keyworld. \*\*\*String\*\*\* \(\*optional\*\) .default: empty string../.test(doc))
+    it('should render props.numberPropWithDefaultAsKeyword with default 0 from keywords', () => {
+      assert.ok(/- .number-prop-with-default-as-keyword. \*\*\*Number\*\*\* \(\*optional\*\) .default: 0../.test(doc))
     })
 
-    it('should render props.propWithBooleanDefaultAsKeyworld with default string from keyworlds', () => {
-      assert.ok(/- .boolean-prop-with-default-as-keyworld. \*\*\*Boolean\*\*\* \(\*optional\*\) .default: default boolean../.test(doc))
+    it('should render props.stringPropWithDefaultAsKeyword with default string from keywords', () => {
+      assert.ok(/- .string-prop-with-default-as-keyword. \*\*\*String\*\*\* \(\*optional\*\) .default: empty string../.test(doc))
     })
 
-    it('should render props.arrayPropWithDefaultAsKeyworld with default string from keyworlds', () => {
-      assert.ok(/- .array-prop-with-default-as-keyworld. \*\*\*Array\*\*\* \(\*optional\*\) .default: empty array../.test(doc))
+    it('should render props.propWithBooleanDefaultAsKeyword with default string from keywords', () => {
+      assert.ok(/- .boolean-prop-with-default-as-keyword. \*\*\*Boolean\*\*\* \(\*optional\*\) .default: default boolean../.test(doc))
     })
 
-    it('should render props.functionPropWithDefaultAsKeyworld with default string from keyworlds', () => {
-      assert.ok(/- .function-prop-with-default-as-keyworld. \*\*\*Function\*\*\* \(\*optional\*\) .default: identity function../.test(doc))
+    it('should render props.arrayPropWithDefaultAsKeyword with default string from keywords', () => {
+      assert.ok(/- .array-prop-with-default-as-keyword. \*\*\*Array\*\*\* \(\*optional\*\) .default: empty array../.test(doc))
     })
 
-    it('should render props.propWithNullAsDefaultKeyworld with default string from keyworlds', () => {
-      assert.ok(/- .prop-with-null-as-default-keyworld. \*\*\*Object\*\*\* \(\*optional\*\) .default: null../.test(doc))
+    it('should render props.functionPropWithDefaultAsKeyword with default string from keywords', () => {
+      assert.ok(/- .function-prop-with-default-as-keyword. \*\*\*Function\*\*\* \(\*optional\*\) .default: identity function../.test(doc))
     })
 
-    it('should render props.propWithUndefinedAsDefaultKeyworld with default string from keyworlds', () => {
-      assert.ok(/- .prop-with-undefined-as-default-keyworld. \*\*\*Object\*\*\* \(\*optional\*\) .default: undefined../.test(doc))
+    it('should render props.propWithNullAsDefaultKeyword with default string from keywords', () => {
+      assert.ok(/- .prop-with-null-as-default-keyword. \*\*\*Object\*\*\* \(\*optional\*\) .default: null../.test(doc))
+    })
+
+    it('should render props.propWithUndefinedAsDefaultKeyword with default string from keywords', () => {
+      assert.ok(/- .prop-with-undefined-as-default-keyword. \*\*\*Object\*\*\* \(\*optional\*\) .default: undefined../.test(doc))
     })
   })
 
