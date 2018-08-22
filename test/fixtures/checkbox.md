@@ -48,7 +48,7 @@ A simple checkbox component
 
 - `string-prop-with-default-as-keyword` ***String*** (*optional*) `default: ''` 
 
-- `boolean-prop-with-default-as-keyword` ***Boolean*** (*optional*) `default: default boolean` 
+- `boolean-prop-with-default-as-keyword` ***Boolean*** (*optional*) `default: false` 
 
 - `array-prop-with-default-as-keyword` ***Array*** (*optional*) `default: empty array` 
 

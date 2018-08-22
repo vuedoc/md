@@ -291,7 +291,7 @@ describe('rendering', () => {
     })
 
     it('should render props.propWithBooleanDefaultAsKeyword with default string from keywords', () => {
-      assert.ok(/- .boolean-prop-with-default-as-keyword. \*\*\*Boolean\*\*\* \(\*optional\*\) .default: default boolean../.test(doc))
+      assert.ok(/- .boolean-prop-with-default-as-keyword. \*\*\*Boolean\*\*\* \(\*optional\*\) .default: false../.test(doc))
     })
 
     it('should render props.arrayPropWithDefaultAsKeyword with default string from keywords', () => {
