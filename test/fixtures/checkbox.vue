@@ -106,11 +106,11 @@ export default {
     },
 
     /**
-     * @default default boolean
+     * @default false
      */
      booleanPropWithDefaultAsKeyword: {
       type: Boolean,
-      default: false
+      default: () => false
     },
 
     /**
