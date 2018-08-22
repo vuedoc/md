@@ -270,8 +270,8 @@ describe('rendering', () => {
       assert.ok(/Initial checkbox value/.test(doc))
     })
 
-    it('should render props.propWithDefaultAsKeyworldButWithoutDefault without default value from keywords', () => {
-      assert.ok(/- .prop-with-default-as-keyword-but-without-default. \*\*\*Object\*\*\* \(\*optional\*\)/.test(doc))
+    it('should render props.propWithDefaultAsKeyworldButWithoutDefault with default value from keywords', () => {
+      assert.ok(/- .prop-with-default-as-keyword-but-without-default. \*\*\*Object\*\*\* \(\*optional\*\) .default: {}../.test(doc))
     })
 
     it('should render props.propWithDefaultAsKeyword with default value from keywords', () => {
@@ -287,7 +287,7 @@ describe('rendering', () => {
     })
 
     it('should render props.stringPropWithDefaultAsKeyword with default string from keywords', () => {
-      assert.ok(/- .string-prop-with-default-as-keyword. \*\*\*String\*\*\* \(\*optional\*\) .default: empty string../.test(doc))
+      assert.ok(/- .string-prop-with-default-as-keyword. \*\*\*String\*\*\* \(\*optional\*\) .default: ''../.test(doc))
     })
 
     it('should render props.propWithBooleanDefaultAsKeyword with default string from keywords', () => {
