@@ -12,6 +12,7 @@ const dynamic2 = 'dynamicMode'
 const zero = 0
 const nullValue = null
 const undefinedValue = undefined
+const emptyString = ''
 /**
  * A simple checkbox component
  *
@@ -97,11 +98,11 @@ export default {
     },
 
     /**
-     * @default empty string
+     * @default ''
      */
      stringPropWithDefaultAsKeyword: {
       type: String,
-      default: ''
+      default: emptyString
     },
 
     /**

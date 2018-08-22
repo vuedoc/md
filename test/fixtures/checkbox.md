@@ -38,7 +38,7 @@ A simple checkbox component
 
 - `bool-false` ***Boolean*** (*optional*) `default: false` 
 
-- `prop-with-default-as-keyword-but-without-default` ***Object*** (*optional*) 
+- `prop-with-default-as-keyword-but-without-default` ***Object*** (*optional*) `default: {}` 
 
 - `prop-with-default-as-keyword` ***Object*** (*optional*) `default: {}` 
 
@@ -46,7 +46,7 @@ A simple checkbox component
 
 - `number-prop-with-default-as-keyword` ***Number*** (*optional*) `default: 0` 
 
-- `string-prop-with-default-as-keyword` ***String*** (*optional*) `default: empty string` 
+- `string-prop-with-default-as-keyword` ***String*** (*optional*) `default: ''` 
 
 - `boolean-prop-with-default-as-keyword` ***Boolean*** (*optional*) `default: default boolean` 
 
