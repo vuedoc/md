@@ -64,7 +64,12 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
       /**
        * This Boolean property indicates that the user cannot interact with the control.
        */
-      disable: { type: Boolean, default: false }
+      disable: { type: Boolean, default: false },
+      /**
+       * @default {}
+       * Object prop.
+       */
+      object: { type: Object, default: () => ({}) }
     },
     methods: {
       /**
@@ -144,6 +149,9 @@ Defines a unique identifier (ID) which must be unique in the whole document.
 - `disable` ***Boolean*** (*optional*) `default: false` 
 This Boolean property indicates that the user cannot interact with the control. 
 
+- `object` ***Object*** (*optional*) `default: {}` 
+Object prop. 
+
 ## slots 
 - `label` Use this slot to set the label 
 
@@ -205,6 +213,9 @@ vuedoc.md(options)
 - `@public` By default all commented members are public; this mean they will be part of the documented members.
 - `@protected` Commented members with this will be ignored.
 - `@private` Commented members with this will be ignored.
+
+## Other Keyword
+- `@default {description}` Commented prop will use the provided description as default prop description. This option may be helpfull in case the prop type is an object or function.
 
 ## Examples
 `vuedoc.md` has been used to generate documentation of bellow components:
