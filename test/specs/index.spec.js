@@ -290,7 +290,7 @@ describe('rendering', () => {
       assert.ok(/- .string-prop-with-default-as-keyword. \*\*\*String\*\*\* \(\*optional\*\) .default: ''../.test(doc))
     })
 
-    it('should render props.propWithBooleanDefaultAsKeyword with default string from keywords', () => {
+    it('should render props.booleanPropWithDefaultAsKeyword with default string from keywords', () => {
       assert.ok(/- .boolean-prop-with-default-as-keyword. \*\*\*Boolean\*\*\* \(\*optional\*\) .default: false../.test(doc))
     })
 

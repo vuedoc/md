@@ -13,6 +13,7 @@ const zero = 0
 const nullValue = null
 const undefinedValue = undefined
 const emptyString = ''
+const boolFalse = false
 /**
  * A simple checkbox component
  *
@@ -110,7 +111,7 @@ export default {
      */
      booleanPropWithDefaultAsKeyword: {
       type: Boolean,
-      default: () => false
+      default: boolFalse
     },
 
     /**
@@ -118,7 +119,7 @@ export default {
      */
      arrayPropWithDefaultAsKeyword: {
       type: Array,
-      default: []
+      default: () => ([])
     },
 
     /**
