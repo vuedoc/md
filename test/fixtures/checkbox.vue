@@ -14,6 +14,7 @@ const nullValue = null
 const undefinedValue = undefined
 const emptyString = ''
 const boolFalse = false
+
 /**
  * A simple checkbox component
  *
@@ -70,14 +71,14 @@ export default {
     /**
      * @default {}
      */
-     propWithDefaultAsKeywordButWithoutDefault: {
+    propWithDefaultAsKeywordButWithoutDefault: {
       type: Object
     },
 
     /**
      * @default {}
      */
-     propWithDefaultAsKeyword: {
+    propWithDefaultAsKeyword: {
       type: Object,
       default: () => ({})
     },
@@ -85,7 +86,7 @@ export default {
     /**
      * @default
      */
-     propWithEmptyDefaultAsKeyword: {
+    propWithEmptyDefaultAsKeyword: {
       type: Object,
       default: () => ({})
     },
@@ -93,7 +94,7 @@ export default {
     /**
      * @default 0
      */
-     numberPropWithDefaultAsKeyword: {
+    numberPropWithDefaultAsKeyword: {
       type: Number,
       default: zero
     },
@@ -101,7 +102,7 @@ export default {
     /**
      * @default ''
      */
-     stringPropWithDefaultAsKeyword: {
+    stringPropWithDefaultAsKeyword: {
       type: String,
       default: emptyString
     },
@@ -109,7 +110,7 @@ export default {
     /**
      * @default false
      */
-     booleanPropWithDefaultAsKeyword: {
+    booleanPropWithDefaultAsKeyword: {
       type: Boolean,
       default: boolFalse
     },
@@ -117,7 +118,7 @@ export default {
     /**
      * @default empty array
      */
-     arrayPropWithDefaultAsKeyword: {
+    arrayPropWithDefaultAsKeyword: {
       type: Array,
       default: () => ([])
     },
@@ -125,7 +126,7 @@ export default {
     /**
      * @default identity function
      */
-     functionPropWithDefaultAsKeyword: {
+    functionPropWithDefaultAsKeyword: {
       type: Function,
       default: (x) => x
     },
@@ -133,7 +134,7 @@ export default {
     /**
      * @default null
      */
-     propWithNullAsDefaultKeyword: {
+    propWithNullAsDefaultKeyword: {
       type: Object,
       default: nullValue
     },
@@ -141,7 +142,7 @@ export default {
     /**
      * @default undefined
      */
-     propWithUndefinedAsDefaultKeyword: {
+    propWithUndefinedAsDefaultKeyword: {
       type: Object,
       default: undefinedValue
     }

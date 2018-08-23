@@ -67,10 +67,13 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
        */
       disable: { type: Boolean, default: false },
       /**
-       * @default {}
-       * Object prop.
+       * Define a custom theme for the component.
+       * @default new DefaultTextareaTheme()
        */
-      object: { type: Object, default: () => ({}) }
+      theme: {
+        type: Object,
+        default: () => new DefaultTextareaTheme()
+      }
     },
     methods: {
       /**
@@ -150,13 +153,13 @@ Defines a unique identifier (ID) which must be unique in the whole document.
 - `disable` ***Boolean*** (*optional*) `default: false` 
 This Boolean property indicates that the user cannot interact with the control. 
 
-- `object` ***Object*** (*optional*) `default: {}` 
-Object prop. 
+- `theme` ***Object*** (*optional*) `default: new DefaultTextareaTheme()` 
+Define a custom theme for the component. 
 
 ## slots 
 - `label` Use this slot to set the label 
 
-- `default` Use this slot to set the devault value 
+- `default` Use this slot to set the default value 
 
 ## events 
 - `input` Fired when the value is changed. 
