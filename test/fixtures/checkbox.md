@@ -12,7 +12,7 @@ A simple checkbox component
 
 ## slots 
 
-- `default`  
+- `default` 
 
 - `label` Use this slot to set the checkbox label 
 
