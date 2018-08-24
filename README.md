@@ -36,7 +36,7 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
       <slot name="label"></slot>
     </label>
     <textarea :id="id" v-on:keyup="keyup" v-on:input="input">
-      <!-- Use this slot to set the devault value -->
+      <!-- Use this slot to set the default value -->
       <slot></slot>
     </textarea>
   </div>
