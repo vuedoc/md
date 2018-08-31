@@ -2,6 +2,7 @@
 
 const fs = require('fs')
 const path = require('path')
+const child = require('child_process')
 const stream = require('stream')
 const assert = require('assert')
 const Parser = require('@vuedoc/parser/lib/parser')
@@ -137,6 +138,22 @@ describe('lib/cli', () => {
 
     beforeEach(() => {
       options = {}
+    })
+
+    describe('--version', () => {
+      const exec = path.join(__dirname, '../../../bin/cli.js')
+      const args = [ '--version' ]
+      const proc = child.spawn(exec, args, { stdio: 'pipe' })
+
+      const { name, version } = require('../../../package.json')
+      const expected = `${name} v${version}\n`
+
+      it('should display package version', (done) => {
+        proc.stdout.once('data', (output) => {
+          expect(output.toString('utf-8')).toEqual(expected)
+          done()
+        })
+      })
     })
 
     describe('--level', () => {
