@@ -12,7 +12,7 @@ A simple checkbox component
 
 ## slots 
 
-- `default`  
+- `default` 
 
 - `label` Use this slot to set the checkbox label 
 
@@ -37,6 +37,26 @@ A simple checkbox component
 - `object` ***Object*** (*optional*) `default: null` 
 
 - `bool-false` ***Boolean*** (*optional*) `default: false` 
+
+- `prop-with-default-as-keyword-but-without-default` ***Object*** (*optional*) `default: {}` 
+
+- `prop-with-default-as-keyword` ***Object*** (*optional*) `default: {}` 
+
+- `prop-with-empty-default-as-keyword` ***Object*** (*optional*) `default: [object Object]` 
+
+- `number-prop-with-default-as-keyword` ***Number*** (*optional*) `default: 0` 
+
+- `string-prop-with-default-as-keyword` ***String*** (*optional*) `default: ''` 
+
+- `boolean-prop-with-default-as-keyword` ***Boolean*** (*optional*) `default: false` 
+
+- `array-prop-with-default-as-keyword` ***Array*** (*optional*) `default: empty array` 
+
+- `function-prop-with-default-as-keyword` ***Function*** (*optional*) `default: identity function` 
+
+- `prop-with-null-as-default-keyword` ***Object*** (*optional*) `default: null` 
+
+- `prop-with-undefined-as-default-keyword` ***Object*** (*optional*) `default: undefined` 
 
 ## data 
 

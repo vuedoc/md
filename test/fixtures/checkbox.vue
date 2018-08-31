@@ -9,6 +9,11 @@
 
 <script>
 const dynamic2 = 'dynamicMode'
+const zero = 0
+const nullValue = null
+const undefinedValue = undefined
+const emptyString = ''
+const boolFalse = false
 
 /**
  * A simple checkbox component
@@ -61,6 +66,85 @@ export default {
     boolFalse: {
       type: Boolean,
       default: false
+    },
+
+    /**
+     * @default {}
+     */
+    propWithDefaultAsKeywordButWithoutDefault: {
+      type: Object
+    },
+
+    /**
+     * @default {}
+     */
+    propWithDefaultAsKeyword: {
+      type: Object,
+      default: () => ({})
+    },
+
+    /**
+     * @default
+     */
+    propWithEmptyDefaultAsKeyword: {
+      type: Object,
+      default: () => ({})
+    },
+
+    /**
+     * @default 0
+     */
+    numberPropWithDefaultAsKeyword: {
+      type: Number,
+      default: zero
+    },
+
+    /**
+     * @default ''
+     */
+    stringPropWithDefaultAsKeyword: {
+      type: String,
+      default: emptyString
+    },
+
+    /**
+     * @default false
+     */
+    booleanPropWithDefaultAsKeyword: {
+      type: Boolean,
+      default: boolFalse
+    },
+
+    /**
+     * @default empty array
+     */
+    arrayPropWithDefaultAsKeyword: {
+      type: Array,
+      default: () => ([])
+    },
+
+    /**
+     * @default identity function
+     */
+    functionPropWithDefaultAsKeyword: {
+      type: Function,
+      default: (x) => x
+    },
+
+    /**
+     * @default null
+     */
+    propWithNullAsDefaultKeyword: {
+      type: Object,
+      default: nullValue
+    },
+
+    /**
+     * @default undefined
+     */
+    propWithUndefinedAsDefaultKeyword: {
+      type: Object,
+      default: undefinedValue
     }
   },
   

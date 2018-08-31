@@ -2,6 +2,7 @@
 
 const fs = require('fs')
 const path = require('path')
+const child = require('child_process')
 const stream = require('stream')
 const assert = require('assert')
 const Parser = require('@vuedoc/parser/lib/parser')
@@ -137,6 +138,26 @@ describe('lib/cli', () => {
 
     beforeEach(() => {
       options = {}
+    })
+
+    describe('--version', () => {
+      const exec = path.join(__dirname, '../../../bin/cli.js')
+      const args = ['--version', '-v']
+
+      args.forEach((arg) => {
+        const args = [ arg ]
+        const proc = child.spawn(exec, args, { stdio: 'pipe' })
+  
+        const { name, version } = require('../../../package.json')
+        const expected = `${name} v${version}\n`
+  
+        it(`should display package version with ${arg}`, (done) => {
+          proc.stdout.once('data', (output) => {
+            expect(output.toString('utf-8')).toEqual(expected)
+            done()
+          })
+        })
+      })
     })
 
     describe('--level', () => {
@@ -422,7 +443,7 @@ describe('lib/cli', () => {
         const file2 = path.join(fixturesPath, 'join.component.2.vue')
         const filenames = [ file1, file2 ]
         const options = { join, filenames }
-        const expected = '# checkbox \n\nA simple checkbox component \n\n- **author** - Sébastien \n- **license** - MIT \n- **input** \n\n## slots \n\n- `default`  \n\n- `label` Use this slot to set the checkbox label \n\n## props \n\n- `schema` ***Object|Promise*** (*required*) \n\n  The JSON Schema object. Use the `v-if` directive \n\n- `v-model` ***Object*** (*optional*) `default: [object Object]` \n\n  Use this directive to create two-way data bindings \n\n- `model` ***Array*** (*required*) \n\n  The checkbox model \n\n- `disabled` ***Boolean*** (*optional*) \n\n  Initial checkbox state \n\n## events \n\n- `created` \n\n  Emitted when the component has been created \n\n- `loaded` \n\n  Emitted when the component has been loaded \n\n'
+        const expected = '# checkbox \n\nA simple checkbox component \n\n- **author** - Sébastien \n- **license** - MIT \n- **input** \n\n## slots \n\n- `default` \n\n- `label` Use this slot to set the checkbox label \n\n## props \n\n- `schema` ***Object|Promise*** (*required*) \n\n  The JSON Schema object. Use the `v-if` directive \n\n- `v-model` ***Object*** (*optional*) `default: {}` \n\n  Use this directive to create two-way data bindings \n\n- `model` ***Array*** (*required*) \n\n  The checkbox model \n\n- `disabled` ***Boolean*** (*optional*) \n\n  Initial checkbox state \n\n## events \n\n- `created` \n\n  Emitted when the component has been created \n\n- `loaded` \n\n  Emitted when the component has been loaded \n\n'
 
         return cli.processWithOutputOption(options)
           .then(() => expect(streamContent).toEqual(expected))
@@ -462,7 +483,7 @@ describe('lib/cli', () => {
       const file2 = path.join(fixturesPath, 'join.component.2.vue')
       const filenames = [ file1, file2 ]
       const options = { join, filenames }
-      const expected = '# checkbox \n\nA simple checkbox component \n\n- **author** - Sébastien \n- **license** - MIT \n- **input** \n\n## slots \n\n- `default`  \n\n- `label` Use this slot to set the checkbox label \n\n## props \n\n- `schema` ***Object|Promise*** (*required*) \n\n  The JSON Schema object. Use the `v-if` directive \n\n- `v-model` ***Object*** (*optional*) `default: [object Object]` \n\n  Use this directive to create two-way data bindings \n\n- `model` ***Array*** (*required*) \n\n  The checkbox model \n\n- `disabled` ***Boolean*** (*optional*) \n\n  Initial checkbox state \n\n## events \n\n- `created` \n\n  Emitted when the component has been created \n\n- `loaded` \n\n  Emitted when the component has been loaded \n\n'
+      const expected = '# checkbox \n\nA simple checkbox component \n\n- **author** - Sébastien \n- **license** - MIT \n- **input** \n\n## slots \n\n- `default` \n\n- `label` Use this slot to set the checkbox label \n\n## props \n\n- `schema` ***Object|Promise*** (*required*) \n\n  The JSON Schema object. Use the `v-if` directive \n\n- `v-model` ***Object*** (*optional*) `default: {}` \n\n  Use this directive to create two-way data bindings \n\n- `model` ***Array*** (*required*) \n\n  The checkbox model \n\n- `disabled` ***Boolean*** (*optional*) \n\n  Initial checkbox state \n\n## events \n\n- `created` \n\n  Emitted when the component has been created \n\n- `loaded` \n\n  Emitted when the component has been loaded \n\n'
 
       return cli.processWithoutOutputOption(options)
         .then(() => expect(streamContent).toEqual(expected))
@@ -501,7 +522,7 @@ describe('lib/cli', () => {
 
     it('should successfully generate the joined components documentation', () => {
       const joinExpectedDoc = path.join(fixturesPath, 'join.expected.doc.md')
-      const expected = 'A simple checkbox component \n\n- **author** - Sébastien \n- **license** - MIT \n- **input** \n\n# slots \n\n- `default`  \n\n- `label` Use this slot to set the checkbox label \n\n# props \n\n- `schema` ***Object|Promise*** (*required*) \n\n  The JSON Schema object. Use the `v-if` directive \n\n- `v-model` ***Object*** (*optional*) `default: [object Object]` \n\n  Use this directive to create two-way data bindings \n\n- `model` ***Array*** (*required*) \n\n  The checkbox model \n\n- `disabled` ***Boolean*** (*optional*) \n\n  Initial checkbox state \n\n# events \n\n- `created` \n\n  Emitted when the component has been created \n\n- `loaded` \n\n  Emitted when the component has been loaded \n\n'
+      const expected = 'A simple checkbox component \n\n- **author** - Sébastien \n- **license** - MIT \n- **input** \n\n# slots \n\n- `default` \n\n- `label` Use this slot to set the checkbox label \n\n# props \n\n- `schema` ***Object|Promise*** (*required*) \n\n  The JSON Schema object. Use the `v-if` directive \n\n- `v-model` ***Object*** (*optional*) `default: {}` \n\n  Use this directive to create two-way data bindings \n\n- `model` ***Array*** (*required*) \n\n  The checkbox model \n\n- `disabled` ***Boolean*** (*optional*) \n\n  Initial checkbox state \n\n# events \n\n- `created` \n\n  Emitted when the component has been created \n\n- `loaded` \n\n  Emitted when the component has been loaded \n\n'
       const file1 = path.join(fixturesPath, 'join.component.1.js')
       const file2 = path.join(fixturesPath, 'join.component.2.vue')
 

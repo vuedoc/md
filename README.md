@@ -1,9 +1,11 @@
 # The vuedoc Markdown Documentation Generator
+
 Generate a Markdown Documentation for a Vue file
 
 [![npm](https://img.shields.io/npm/v/@vuedoc/md.svg)](https://www.npmjs.com/package/@vuedoc/md) [![Build status](https://gitlab.com/vuedoc/md/badges/master/build.svg)](https://gitlab.com/vuedoc/md/pipelines) [![Test coverage](https://gitlab.com/vuedoc/md/badges/master/coverage.svg)](https://gitlab.com/vuedoc/md/-/jobs)
 
 ## Install
+
 ```sh
 # using in your project
 npm install --save @vuedoc/md
@@ -13,6 +15,7 @@ npm install --global @vuedoc/md
 ```
 
 ## Features
+
 - Generate documentation for component props
 - Generate documentation for component data
 - Generate documentation for computed properties with their dependencies
@@ -25,23 +28,21 @@ npm install --global @vuedoc/md
 
 First use comments to document your component (see [test/fixtures/checkbox.vue](https://gitlab.com/vuedoc/md/blob/master/test/fixtures/checkbox.vue) for a complete example):
 
-```vue
+```html
 <template>
   <div>
     <label :for="id">
       <!-- Use this slot to set the label -->
       <slot name="label"></slot>
     </label>
-    <textarea :id="id" @keyup="keyup" @input="input">
-      <!-- Use this slot to set the devault value -->
+    <textarea :id="id" v-on:keyup="keyup" v-on:input="input">
+      <!-- Use this slot to set the default value -->
       <slot></slot>
     </textarea>
   </div>
 </template>
 
 <script>
-  import _ from 'lodash'
-
   /**
    * The custom HTML `<textarea>` component.
    * 
@@ -64,7 +65,15 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
       /**
        * This Boolean property indicates that the user cannot interact with the control.
        */
-      disable: { type: Boolean, default: false }
+      disable: { type: Boolean, default: false },
+      /**
+       * Define a custom theme for the component.
+       * @default new DefaultTextareaTheme()
+       */
+      theme: {
+        type: Object,
+        default: () => new DefaultTextareaTheme()
+      }
     },
     methods: {
       /**
@@ -144,10 +153,13 @@ Defines a unique identifier (ID) which must be unique in the whole document.
 - `disable` ***Boolean*** (*optional*) `default: false` 
 This Boolean property indicates that the user cannot interact with the control. 
 
+- `theme` ***Object*** (*optional*) `default: new DefaultTextareaTheme()` 
+Define a custom theme for the component. 
+
 ## slots 
 - `label` Use this slot to set the label 
 
-- `default` Use this slot to set the devault value 
+- `default` Use this slot to set the default value 
 
 ## events 
 - `input` Fired when the value is changed. 
@@ -160,20 +172,21 @@ Define if the control value is empty of not.
 ```
 
 ## Command line options
-```
---join                   - Combine generated documentation for multiple component files into only one
---level [integer]        - Set the title level. An integer betwen 1 and 6
---output [file or dir]   - The output directory. If absent, the STDOUT will be used
---section [section name] - Inject the generated documentation to a section. Works with `--output file`
---ignore-name            - Ignore the component name on parsing
---ignore-description     - Ignore the component description on parsing
---ignore-keywords        - Ignore the component keywords on parsing
---ignore-slots           - Ignore the component slots on parsing
---ignore-props           - Ignore the component props on parsing
---ignore-computed        - Ignore the component computed properties on parsing
---ignore-data            - Ignore the component data on parsing
---ignore-methods         - Ignore the component methods on parsing
---ignore-events          - Ignore the component events on parsing
+
+```sh
+--join                   # Combine generated documentation for multiple component files into only one
+--level [integer]        # Set the title level. An integer betwen 1 and 6
+--output [file or dir]   # The output directory. If absent, the STDOUT will be used
+--section [section name] # Inject the generated documentation to a section. Works with `--output file`
+--ignore-name            # Ignore the component name on parsing
+--ignore-description     # Ignore the component description on parsing
+--ignore-keywords        # Ignore the component keywords on parsing
+--ignore-slots           # Ignore the component slots on parsing
+--ignore-props           # Ignore the component props on parsing
+--ignore-computed        # Ignore the component computed properties on parsing
+--ignore-data            # Ignore the component data on parsing
+--ignore-methods         # Ignore the component methods on parsing
+--ignore-events          # Ignore the component events on parsing
 ```
 
 ## Programmatic Usage
@@ -190,6 +203,7 @@ Define if the control value is empty of not.
 For parsing options please read the [@vuedoc/parser documentation](https://gitlab.com/vuedoc/parser#options)
 
 **Usage**
+
 ```js
 const vuedoc = require('@vuedoc/md')
 const options = {
@@ -202,11 +216,16 @@ vuedoc.md(options)
 ```
 
 ## Visibility Keywords
+
 - `@public` By default all commented members are public; this mean they will be part of the documented members.
 - `@protected` Commented members with this will be ignored.
 - `@private` Commented members with this will be ignored.
 
+## Other Keyword
+- `@default {description}` Commented prop will use the provided description as default prop description. This option may be helpfull in case the prop type is an object or function.
+
 ## Examples
+
 `vuedoc.md` has been used to generate documentation of bellow components:
 - `vx-input`: [https://gitlab.com/vx-components/input](https://gitlab.com/vx-components/input)
 - `vx-checkbox`: [https://gitlab.com/vx-components/checkbox](https://gitlab.com/vx-components/checkbox)
@@ -214,7 +233,9 @@ vuedoc.md(options)
 - `FormSchema/native`: [https://gitlab.com/formschema/native](https://gitlab.com/formschema/native)
 
 ## Related projects
+
 - `jsdoc-vuedoc`: [https://github.com/ccqgithub/jsdoc-vuedoc](https://github.com/ccqgithub/jsdoc-vuedoc)
 
 ## License
+
 Under the MIT license. See [LICENSE](https://gitlab.com/vuedoc/md/blob/master/LICENSE) file for more details.
