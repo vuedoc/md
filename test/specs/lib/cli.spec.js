@@ -142,16 +142,20 @@ describe('lib/cli', () => {
 
     describe('--version', () => {
       const exec = path.join(__dirname, '../../../bin/cli.js')
-      const args = [ '--version' ]
-      const proc = child.spawn(exec, args, { stdio: 'pipe' })
+      const args = ['--version', '-v']
 
-      const { name, version } = require('../../../package.json')
-      const expected = `${name} v${version}\n`
-
-      it('should display package version', (done) => {
-        proc.stdout.once('data', (output) => {
-          expect(output.toString('utf-8')).toEqual(expected)
-          done()
+      args.forEach((arg) => {
+        const args = [ arg ]
+        const proc = child.spawn(exec, args, { stdio: 'pipe' })
+  
+        const { name, version } = require('../../../package.json')
+        const expected = `${name} v${version}\n`
+  
+        it(`should display package version with ${arg}`, (done) => {
+          proc.stdout.once('data', (output) => {
+            expect(output.toString('utf-8')).toEqual(expected)
+            done()
+          })
         })
       })
     })
