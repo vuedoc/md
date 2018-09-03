@@ -230,7 +230,7 @@ vuedoc.md(options)
 - `vx-input`: [https://gitlab.com/vx-components/input](https://gitlab.com/vx-components/input)
 - `vx-checkbox`: [https://gitlab.com/vx-components/checkbox](https://gitlab.com/vx-components/checkbox)
 - `vx-textarea`: [https://gitlab.com/vx-components/textarea](https://gitlab.com/vx-components/textarea)
-- `FormSchema/native`: [https://gitlab.com/formschema/native](https://gitlab.com/formschema/native)
+- `FormSchema Native`: [https://gitlab.com/formschema/native](https://gitlab.com/formschema/native)
 
 ## Related projects
 
