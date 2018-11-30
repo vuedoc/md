@@ -251,6 +251,10 @@ describe('rendering', () => {
   })
 
   describe('props', () => {
+    it('should render props with custom title', () => {
+      assert.ok(/ \*\*\*CustomType\*\*\* \(\*optional\*\)/.test(doc))
+    })
+
     it('should render props title', () => {
       assert.ok(/## props/.test(doc))
     })
