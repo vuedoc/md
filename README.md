@@ -69,6 +69,7 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
       /**
        * Define a custom theme for the component.
        * @default new DefaultTextareaTheme()
+       * @type TextareaTheme
        */
       theme: {
         type: Object,
@@ -223,6 +224,7 @@ vuedoc.md(options)
 
 ## Other Keyword
 - `@default {description}` Commented prop will use the provided description as default prop description. This option may be helpfull in case the prop type is an object or function.
+- `@type {typeName}` Commented prop will use provided type name as type instead of type in source code. This option may be helpfull in case the prop type is an object or a function, which you may want to further detail with `@typedef` in another place.
 
 ## Examples
 
