@@ -42,24 +42,12 @@ describe('options', () => {
     const expected = {
       "description": "A simple checkbox component",
       "keywords": [
-        {
-          "name": "author",
-          "description": "Sébastien"
-        },
-        {
-          "name": "license",
-          "description": "MIT"
-        },
-        {
-          "name": "input",
-          "description": ""
-        }
+        { "name": "author", "description": "Sébastien" },
+        { "name": "license", "description": "MIT" },
+        { "name": "input", "description": "" }
       ],
       "slots": [
-        {
-          "name": "default",
-          "description": null
-        },
+        { "name": "default", "description": null },
         {
           "name": "label",
           "description": "Use this slot to set the checkbox label"
@@ -67,42 +55,28 @@ describe('options', () => {
       ],
       "props": [
         {
-          "keywords": [
-            {
-              "name": "type",
-              "description": "[Object, Promise]"
-            }
-          ],
+          "keywords": [],
           "visibility": "public",
           "description": "The JSON Schema object. Use the `v-if` directive",
           "value": {
             "type": {
               "type": "ArrayExpression",
-              "start": 151,
-              "end": 168,
-              "range": [
-                151,
-                168
-              ],
+              "start": 120,
+              "end": 137,
+              "range": [120, 137],
               "elements": [
                 {
                   "type": "Identifier",
-                  "start": 152,
-                  "end": 158,
-                  "range": [
-                    152,
-                    158
-                  ],
+                  "start": 121,
+                  "end": 127,
+                  "range": [121, 127],
                   "name": "Object"
                 },
                 {
                   "type": "Identifier",
-                  "start": 160,
-                  "end": 167,
-                  "range": [
-                    160,
-                    167
-                  ],
+                  "start": 129,
+                  "end": 136,
+                  "range": [129, 136],
                   "name": "Promise"
                 }
               ]
@@ -113,14 +87,8 @@ describe('options', () => {
         },
         {
           "keywords": [
-            {
-              "name": "model",
-              "description": ""
-            },
-            {
-              "name": "default",
-              "description": "{}"
-            }
+            { "name": "model", "description": "" },
+            { "name": "default", "description": "{}" }
           ],
           "visibility": "public",
           "description": "Use this directive to create two-way data bindings",
@@ -128,12 +96,9 @@ describe('options', () => {
             "type": "Object",
             "default": {
               "type": "ArrowFunctionExpression",
-              "start": 332,
-              "end": 342,
-              "range": [
-                332,
-                342
-              ],
+              "start": 301,
+              "end": 311,
+              "range": [301, 311],
               "id": null,
               "generator": false,
               "expression": true,
@@ -141,12 +106,9 @@ describe('options', () => {
               "params": [],
               "body": {
                 "type": "ObjectExpression",
-                "start": 339,
-                "end": 341,
-                "range": [
-                  339,
-                  341
-                ],
+                "start": 308,
+                "end": 310,
+                "range": [308, 310],
                 "properties": []
               }
             }
@@ -157,10 +119,7 @@ describe('options', () => {
           "keywords": [],
           "visibility": "public",
           "description": "The checkbox model",
-          "value": {
-            "type": "Array",
-            "required": true
-          },
+          "value": { "type": "Array", "required": true },
           "name": "model"
         },
         {
@@ -189,7 +148,7 @@ describe('options', () => {
       ],
       "methods": []
     }
-
+    
     return vuedoc.join(options)
       .then((ast) => assert.deepEqual(ast, expected))
   })

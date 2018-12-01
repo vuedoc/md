@@ -2,7 +2,6 @@ export default {
   props: {
     /**
      * The JSON Schema object. Use the `v-if` directive
-     * @type [Object, Promise]
      */
     schema: { type: [Object, Promise], required: true },
 
