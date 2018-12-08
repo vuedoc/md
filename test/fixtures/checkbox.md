@@ -34,7 +34,9 @@ A simple checkbox component
 
   The checkbox label 
 
-- `object` ***Object*** (*optional*) `default: null` 
+- `object` ***CustomType*** (*optional*) `default: null` 
+
+  The checkbox custom type object 
 
 - `bool-false` ***Boolean*** (*optional*) `default: false` 
 
