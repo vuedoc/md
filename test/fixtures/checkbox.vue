@@ -58,6 +58,10 @@ export default {
       default: 'Unamed checkbox'
     },
     
+    /**
+     * The checkbox custom type object
+     * @type {CustomType}
+     */
     object: {
       type: Object,
       default: null
