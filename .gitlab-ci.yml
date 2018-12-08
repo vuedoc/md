@@ -1,23 +1,13 @@
 image: node:latest
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - node_modules/
-
 stages:
-  - setup
   - test
   - publish
-
-npm ci:
-  stage: setup
-  script:
-    - npm ci
 
 code quality:
   stage: test
   script:
+    - npm ci
     - npm run lint
 
 npm outdated:
@@ -32,16 +22,16 @@ security scan:
     - npm audit --only=prod
   allow_failure: true
 
-test on nodejs 6:
+test on nodejs 8:
   stage: test
-  image: node:6.14.3
+  image: node:8.14.0
   script:
     - npm it
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
 
-test on nodejs 8:
+test on nodejs 10:
   stage: test
-  image: node:8.11.3
+  image: node:10.14.1
   script:
     - npm it
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
