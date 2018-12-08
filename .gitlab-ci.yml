@@ -39,7 +39,7 @@ test on nodejs 10:
 test & coverage:
   stage: test
   script:
-    - npm test
+    - npm it
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
     paths:
