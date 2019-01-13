@@ -5,7 +5,8 @@
 const cli = require('../lib/cli')
 
 if (process.argv.length < 3) {
-  return process.stderr.write(cli.MISSING_FILENAME_MESSAGE)
+  process.stderr.write(cli.MISSING_FILENAME_MESSAGE)
+  process.exit(1)
 }
 
 if (process.argv.length > 2) {
