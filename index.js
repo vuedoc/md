@@ -1,4 +1,4 @@
-'use strict'
+
 
 const vuedoc = require('@vuedoc/parser')
 const md = require('./lib/markdown')
@@ -9,15 +9,19 @@ module.exports.render = (options) => (component) => new Promise((resolve) => {
   md.render(component, options)
     .on('write', (text) => {
       if (options.stream) {
-        return options.stream.write(text)
+        options.stream.write(text)
+      } else {
+        document += text
       }
-      document += text
     })
     .on('end', () => resolve(document))
 })
 
 module.exports.join = (options) => {
+  /* eslint-disable-next-line global-require */
   const merge = require('deepmerge')
+
+  /* eslint-disable-next-line arrow-body-style */
   const parsers = options.filenames.map((filename) => {
     return vuedoc.parse(Object.assign({}, options, { filename }))
   })
