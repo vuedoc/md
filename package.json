@@ -31,7 +31,7 @@
   "dependencies": {
     "@vuedoc/parser": "^1.4.0",
     "ast-to-markdown": "^0.2.2",
-    "deepmerge": "^3.0.0",
+    "deepmerge": "^3.2.0",
     "markdown-to-ast": "^6.0.3",
     "md-node-inject": "^0.1.1",
     "mdast-util-to-string": "^1.0.5"
