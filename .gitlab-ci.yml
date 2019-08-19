@@ -19,8 +19,7 @@ npm outdated:
 security scan:
   stage: test
   script:
-    - npm audit --only=prod
-  allow_failure: true
+    - npm audit --production
 
 test on nodejs lts:
   stage: test
