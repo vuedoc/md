@@ -1,4 +1,4 @@
-image: node:latest
+image: node:current-alpine
 
 stages:
   - test
@@ -13,6 +13,7 @@ code quality:
 npm outdated:
   stage: test
   script:
+    - npm ci
     - npm outdated
   allow_failure: true
 
@@ -23,7 +24,7 @@ security scan:
 
 test on nodejs lts:
   stage: test
-  image: node:lts-slim
+  image: node:lts-alpine
   script:
     - npm it
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
@@ -54,8 +55,6 @@ coverage report:
 
 package:
   stage: publish
-  only:
-    - tags
   script:
     - npm pack
   artifacts:
