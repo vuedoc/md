@@ -22,16 +22,10 @@ security scan:
   script:
     - npm audit --production
 
-test on nodejs lts:
-  stage: test
-  image: node:lts-alpine
-  script:
-    - npm it
-  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
-
 test & coverage:
   stage: test
   script:
+    - npm i --no-save @vuedoc/parser
     - npm it
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:

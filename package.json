@@ -30,20 +30,20 @@
   "homepage": "https://gitlab.com/vuedoc/md",
   "dependencies": {
     "ast-to-markdown": "^0.2.2",
-    "deepmerge": "^3.2.0",
+    "deepmerge": "^4.1.1",
     "markdown-to-ast": "^6.0.3",
-    "md-node-inject": "^0.1.1",
-    "mdast-util-to-string": "^1.0.5"
+    "md-node-inject": "^1.0.0",
+    "mdast-util-to-string": "^1.0.6"
   },
   "peerDependencies": {
     "@vuedoc/parser": "^2.0.0-beta.5"
   },
   "devDependencies": {
-    "eslint": "^5.15.2",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "jest": "^24.5.0"
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "jest": "^24.9.0"
   },
   "engines": {
     "node": ">=8"
