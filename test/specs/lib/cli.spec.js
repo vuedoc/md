@@ -5,7 +5,7 @@ const path = require('path')
 const child = require('child_process')
 const stream = require('stream')
 const assert = require('assert')
-const Parser = require('@vuedoc/parser/lib/parser')
+const { Parser } = require('@vuedoc/parser/lib/parser/Parser')
 const { spawn } = require('child_process')
 
 const cli = require('../../../lib/cli')

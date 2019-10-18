@@ -29,7 +29,7 @@
   },
   "homepage": "https://gitlab.com/vuedoc/md",
   "dependencies": {
-    "@vuedoc/parser": "^1.4.0",
+    "@vuedoc/parser": "^2.0.0-beta.3",
     "ast-to-markdown": "^0.2.2",
     "deepmerge": "^3.2.0",
     "markdown-to-ast": "^6.0.3",

@@ -3,7 +3,7 @@
 const vuedoc = require('../..')
 const assert = require('assert')
 const path = require('path')
-const Parser = require('@vuedoc/parser/lib/parser')
+const { Parser } = require('@vuedoc/parser/lib/parser/Parser')
 
 /* global describe it beforeEach */
 
