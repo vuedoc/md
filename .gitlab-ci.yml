@@ -8,6 +8,7 @@ code quality:
   stage: test
   script:
     - npm ci
+    - npm i --no-save @vuedoc/parser
     - npm run lint
 
 npm outdated:
@@ -25,8 +26,9 @@ security scan:
 test & coverage:
   stage: test
   script:
+    - npm ci
     - npm i --no-save @vuedoc/parser
-    - npm it
+    - npm test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
     paths:
