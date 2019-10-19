@@ -50,7 +50,7 @@ jest.mock('fs')
 
 const fs = require('fs')
 
-fs.__setMockFiles({
+fs.$setMockFiles({
   [voidfile]: vuecomponent,
   [readmefile]: [
     '# Sample\n\n',
