@@ -6,9 +6,11 @@ stages:
 
 code quality:
   stage: test
-  script:
+  before_script:
+    - apk add --no-cache git
     - npm ci
-    - npm i --no-save git://gitlab.com:vuedoc/parser.git#dev
+    - npm i --no-save https://gitlab.com/vuedoc/parser.git#dev
+  script:
     - npm run lint
 
 npm outdated:
@@ -25,9 +27,11 @@ security scan:
 
 test & coverage:
   stage: test
-  script:
+  before_script:
+    - apk add --no-cache git
     - npm ci
-    - npm i --no-save git://gitlab.com:vuedoc/parser.git#dev
+    - npm i --no-save https://gitlab.com/vuedoc/parser.git#dev
+  script:
     - npm test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
