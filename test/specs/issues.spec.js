@@ -22,7 +22,7 @@ describe('issues', () => {
       `
 
       const options = { filecontent }
-      const expected = '# props \n\n- `value` ***Boolean*** (*optional*) `default: undefined`'
+      const expected = '# props\n\n- `value` ***Boolean*** (*optional*) `default: undefined`'
 
       return vuedoc.md(options)
         .then((doc) => expect(doc.trim()).toEqual(expected))

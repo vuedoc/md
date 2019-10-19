@@ -8,10 +8,10 @@ Generate a Markdown Documentation for a Vue file
 
 ```sh
 # using in your project
-npm install --save @vuedoc/md
+npm install --save @vuedoc/parser @vuedoc/md
 
 # using in command line
-npm install --global @vuedoc/md
+npm install --global @vuedoc/parser @vuedoc/md
 ```
 
 ## Features

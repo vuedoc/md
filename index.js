@@ -1,12 +1,17 @@
-
-
+// eslint-disable-next-line import/no-unresolved
 const vuedoc = require('@vuedoc/parser')
-const md = require('./lib/markdown')
+const markdown = require('./lib/markdown')
 
-module.exports.render = (options) => (component) => new Promise((resolve) => {
+// eslint-disable-next-line max-len
+module.exports.render = (options) => (component) => new Promise((resolve, reject) => {
+  if (component.errors.length) {
+    reject(component.errors[0])
+    return
+  }
+
   let document = ''
 
-  md.render(component, options)
+  markdown.render(component, options)
     .on('write', (text) => {
       if (options.stream) {
         options.stream.write(text)
@@ -23,15 +28,16 @@ module.exports.join = (options) => {
 
   /* eslint-disable-next-line arrow-body-style */
   const parsers = options.filenames.map((filename) => {
-    return vuedoc.parse(Object.assign({}, options, { filename }))
+    return vuedoc.parse({ ...options, filename })
   })
 
   return Promise.all(parsers).then(merge.all)
 }
 
 module.exports.md = (options) => {
-  const opts = Object.assign({}, options)
-  const parse = options.join ? this.join(opts) : vuedoc.parse(opts)
+  const parse = options.join
+    ? this.join(options)
+    : vuedoc.parse(options)
 
-  return parse.then(this.render(opts))
+  return parse.then(this.render(options))
 }
