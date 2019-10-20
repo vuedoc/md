@@ -322,12 +322,16 @@ Vuedoc Markdown has been used to generate documentation of bellow components:
 
 ## Contribute
 
-Contributions to Vuedoc Parser are welcome. Here is how you can contribute:
+Contributions to Vuedoc Markdown are welcome. Here is how you can contribute:
 
-1. [Submit bugs or a feature request](https://gitlab.com/vuedoc/md/issues) and help us verify fixes as they are checked in
-2. Write code for a bug fix or for your new awesome feature
-3. Write test cases for your changes
-4. [Submit merge requests](https://gitlab.com/vuedoc/md/merge_requests) for bug fixes and features and discuss existing proposals
+1. [Submit bugs or a feature request](https://gitlab.com/vuedoc/md/issues) and
+   help us verify fixes as they are checked in
+2. Create your working branch from the `dev` branch: `git checkout dev -b feature/my-awesome-feature`
+3. Install development dependencies: `npm run install:dev`
+4. Write code for a bug fix or for your new awesome feature
+5. Write test cases for your changes
+6. [Submit merge requests](https://gitlab.com/vuedoc/md/merge_requests) for bug
+   fixes and features and discuss existing proposals
 
 ## Versioning
 
