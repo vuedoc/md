@@ -249,17 +249,17 @@ For the complete documentation syntax, please follow this link:
 ## Visibility Keywords
 
 | Keywords      | Description
-|---------------|----------------------------------------------------------------------------------------------------|
-| `@public`     | By default all commented members are public; this mean they will be part of the documented members |
-| `@protected`  | Commented members with this will be ignored                                                        |
-| `@private`    | Commented members with this will be ignored                                                        |
+|---------------|-----------------------------------------------------------------------------------------------------|
+| `@public`     | By default all commented members are public; this means they will be part of the documented members |
+| `@protected`  | Commented members with this will be ignored                                                         |
+| `@private`    | Commented members with this will be ignored                                                         |
 
 ## Specific Keywords for Props
 
-| Keywords                      | Description
-|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `@default {defaultPropValue}` | Commented prop will use the provided `defaultPropValue` as default prop description. This option may be helpful in case the prop type is an object or function                                                                        |
-| `@type {typeName}`            | Commented prop will use provided type name as type instead of type in source code. This option may be helpful in case the prop type is an object or a function, which you may want to further detail with `@typedef` in another place |
+| Keywords            | Description
+|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `@default {value}`  | Commented prop will use the provided value as default prop description. This option may be helpful in case the prop type is an object or function                                                                                     |
+| `@type {typeName}`  | Commented prop will use provided type name as type instead of type in source code. This option may be helpful in case the prop type is an object or a function, which you may want to further detail with `@typedef` in another place |
 
 ## Examples
 
