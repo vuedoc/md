@@ -4,6 +4,20 @@ Generate a Markdown Documentation for a Vue file
 
 [![npm](https://img.shields.io/npm/v/@vuedoc/md.svg)](https://www.npmjs.com/package/@vuedoc/md) [![Build status](https://gitlab.com/vuedoc/md/badges/master/build.svg)](https://gitlab.com/vuedoc/md/pipelines) [![Test coverage](https://gitlab.com/vuedoc/md/badges/master/coverage.svg)](https://gitlab.com/vuedoc/md/-/jobs)
 
+## Table of Contents
+
+- [Install](#install)
+- [Features](#features)
+- [Usage](#usage)
+- [Command line options](#command-line-options)
+- [Programmatic Usage](#programmatic-usage)
+- [Documentation Syntax](#documentation-syntax)
+- [Visibility Keywords](#visibility-keywords)
+- [Specific Keywords for Props](#specific-keywords-for-props)
+- [Examples](#examples)
+- [Related projects](#related-projects)
+- [License](#license)
+
 ## Install
 
 ```sh
