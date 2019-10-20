@@ -16,6 +16,8 @@ Generate a Markdown Documentation for a Vue file
 - [Specific Keywords for Props](#specific-keywords-for-props)
 - [Examples](#examples)
 - [Related projects](#related-projects)
+- [Contribute](#contribute)
+- [Versioning](#versioning)
 - [License](#license)
 
 ## Install
@@ -254,7 +256,6 @@ For the complete documentation syntax, please follow this link:
 | `@protected`  | Commented members with this will be ignored                                                         |
 | `@private`    | Commented members with this will be ignored                                                         |
 
-
 **Example**
 
 ```js
@@ -318,6 +319,27 @@ Vuedoc Markdown has been used to generate documentation of bellow components:
 ## Related projects
 
 - `jsdoc-vuedoc`: [https://github.com/ccqgithub/jsdoc-vuedoc](https://github.com/ccqgithub/jsdoc-vuedoc)
+
+## Contribute
+
+Contributions to Vuedoc Parser are welcome. Here is how you can contribute:
+
+1. [Submit bugs or a feature request](https://gitlab.com/vuedoc/md/issues) and help us verify fixes as they are checked in
+2. Write code for a bug fix or for your new awesome feature
+3. Write test cases for your changes
+4. [Submit merge requests](https://gitlab.com/vuedoc/md/merge_requests) for bug fixes and features and discuss existing proposals
+
+## Versioning
+
+Given a version number `MAJOR.MINOR.PATCH`, increment the:
+
+- `MAJOR` version when you make incompatible API changes,
+- `MINOR` version when you add functionality in a backwards-compatible manner, and
+- `PATCH` version when you make backwards-compatible bug fixes.
+
+Additional labels for pre-release and build metadata are available as extensions to the `MAJOR.MINOR.PATCH` format.
+
+See [SemVer.org](https://semver.org/) for more details.
 
 ## License
 
