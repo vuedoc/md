@@ -254,12 +254,57 @@ For the complete documentation syntax, please follow this link:
 | `@protected`  | Commented members with this will be ignored                                                         |
 | `@private`    | Commented members with this will be ignored                                                         |
 
+
+**Example**
+
+```js
+export default {
+  name: 'CheckboxInput',
+  props: {
+    /**
+     * The input format callback
+     * @public
+     */
+    format: Function
+  },
+  methods: {
+    /**
+     * This will be ignored on parsing and rendering
+     * @private
+     */
+    validate() {},
+    /**
+     * This will be ignored on parsing and rendering
+     * @protected
+     */
+    commit() {}
+  }
+}
+```
+
 ## Specific Keywords for Props
 
-| Keywords            | Description
-|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `@default {value}`  | Commented prop will use the provided value as default prop description. This option may be helpful in case the prop type is an object or function                                                                                     |
-| `@type {typeName}`  | Commented prop will use provided type name as type instead of type in source code. This option may be helpful in case the prop type is an object or a function, which you may want to further detail with `@typedef` in another place |
+- `@default {value}`: Commented prop will use the provided value as default prop description. This option may be helpful in case the prop type is an object or function
+- `@type {typeName}`: Commented prop will use provided type name as type instead of type in source code. This option may be helpful in case the prop type is an object or a function, which you may want to further detail with `@typedef` in another place
+
+**Example**
+
+```js
+export default {
+  name: 'TextInput',
+  props: {
+    /**
+     * The input format callback
+     * @type TextInput.FormatCallback
+     * @default value.trim()
+     */
+    format: {
+      type: Function,
+      default: (value = '') => `${value}`.trim()
+    }
+  }
+}
+```
 
 ## Examples
 
