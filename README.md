@@ -1,4 +1,4 @@
-# The vuedoc Markdown Documentation Generator
+# Vuedoc Markdown Documentation Generator
 
 Generate a Markdown Documentation for a Vue file
 
@@ -139,44 +139,54 @@ Output:
 
 ```md
 # my-textarea 
+
 The custom HTML `<textarea>` component.
 
 - **author** - Sébastien 
 - **license** - MIT 
 
 ## props 
+
 - `v-model` ***String*** (*optional*) 
-Use this directive to create two-way data bindings with the component. It automatically picks the correct way to update the element based on the input type. 
+
+  Use this directive to create two-way data bindings with the component. It automatically picks the correct way to update the element based on the input type.
 
 - `id` ***String*** (*required*) 
-Defines a unique identifier (ID) which must be unique in the whole document. 
+
+  Defines a unique identifier (ID) which must be unique in the whole document.
 
 - `disable` ***Boolean*** (*optional*) `default: false` 
-This Boolean property indicates that the user cannot interact with the control. 
+
+  This Boolean property indicates that the user cannot interact with the control.
 
 - `theme` ***Object*** (*optional*) `default: new DefaultTextareaTheme()` 
-Define a custom theme for the component. 
+
+  Define a custom theme for the component.
 
 ## slots 
+
 - `label` Use this slot to set the label 
 
 - `default` Use this slot to set the default value 
 
 ## events 
+
 - `input` Fired when the value is changed. 
 
 - `keyup` Fired when a key is released. 
 
 ## methods 
+
 - `isEmpty()` 
-Define if the control value is empty of not.
+
+  Define if the control value is empty of not.
 ```
 
 ## Command line options
 
 ```sh
 --join                   # Combine generated documentation for multiple component files into only one
---level [integer]        # Set the title level. An integer betwen 1 and 6
+--level [integer]        # Set the title level. An integer between 1 and 6
 --output [file or dir]   # The output directory. If absent, the STDOUT will be used
 --section [section name] # Inject the generated documentation to a section. Works with `--output file`
 --ignore-name            # Ignore the component name on parsing
@@ -196,7 +206,7 @@ Define if the control value is empty of not.
 
 | name    | type    | description                                                                                                |
 |---------|---------|------------------------------------------------------------------------------------------------------------|
-| level   | integer | Set the title level. An integer betwen 1 and 6                                                             |
+| level   | integer | Set the title level. An integer between 1 and 6                                                            |
 | output  | string  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used |
 | section | string  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
 | join    | boolean | Combine generated documentation for multiple component files into only one                                 |
@@ -216,23 +226,31 @@ vuedoc.md(options)
   .catch((err) => console.error(err))
 ```
 
+## Documentation Syntax
+
+For the complete documentation syntax, please follow this link:
+
+- Vuedoc Syntax: https://gitlab.com/vuedoc/parser#syntax
+
 ## Visibility Keywords
 
 - `@public` By default all commented members are public; this mean they will be part of the documented members.
 - `@protected` Commented members with this will be ignored.
 - `@private` Commented members with this will be ignored.
 
-## Other Keyword
-- `@default {description}` Commented prop will use the provided description as default prop description. This option may be helpfull in case the prop type is an object or function.
-- `@type {typeName}` Commented prop will use provided type name as type instead of type in source code. This option may be helpfull in case the prop type is an object or a function, which you may want to further detail with `@typedef` in another place.
+## Specific Keywords for Props
+
+- `@default {defaultPropValue}` Commented prop will use the provided `defaultPropValue` as default prop description. This option may be helpful in case the prop type is an object or function.
+- `@type {typeName}` Commented prop will use provided type name as type instead of type in source code. This option may be helpful in case the prop type is an object or a function, which you may want to further detail with `@typedef` in another place.
 
 ## Examples
 
-`vuedoc.md` has been used to generate documentation of bellow components:
+Vuedoc Markdown has been used to generate documentation of bellow components:
+
+- `FormSchema Native`: [https://gitlab.com/formschema/native](https://gitlab.com/formschema/native)
 - `vx-input`: [https://gitlab.com/vx-components/input](https://gitlab.com/vx-components/input)
 - `vx-checkbox`: [https://gitlab.com/vx-components/checkbox](https://gitlab.com/vx-components/checkbox)
 - `vx-textarea`: [https://gitlab.com/vx-components/textarea](https://gitlab.com/vx-components/textarea)
-- `FormSchema Native`: [https://gitlab.com/formschema/native](https://gitlab.com/formschema/native)
 
 ## Related projects
 
@@ -240,4 +258,6 @@ vuedoc.md(options)
 
 ## License
 
-Under the MIT license. See [LICENSE](https://gitlab.com/vuedoc/md/blob/master/LICENSE) file for more details.
+Under the MIT license.
+See [LICENSE](https://gitlab.com/vuedoc/md/blob/master/LICENSE) file for more
+details.
