@@ -1,121 +1,129 @@
-# checkbox 
+# checkbox
 
 A simple checkbox component
 
 ```html
 <checkbox v-model="value"/>
-``` 
+```
 
-- **author** - Sébastien 
-- **license** - MIT 
-- **input** 
+- **author** - Sébastien
+- **license** - MIT
+- **input**
 
-## slots 
+## slots
 
-- `default` 
+- `default`
 
-- `label` Use this slot to set the checkbox label 
+- `label` Use this slot to set the checkbox label
 
-## props 
+## props
 
-- `model` ***Array*** (*required*) 
+- `model` ***Array*** (*required*)
 
-  The checkbox model 
+  The checkbox model
 
-- `disabled` ***Boolean*** (*optional*) 
+- `disabled` ***Boolean*** (*optional*)
 
-  Initial checkbox state 
+  Initial checkbox state
 
-- `enabled` ***Boolean*** (*optional*) `default: true` 
+- `enabled` ***Boolean*** (*optional*) `default: true`
 
-  Initial checkbox value 
+  Initial checkbox value
 
-- `label` ***String*** (*optional*) `default: 'Unamed checkbox'` 
+- `label` ***String*** (*optional*) `default: 'Unamed checkbox'`
 
-  The checkbox label 
+  The checkbox label
 
-- `object` ***CustomType*** (*optional*) `default: null` 
+- `object` ***CustomType*** (*optional*) `default: null`
 
-  The checkbox custom type object 
+  The checkbox custom type object
 
-- `bool-false` ***Boolean*** (*optional*) `default: false` 
+- `bool-false` ***Boolean*** (*optional*) `default: false`
 
-- `prop-with-default-as-keyword-but-without-default` ***Object*** (*optional*) `default: {}` 
+- `prop-with-default-as-keyword-but-without-default` ***Object*** (*optional*) `default: {}`
 
-- `prop-with-default-as-keyword` ***Object*** (*optional*) `default: {}` 
+- `prop-with-default-as-keyword` ***Object*** (*optional*) `default: {}`
 
-- `prop-with-empty-default-as-keyword` ***Object*** (*optional*) `default: [object Object]` 
+- `prop-with-empty-default-as-keyword` ***Object*** (*optional*)
 
-- `number-prop-with-default-as-keyword` ***Number*** (*optional*) `default: 0` 
+- `number-prop-with-default-as-keyword` ***Number*** (*optional*) `default: 0`
 
-- `string-prop-with-default-as-keyword` ***String*** (*optional*) `default: ''` 
+- `string-prop-with-default-as-keyword` ***String*** (*optional*) `default: ''`
 
-- `boolean-prop-with-default-as-keyword` ***Boolean*** (*optional*) `default: false` 
+- `boolean-prop-with-default-as-keyword` ***Boolean*** (*optional*) `default: false`
 
-- `array-prop-with-default-as-keyword` ***Array*** (*optional*) `default: empty array` 
+- `array-prop-with-default-as-keyword` ***Array*** (*optional*) `default: empty array`
 
-- `function-prop-with-default-as-keyword` ***Function*** (*optional*) `default: identity function` 
+- `function-prop-with-default-as-keyword` ***Function*** (*optional*) `default: identity function`
 
-- `prop-with-null-as-default-keyword` ***Object*** (*optional*) `default: null` 
+- `prop-with-null-as-default-keyword` ***Object*** (*optional*) `default: null`
 
-- `prop-with-undefined-as-default-keyword` ***Object*** (*optional*) `default: undefined` 
+- `prop-with-undefined-as-default-keyword` ***Object*** (*optional*) `default: undefined`
 
-## data 
+## data
 
-- `initialValue` 
+- `initialValue`
 
   The initial component value.
-  Used to detect changes and restore the initial value. 
+  Used to detect changes and restore the initial value.
 
-**initial value:** `''` 
+**initial value:** `''`
 
-- `currentValue` 
+- `currentValue`
 
-**initial value:** `''` 
+**initial value:** `''`
 
-## computed properties 
+## computed properties
 
-- `id` 
+- `id`
 
   The component identifier.
-  Generated using the `initialValue` data. 
+  Generated using the `initialValue` data.
 
-   **dependencies:** `initialValue` 
+   **dependencies:** `initialValue`
 
-- `changed` 
+- `changed`
 
-   **dependencies:** `currentValue`, `initialValue` 
+   **dependencies:** `currentValue`, `initialValue`
 
-- `withNoDependencies` 
+- `withNoDependencies`
 
-## events 
+## events
 
-- `loaded` 
+- `loaded`
 
-  Emitted when the component has been loaded 
+  Emitted when the component has been loaded
 
-- `enabled` 
+- `enabled`
 
   Emitted the event `enabled` when loaded
-  Multilign 
+  Multilign
 
-## methods 
+  **arguments:**
 
-- `check()` 
+    - `x`
 
-  Check if the input is checked 
+## methods
 
-- `prop()` 
+- `check()`
 
-- `dynamic()` 
+  Check if the input is checked
 
-  Make component dynamic 
+- `prop()`
 
-- `dynamic2()` 
+- `dynamic()`
 
-  Enter to dynamic mode 
+  Make component dynamic
 
-- `enable(value)` 
+- `dynamicMode()`
 
-  Enable the checkbox 
+  Enter to dynamic mode
+
+- `enable(value)`
+
+  Enable the checkbox
+
+  **parameters:**
+
+    - `value`
 

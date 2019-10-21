@@ -1,17 +1,33 @@
-# The vuedoc Markdown Documentation Generator
+# Vuedoc Markdown Documentation Generator
 
 Generate a Markdown Documentation for a Vue file
 
 [![npm](https://img.shields.io/npm/v/@vuedoc/md.svg)](https://www.npmjs.com/package/@vuedoc/md) [![Build status](https://gitlab.com/vuedoc/md/badges/master/build.svg)](https://gitlab.com/vuedoc/md/pipelines) [![Test coverage](https://gitlab.com/vuedoc/md/badges/master/coverage.svg)](https://gitlab.com/vuedoc/md/-/jobs)
 
+## Table of Contents
+
+- [Install](#install)
+- [Features](#features)
+- [Usage](#usage)
+- [Command line options](#command-line-options)
+- [Programmatic Usage](#programmatic-usage)
+- [Documentation Syntax](#documentation-syntax)
+- [Visibility Keywords](#visibility-keywords)
+- [Specific Keywords for Props](#specific-keywords-for-props)
+- [Examples](#examples)
+- [Related projects](#related-projects)
+- [Contribute](#contribute)
+- [Versioning](#versioning)
+- [License](#license)
+
 ## Install
 
 ```sh
 # using in your project
-npm install --save @vuedoc/md
+npm install --save @vuedoc/parser @vuedoc/md
 
 # using in command line
-npm install --global @vuedoc/md
+npm install --global @vuedoc/parser @vuedoc/md
 ```
 
 ## Features
@@ -139,44 +155,54 @@ Output:
 
 ```md
 # my-textarea 
+
 The custom HTML `<textarea>` component.
 
 - **author** - Sébastien 
 - **license** - MIT 
 
 ## props 
+
 - `v-model` ***String*** (*optional*) 
-Use this directive to create two-way data bindings with the component. It automatically picks the correct way to update the element based on the input type. 
+
+  Use this directive to create two-way data bindings with the component. It automatically picks the correct way to update the element based on the input type.
 
 - `id` ***String*** (*required*) 
-Defines a unique identifier (ID) which must be unique in the whole document. 
+
+  Defines a unique identifier (ID) which must be unique in the whole document.
 
 - `disable` ***Boolean*** (*optional*) `default: false` 
-This Boolean property indicates that the user cannot interact with the control. 
+
+  This Boolean property indicates that the user cannot interact with the control.
 
 - `theme` ***Object*** (*optional*) `default: new DefaultTextareaTheme()` 
-Define a custom theme for the component. 
+
+  Define a custom theme for the component.
 
 ## slots 
+
 - `label` Use this slot to set the label 
 
 - `default` Use this slot to set the default value 
 
 ## events 
+
 - `input` Fired when the value is changed. 
 
 - `keyup` Fired when a key is released. 
 
 ## methods 
+
 - `isEmpty()` 
-Define if the control value is empty of not.
+
+  Define if the control value is empty of not.
 ```
 
 ## Command line options
 
 ```sh
 --join                   # Combine generated documentation for multiple component files into only one
---level [integer]        # Set the title level. An integer betwen 1 and 6
+--level [integer]        # Set the title level. An integer between 1 and 6
 --output [file or dir]   # The output directory. If absent, the STDOUT will be used
 --section [section name] # Inject the generated documentation to a section. Works with `--output file`
 --ignore-name            # Ignore the component name on parsing
@@ -196,7 +222,7 @@ Define if the control value is empty of not.
 
 | name    | type    | description                                                                                                |
 |---------|---------|------------------------------------------------------------------------------------------------------------|
-| level   | integer | Set the title level. An integer betwen 1 and 6                                                             |
+| level   | integer | Set the title level. An integer between 1 and 6                                                            |
 | output  | string  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used |
 | section | string  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
 | join    | boolean | Combine generated documentation for multiple component files into only one                                 |
@@ -216,28 +242,111 @@ vuedoc.md(options)
   .catch((err) => console.error(err))
 ```
 
+## Documentation Syntax
+
+For the complete documentation syntax, please follow this link:
+
+- Vuedoc Syntax: https://gitlab.com/vuedoc/parser#syntax
+
 ## Visibility Keywords
 
-- `@public` By default all commented members are public; this mean they will be part of the documented members.
-- `@protected` Commented members with this will be ignored.
-- `@private` Commented members with this will be ignored.
+| Keywords      | Description
+|---------------|-----------------------------------------------------------------------------------------------------|
+| `@public`     | By default all commented members are public; this means they will be part of the documented members |
+| `@protected`  | Commented members with this will be ignored                                                         |
+| `@private`    | Commented members with this will be ignored                                                         |
 
-## Other Keyword
-- `@default {description}` Commented prop will use the provided description as default prop description. This option may be helpfull in case the prop type is an object or function.
-- `@type {typeName}` Commented prop will use provided type name as type instead of type in source code. This option may be helpfull in case the prop type is an object or a function, which you may want to further detail with `@typedef` in another place.
+**Example**
+
+```js
+export default {
+  name: 'CheckboxInput',
+  props: {
+    /**
+     * The input format callback
+     * @public
+     */
+    format: Function
+  },
+  methods: {
+    /**
+     * This will be ignored on parsing and rendering
+     * @private
+     */
+    validate() {},
+    /**
+     * This will be ignored on parsing and rendering
+     * @protected
+     */
+    commit() {}
+  }
+}
+```
+
+## Specific Keywords for Props
+
+- `@default {value}`: Commented prop will use the provided value as default prop description. This option may be helpful in case the prop type is an object or function
+- `@type {typeName}`: Commented prop will use provided type name as type instead of type in source code. This option may be helpful in case the prop type is an object or a function, which you may want to further detail with `@typedef` in another place
+
+**Example**
+
+```js
+export default {
+  name: 'TextInput',
+  props: {
+    /**
+     * The input format callback
+     * @type TextInput.FormatCallback
+     * @default value.trim()
+     */
+    format: {
+      type: Function,
+      default: (value = '') => `${value}`.trim()
+    }
+  }
+}
+```
 
 ## Examples
 
-`vuedoc.md` has been used to generate documentation of bellow components:
+Vuedoc Markdown has been used to generate documentation of bellow components:
+
+- `FormSchema Native`: [https://gitlab.com/formschema/native](https://gitlab.com/formschema/native)
 - `vx-input`: [https://gitlab.com/vx-components/input](https://gitlab.com/vx-components/input)
 - `vx-checkbox`: [https://gitlab.com/vx-components/checkbox](https://gitlab.com/vx-components/checkbox)
 - `vx-textarea`: [https://gitlab.com/vx-components/textarea](https://gitlab.com/vx-components/textarea)
-- `FormSchema Native`: [https://gitlab.com/formschema/native](https://gitlab.com/formschema/native)
 
 ## Related projects
 
 - `jsdoc-vuedoc`: [https://github.com/ccqgithub/jsdoc-vuedoc](https://github.com/ccqgithub/jsdoc-vuedoc)
 
+## Contribute
+
+Contributions to Vuedoc Markdown are welcome. Here is how you can contribute:
+
+1. [Submit bugs or a feature request](https://gitlab.com/vuedoc/md/issues) and
+   help us verify fixes as they are checked in
+2. Create your working branch from the `dev` branch: `git checkout dev -b feature/my-awesome-feature`
+3. Install development dependencies: `npm run install:dev`
+4. Write code for a bug fix or for your new awesome feature
+5. Write test cases for your changes
+6. [Submit merge requests](https://gitlab.com/vuedoc/md/merge_requests) for bug
+   fixes and features and discuss existing proposals
+
+## Versioning
+
+Given a version number `MAJOR.MINOR.PATCH`, increment the:
+
+- `MAJOR` version when you make incompatible API changes,
+- `MINOR` version when you add functionality in a backwards-compatible manner, and
+- `PATCH` version when you make backwards-compatible bug fixes.
+
+Additional labels for pre-release and build metadata are available as extensions to the `MAJOR.MINOR.PATCH` format.
+
+See [SemVer.org](https://semver.org/) for more details.
+
 ## License
 
-Under the MIT license. See [LICENSE](https://gitlab.com/vuedoc/md/blob/master/LICENSE) file for more details.
+Under the MIT license.
+See [LICENSE](https://gitlab.com/vuedoc/md/blob/master/LICENSE) file for more
+details.

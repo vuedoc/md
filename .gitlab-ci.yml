@@ -6,8 +6,11 @@ stages:
 
 code quality:
   stage: test
-  script:
+  before_script:
+    - apk add --no-cache git
     - npm ci
+    - npm i --no-save https://gitlab.com/vuedoc/parser.git#dev
+  script:
     - npm run lint
 
 npm outdated:
@@ -22,17 +25,14 @@ security scan:
   script:
     - npm audit --production
 
-test on nodejs lts:
-  stage: test
-  image: node:lts-alpine
-  script:
-    - npm it
-  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
-
 test & coverage:
   stage: test
+  before_script:
+    - apk add --no-cache git
+    - npm ci
+    - npm i --no-save https://gitlab.com/vuedoc/parser.git#dev
   script:
-    - npm it
+    - npm test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
     paths:
