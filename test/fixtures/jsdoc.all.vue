@@ -1,6 +1,16 @@
 <script>
   export default {
     name: 'checkbox',
+    created() {
+      const status = true
+
+      /**
+       * Emitted the event `created` when loaded
+       * Multilign
+       * @arg {*} status - The finishing status
+       */
+      this.$emit('created', status)
+    },
     methods: {
       /**
        * Set the checkbox ID

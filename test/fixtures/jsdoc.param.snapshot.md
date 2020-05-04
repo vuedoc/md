@@ -1,8 +1,6 @@
-# jsdoc.param
+# methods
 
-## methods
-
-### nameOnly()
+## nameOnly()
 
 Name only
 
@@ -16,7 +14,7 @@ nameOnly(somebody: any): void
 
 - **`somebody`**
 
-### nameAndType()
+## nameAndType()
 
 Name and type
 
@@ -30,7 +28,7 @@ nameAndType(somebody: string): void
 
 - **`somebody`**
 
-### nameTypeAndDescription()
+## nameTypeAndDescription()
 
 Name, type, and description
 
@@ -45,7 +43,7 @@ nameTypeAndDescription(somebody: string): void
 - **`somebody`**<br>
   Somebody's name.
 
-### nameTypeAndDescriptionWithHyphen()
+## nameTypeAndDescriptionWithHyphen()
 
 Name, type, and description, with a hyphen before the description
 
@@ -60,7 +58,7 @@ nameTypeAndDescriptionWithHyphen(somebody: string): void
 - **`somebody`**<br>
   Somebody's name.
 
-### withParameterProperties()
+## withParameterProperties()
 
 Assign the project to an employee.
 
@@ -81,7 +79,7 @@ withParameterProperties(employee: Object): void
 - **`employee.department`**<br>
   The employee's department.
 
-### withDestructuringParameter()
+## withDestructuringParameter()
 
 Assign the project to an employee.
 
@@ -102,7 +100,7 @@ withDestructuringParameter(employee: Object): void
 - **`employee.department`**<br>
   The employee's department.
 
-### withPropertiesOfValuesInAnArray()
+## withPropertiesOfValuesInAnArray()
 
 Assign the project to a list of employees.
 
@@ -123,7 +121,7 @@ withPropertiesOfValuesInAnArray(employees: Object[]): void
 - **`employees[].department`**<br>
   The employee's department.
 
-### withOptionalParameter()
+## withOptionalParameter()
 
 An optional parameter (using JSDoc syntax)
 
@@ -138,14 +136,14 @@ withOptionalParameter(somebody?: string): void
 - **`somebody`**<br>
   Somebody's name.
 
-### withOptionalParameterAndDefaultValue()
+## withOptionalParameterAndDefaultValue()
 
 An optional parameter and default value
 
 **Syntax**
 
 ```ts
-withOptionalParameterAndDefaultValue(somebody?: string = "John Doe"): void
+withOptionalParameterAndDefaultValue(somebody: string = 'John Doe'): void
 ```
 
 **Parameters**
@@ -153,14 +151,14 @@ withOptionalParameterAndDefaultValue(somebody?: string = "John Doe"): void
 - **`somebody`**<br>
   Somebody's name.
 
-### withMultipleType()
+## withMultipleType()
 
 Allows one type OR another type (type union)
 
 **Syntax**
 
 ```ts
-withMultipleType(somebody?: string | string[] = "John Doe"): void
+withMultipleType(somebody: string | string[] = John Doe): void
 ```
 
 **Parameters**
@@ -168,7 +166,7 @@ withMultipleType(somebody?: string | string[] = "John Doe"): void
 - **`somebody`**<br>
   Somebody's name, or an array of names.
 
-### withAnyType()
+## withAnyType()
 
 Allows any type
 
@@ -183,7 +181,7 @@ withAnyType(somebody: any): void
 - **`somebody`**<br>
   Whatever you want.
 
-### withSpreadNotation()
+## withSpreadNotation()
 
 Allows a parameter to be repeated.
 Returns the sum of all numbers passed to the function.
@@ -199,7 +197,7 @@ withSpreadNotation(...num: number[]): void
 - **`num`**<br>
   A positive or negative number.
 
-### doSomethingAsynchronously()
+## doSomethingAsynchronously()
 
 Does something asynchronously and executes the callback on completion.
 

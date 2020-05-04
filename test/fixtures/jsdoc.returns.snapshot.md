@@ -1,15 +1,13 @@
-# jsdoc.returns
+# methods
 
-## methods
-
-### withType()
+## withType()
 
 Returns the sum of a and b
 
 **Syntax**
 
 ```ts
-withType(a: number, b: number): any
+withType(a: number, b: number): number
 ```
 
 **Parameters**
@@ -18,11 +16,7 @@ withType(a: number, b: number): any
 
 - **`b`**
 
-**Return value**
-
-{number}
-
-### withMultipleType()
+## withMultipleType()
 
 Returns the sum of a and b
 
@@ -45,7 +39,7 @@ withMultipleType(a: number, b: number, retArr: boolean): number | Array
 
 Sum of a and b or an array that contains a, b and the sum of a and b.
 
-### withPromise()
+## withPromise()
 
 Returns the sum of a and b
 

@@ -4,18 +4,30 @@ const fs = require('fs')
 const path = require('path')
 const vuedoc = require('../..')
 
-function getFileContent(filename) {
-  const filepath = path.join(__dirname, '../fixtures', filename)
+function getFilePath(filename) {
+  return path.join(__dirname, '../fixtures', filename)
+}
 
-  return fs.readFileSync(filepath, 'utf8')
+function getFileContent(filename) {
+  return fs.readFileSync(getFilePath(filename), 'utf8')
 }
 
 const fixtures = [
+  'jsdoc.all',
   'jsdoc.param',
   'jsdoc.returns',
-  'mdn.string',
-  'mdn.regexp'
+  'mdn.event',
+  'mdn.regexp',
+  'mdn.string'
 ]
+
+// Update snapshots
+fixtures.forEach((fixture) => {
+  const filecontent = getFileContent(`${fixture}.vue`)
+  const snapshotFilename = getFilePath(`${fixture}.snapshot.md`)
+
+  vuedoc.md({ filecontent }).then((component) => fs.writeFileSync(snapshotFilename, component))
+})
 
 describe('snapshots', () => {
   fixtures.forEach((fixture) => it(`should successfully render ${fixture}`, () => {
