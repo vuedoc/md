@@ -12,6 +12,8 @@ module.exports = {
   'rules': {
     'comma-dangle': 'off',
     'semi': 'off',
+    'prefer-template': 'off',
+    'arrow-body-style': 'off',
     'no-restricted-globals': 'off',
     'no-continue': 'off',
     'no-fallthrough': 'off',
@@ -24,8 +26,8 @@ module.exports = {
     'max-len': [
       'error',
       {
-        code: 80,
-        comments: 100,
+        code: 120,
+        comments: 120,
         tabWidth: 2,
         ignoreUrls: true,
         ignoreRegExpLiterals: true,
