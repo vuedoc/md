@@ -431,29 +431,42 @@ describe('lib/cli', () => {
         const options = { join, filenames }
 
         const expected = [
-          '# checkbox\n\n',
-          'A simple checkbox component\n\n',
-          '- **author** - Sébastien\n',
-          '- **license** - MIT\n',
-          '- **input**\n\n',
-          '## slots\n\n',
-          '- `default`\n\n',
-          '- `label` Use this slot to set the checkbox label\n\n',
-          '## props\n\n',
-          '- `schema` ***[Object, Promise]*** (*required*)\n\n',
-          '  The JSON Schema object. Use the `v-if` directive\n\n',
-          '- `v-model` ***Object*** (*optional*) `default: {}`\n\n',
-          '  Use this directive to create two-way data bindings\n\n',
-          '- `model` ***Array*** (*required*)\n\n',
-          '  The checkbox model\n\n',
-          '- `disabled` ***Boolean*** (*optional*)\n\n',
-          '  Initial checkbox state\n\n',
-          '## events\n\n',
-          '- `created`\n\n',
-          '  Emitted when the component has been created\n\n',
-          '- `loaded`\n\n',
-          '  Emitted when the component has been loaded\n\n'
-        ].join('')
+          '# checkbox',
+          '',
+          'A simple checkbox component',
+          '',
+          '| Name      | Description |',
+          '| --------- | ----------- |',
+          '| `author`  | Sébastien   |',
+          '| `license` | MIT         |',
+          '| `input`   |             |',
+          '',
+          '',
+          '## slots',
+          '',
+          '| Name      | Description                             | Props |',
+          '| --------- | --------------------------------------- | ----- |',
+          '| `default` |                                         |       |',
+          '| `label`   | Use this slot to set the checkbox label |       |',
+          '',
+          '## props',
+          '',
+          '| Name                | Type                 | Description                                        | Default |',
+          '| ------------------- | -------------------- | -------------------------------------------------- | ------- |',
+          '| `schema` *required* | `Object` | `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+          '| `v-model`           | `Object`             | Use this directive to create two-way data bindings | `{}`    |',
+          '| `model` *required*  | `Array`              | The checkbox model                                 |         |',
+          '| `disabled`          | `Boolean`            | Initial checkbox state                             |         |',
+          '',
+          '## events',
+          '',
+          '| Name      | Description                                 | Arguments |',
+          '| --------- | ------------------------------------------- | --------- |',
+          '| `created` | Emitted when the component has been created |           |',
+          '| `loaded`  | Emitted when the component has been loaded  |           |',
+          '',
+          ''
+        ].join('\n')
 
         return cli.processWithOutputOption(options)
           .then(() => expect(streamContent).toBe(expected))
@@ -496,29 +509,42 @@ describe('lib/cli', () => {
       const options = { join, filenames }
 
       const expected = [
-        '# checkbox\n\n',
-        'A simple checkbox component\n\n',
-        '- **author** - Sébastien\n',
-        '- **license** - MIT\n',
-        '- **input**\n\n',
-        '## slots\n\n',
-        '- `default`\n\n',
-        '- `label` Use this slot to set the checkbox label\n\n',
-        '## props\n\n',
-        '- `schema` ***[Object, Promise]*** (*required*)\n\n',
-        '  The JSON Schema object. Use the `v-if` directive\n\n',
-        '- `v-model` ***Object*** (*optional*) `default: {}`\n\n',
-        '  Use this directive to create two-way data bindings\n\n',
-        '- `model` ***Array*** (*required*)\n\n',
-        '  The checkbox model\n\n',
-        '- `disabled` ***Boolean*** (*optional*)\n\n',
-        '  Initial checkbox state\n\n',
-        '## events\n\n',
-        '- `created`\n\n',
-        '  Emitted when the component has been created\n\n',
-        '- `loaded`\n\n',
-        '  Emitted when the component has been loaded\n\n'
-      ].join('')
+        '# checkbox',
+        '',
+        'A simple checkbox component',
+        '',
+        '| Name      | Description |',
+        '| --------- | ----------- |',
+        '| `author`  | Sébastien   |',
+        '| `license` | MIT         |',
+        '| `input`   |             |',
+        '',
+        '',
+        '## slots',
+        '',
+        '| Name      | Description                             | Props |',
+        '| --------- | --------------------------------------- | ----- |',
+        '| `default` |                                         |       |',
+        '| `label`   | Use this slot to set the checkbox label |       |',
+        '',
+        '## props',
+        '',
+        '| Name                | Type                 | Description                                        | Default |',
+        '| ------------------- | -------------------- | -------------------------------------------------- | ------- |',
+        '| `schema` *required* | `Object` | `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+        '| `v-model`           | `Object`             | Use this directive to create two-way data bindings | `{}`    |',
+        '| `model` *required*  | `Array`              | The checkbox model                                 |         |',
+        '| `disabled`          | `Boolean`            | Initial checkbox state                             |         |',
+        '',
+        '## events',
+        '',
+        '| Name      | Description                                 | Arguments |',
+        '| --------- | ------------------------------------------- | --------- |',
+        '| `created` | Emitted when the component has been created |           |',
+        '| `loaded`  | Emitted when the component has been loaded  |           |',
+        '',
+        ''
+      ].join('\n')
 
       return cli.processWithoutOutputOption(options)
         .then(() => expect(streamContent).toEqual(expected))
@@ -558,28 +584,40 @@ describe('lib/cli', () => {
     it('should successfully generate the joined components documentation', () => {
       const joinExpectedDoc = path.join(fixturesPath, 'join.expected.doc.md')
       const expected = [
-        'A simple checkbox component\n\n',
-        '- **author** - Sébastien\n',
-        '- **license** - MIT\n',
-        '- **input**\n\n',
-        '# slots\n\n',
-        '- `default`\n\n',
-        '- `label` Use this slot to set the checkbox label\n\n',
-        '# props\n\n',
-        '- `schema` ***[Object, Promise]*** (*required*)\n\n',
-        '  The JSON Schema object. Use the `v-if` directive\n\n',
-        '- `v-model` ***Object*** (*optional*) `default: {}`\n\n',
-        '  Use this directive to create two-way data bindings\n\n',
-        '- `model` ***Array*** (*required*)\n\n',
-        '  The checkbox model\n\n',
-        '- `disabled` ***Boolean*** (*optional*)\n\n',
-        '  Initial checkbox state\n\n',
-        '# events\n\n',
-        '- `created`\n\n',
-        '  Emitted when the component has been created\n\n',
-        '- `loaded`\n\n',
-        '  Emitted when the component has been loaded\n\n'
-      ].join('')
+        'A simple checkbox component',
+        '',
+        '| Name      | Description |',
+        '| --------- | ----------- |',
+        '| `author`  | Sébastien   |',
+        '| `license` | MIT         |',
+        '| `input`   |             |',
+        '',
+        '',
+        '# slots',
+        '',
+        '| Name      | Description                             | Props |',
+        '| --------- | --------------------------------------- | ----- |',
+        '| `default` |                                         |       |',
+        '| `label`   | Use this slot to set the checkbox label |       |',
+        '',
+        '# props',
+        '',
+        '| Name                | Type                 | Description                                        | Default |',
+        '| ------------------- | -------------------- | -------------------------------------------------- | ------- |',
+        '| `schema` *required* | `Object` | `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+        '| `v-model`           | `Object`             | Use this directive to create two-way data bindings | `{}`    |',
+        '| `model` *required*  | `Array`              | The checkbox model                                 |         |',
+        '| `disabled`          | `Boolean`            | Initial checkbox state                             |         |',
+        '',
+        '# events',
+        '',
+        '| Name      | Description                                 | Arguments |',
+        '| --------- | ------------------------------------------- | --------- |',
+        '| `created` | Emitted when the component has been created |           |',
+        '| `loaded`  | Emitted when the component has been loaded  |           |',
+        '',
+        ''
+      ].join('\n')
 
       const file1 = path.join(fixturesPath, 'join.component.1.js')
       const file2 = path.join(fixturesPath, 'join.component.2.vue')
@@ -600,8 +638,6 @@ describe('lib/cli', () => {
       assert.notEqual(streamContent.search(/Missing filename/), -1)
     })
 
-    it('should failed promise error catching', () => {
-      cli.silenceExec([notfoundfile])
-    })
+    it('should failed promise error catching', () => cli.silenceExec([notfoundfile]))
   })
 })
