@@ -12,7 +12,6 @@ A simple checkbox component
 | `license` | MIT         |
 | `input`   |             |
 
-
 ## slots
 
 | Name      | Description                             | Props |
@@ -55,7 +54,6 @@ A simple checkbox component
 | `id`                 | The component identifier. Generated using the `initialValue` data. | `initialValue`                 |
 | `changed`            |                                                                    | `currentValue`, `initialValue` |
 | `withNoDependencies` |                                                                    |                                |
-
 
 ## events
 
