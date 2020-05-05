@@ -80,7 +80,7 @@ describe('options', () => {
           "description": "The JSON Schema object. Use the `v-if` directive",
           "keywords": [],
           "name": "schema",
-          "type": "[Object, Promise]",
+          "type": ["Object", "Promise"],
           "nativeType": "__undefined__",
           "default": "__undefined__",
           "required": true,
@@ -161,6 +161,6 @@ describe('rendering', () => {
     const options = { filename }
     const expected = readFileSync(checkboxMd).toString()
 
-    return vuedoc.md(options).then((doc) => expect(doc).toBe(expected))
+    return vuedoc.md(options).then((doc) => expect(doc).toEqual(expected))
   })
 })
