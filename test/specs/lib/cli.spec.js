@@ -161,13 +161,13 @@ describe('lib/cli', () => {
       const options = ['--version', '-v']
 
       options.forEach((arg) => {
-        const args = [ arg ]
-        const proc = child.spawn(exec, args, { stdio: 'pipe' })
-
-        const { name, version } = require('../../../package.json')
-        const expected = `${name} v${version}\n`
-
         it(`should display package version with ${arg}`, (done) => {
+          const args = [ arg ]
+          const proc = child.spawn(exec, args, { stdio: 'pipe' })
+
+          const { name, version } = require('../../../package.json')
+          const expected = `${name} v${version}\n`
+
           proc.stderr.once('data', done)
 
           proc.stdout.once('data', (output) => {
