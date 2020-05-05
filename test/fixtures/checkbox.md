@@ -6,11 +6,9 @@ A simple checkbox component
 <checkbox v-model="value"/>
 ```
 
-| Name      | Description |
-| --------- | ----------- |
-| `author`  | Sébastien   |
-| `license` | MIT         |
-| `input`   |             |
+- **author** - Sébastien
+- **license** - MIT
+- **input**
 
 ## slots
 
