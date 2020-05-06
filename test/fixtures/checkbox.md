@@ -8,7 +8,6 @@ A simple checkbox component
 
 - **author** - Sébastien
 - **license** - MIT
-- **input**
 
 ## slots
 

@@ -1,4 +1,12 @@
 <script>
+/**
+ * This example demonstrates how to generate a MDN-like documentation
+ * for a method.
+ *
+ * The output is similar to:
+ * - [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match)
+ * - [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace)
+ */
 export default {
   name: 'string',
   methods: {

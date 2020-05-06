@@ -1,5 +1,10 @@
 # EventTarget
 
+This example demonstrates how to generate a MDN-like documentation
+for a method.
+
+The output is similar to [https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
+
 ## methods
 
 ### addEventListener()

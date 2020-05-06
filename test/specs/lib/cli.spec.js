@@ -372,7 +372,6 @@ describe('lib/cli', () => {
 
   describe('processWithOutputOption(options)', () => {
     const output = readmefile
-    const filenames = [ checkboxfile ]
 
     describe('should successfully generate the component documentation', () => {
       const voidfile = '/tmp/void.vue'

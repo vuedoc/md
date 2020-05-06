@@ -22,18 +22,20 @@ const fixtures = [
 ]
 
 // Update snapshots
-fixtures.forEach((fixture) => {
-  const filecontent = getFileContent(`${fixture}.vue`)
-  const snapshotFilename = getFilePath(`${fixture}.snapshot.md`)
+if (false) {
+  fixtures.forEach((fixture) => {
+    const filecontent = getFileContent(`${fixture}.example.vue`)
+    const snapshotFilename = getFilePath(`${fixture}.output.md`)
 
-  vuedoc.md({ filecontent }).then((component) => fs.writeFileSync(snapshotFilename, component))
-})
+    vuedoc.md({ filecontent }).then((component) => fs.writeFileSync(snapshotFilename, component))
+  })
+}
 
-describe('snapshots', () => {
+describe('examples', () => {
   fixtures.forEach((fixture) => it(`should successfully render ${fixture}`, () => {
-    const filecontent = getFileContent(`${fixture}.vue`)
-    const expected = getFileContent(`${fixture}.snapshot.md`)
+    const filecontent = getFileContent(`${fixture}.example.vue`)
+    const expected = getFileContent(`${fixture}.output.md`)
 
-    return vuedoc.md({ filecontent }).then((component) => expect(component).toMatchSnapshot(expected))
+    return vuedoc.md({ filecontent }).then((component) => expect(component).toEqual(expected))
   }))
 })

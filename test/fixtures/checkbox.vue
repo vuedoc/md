@@ -24,7 +24,6 @@ const boolFalse = false
  *
  * @author Sébastien
  * @license MIT
- * @input
  */
 export default {
   name: 'checkbox',
