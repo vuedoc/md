@@ -14,6 +14,7 @@ function getFileContent(filename) {
 
 const fixtures = [
   'textarea',
+  'checkbox',
   'jsdoc.all',
   'jsdoc.param',
   'jsdoc.returns',

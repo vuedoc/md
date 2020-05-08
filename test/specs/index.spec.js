@@ -1,14 +1,12 @@
 const assert = require('assert')
 const { join } = require('path')
-const { readFileSync } = require('fs')
 const { Parser } = require('@vuedoc/parser/lib/parser/Parser')
 
 const vuedoc = require('../..')
 
 /* global describe it beforeEach */
 
-const filename = join(__dirname, '../fixtures/checkbox.vue')
-const checkboxMd = join(__dirname, '../fixtures/checkbox.md')
+const filename = join(__dirname, '../fixtures/checkbox.example.vue')
 
 describe('options', () => {
   let doc = null
@@ -90,13 +88,8 @@ describe('options', () => {
           "kind": "prop",
           "visibility": "public",
           "description": "Use this directive to create two-way data bindings",
-          "keywords": [
-            {
-              "name": "model",
-              "description": ""
-            }
-          ],
-          "name": "v-model",
+          "keywords": [],
+          "name": "value",
           "type": "Object",
           "nativeType": "ArrowFunctionExpression",
           "default": "{}",
@@ -153,14 +146,5 @@ describe('options', () => {
     }
 
     return vuedoc.join(options).then((ast) => assert.deepEqual(ast, expected))
-  })
-})
-
-describe('rendering', () => {
-  it('should successfully render component to markdown', () => {
-    const options = { filename }
-    const expected = readFileSync(checkboxMd).toString()
-
-    return vuedoc.md(options).then((doc) => expect(doc).toEqual(expected))
   })
 })

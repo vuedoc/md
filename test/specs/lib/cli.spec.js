@@ -10,7 +10,7 @@ const cli = require('../../../lib/cli')
 const fixturesPath = path.join(__dirname, '../../fixtures')
 const readmefile = path.join(fixturesPath, 'README.md')
 const notfoundfile = path.join(fixturesPath, 'notfound.vue')
-const checkboxfile = path.join(fixturesPath, 'checkbox.vue')
+const checkboxfile = path.join(fixturesPath, 'checkbox.example.vue')
 
 let streamContent = ''
 

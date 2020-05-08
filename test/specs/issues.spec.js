@@ -25,9 +25,9 @@ describe('issues', () => {
       const expected = [
         '# props',
         '',
-        '| Name    | Type      | Description | Default     |',
-        '| ------- | --------- | ----------- | ----------- |',
-        '| `value` | `Boolean` |             | `undefined` |'
+        '| Name      | Type      | Description | Default     |',
+        '| --------- | --------- | ----------- | ----------- |',
+        '| `v-model` | `Boolean` |             | `undefined` |'
       ].join('\n')
 
       return vuedoc.md(options).then((doc) => expect(doc.trim()).toEqual(expected))

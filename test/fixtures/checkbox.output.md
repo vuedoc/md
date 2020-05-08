@@ -54,10 +54,10 @@ A simple checkbox component
 
 ## events
 
-| Name      | Description                                       | Arguments      |
-| --------- | ------------------------------------------------- | -------------- |
-| `loaded`  | Emitted when the component has been loaded        |                |
-| `enabled` | Emitted the event `enabled` when loaded Multilign | **`x`**: *any* |
+| Name      | Description                                       | Arguments    |
+| --------- | ------------------------------------------------- | ------------ |
+| `loaded`  | Emitted when the component has been loaded        |              |
+| `enabled` | Emitted the event `enabled` when loaded Multilign | **`x: any`** |
 
 ## methods
 
