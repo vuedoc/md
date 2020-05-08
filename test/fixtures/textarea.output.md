@@ -7,9 +7,10 @@ The custom HTML `<textarea>` component.
 
 ## Slots
 
-| Name    | Description                    | Props |
-| ------- | ------------------------------ | ----- |
-| `label` | Use this slot to set the label |       |
+| Name      | Description                                  | Props |
+| --------- | -------------------------------------------- | ----- |
+| `label`   | Use this slot to set the label               |       |
+| `default` | Use this slot to set the preview placeholder |       |
 
 ## Props
 

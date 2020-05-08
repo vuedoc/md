@@ -4,10 +4,11 @@
       <!-- Use this slot to set the label -->
       <slot name="label"></slot>
     </label>
-    <textarea :id="id" v-on:keyup="keyup" v-on:input="input">
-      <!-- Use this slot to set the default value -->
+    <textarea :id="id" v-on:keyup="keyup" v-on:input="input"/>
+    <div class="preview">
+      <!-- Use this slot to set the preview placeholder -->
       <slot></slot>
-    </textarea>
+    </div>
   </div>
 </template>
 
