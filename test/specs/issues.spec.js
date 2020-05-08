@@ -23,7 +23,7 @@ describe('issues', () => {
 
       const options = { filecontent }
       const expected = [
-        '# props',
+        '# Props',
         '',
         '| Name      | Type      | Description | Default     |',
         '| --------- | --------- | ----------- | ----------- |',

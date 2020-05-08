@@ -1,6 +1,6 @@
 # jsdoc.param.example
 
-## methods
+## Methods
 
 ### nameOnly()
 

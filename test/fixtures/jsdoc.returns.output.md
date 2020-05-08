@@ -1,6 +1,6 @@
 # jsdoc.returns.example
 
-## methods
+## Methods
 
 ### withType()
 

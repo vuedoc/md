@@ -1,13 +1,13 @@
 # checkbox
 
-## events
+## Events
 
 | Name       | Description                                        | Arguments                                |
 | ---------- | -------------------------------------------------- | ---------------------------------------- |
 | `created`  | Emitted the event `created` when loaded Multilign  | **`status: any`** — The finishing status |
 | `finished` | Emitted the event `finished` when loaded Multilign | **`status: any`** — The finishing status |
 
-## methods
+## Methods
 
 ### set()
 

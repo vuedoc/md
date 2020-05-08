@@ -5,13 +5,13 @@ The custom HTML `<textarea>` component.
 - **author** - Sébastien
 - **license** - MIT
 
-## slots
+## Slots
 
 | Name    | Description                    | Props |
 | ------- | ------------------------------ | ----- |
 | `label` | Use this slot to set the label |       |
 
-## props
+## Props
 
 | Name            | Type      | Description                                                                                                                                                  | Default                      |
 | --------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------- |
@@ -20,14 +20,14 @@ The custom HTML `<textarea>` component.
 | `disable`       | `Boolean` | This Boolean property indicates that the user cannot interact with the control.                                                                              | `false`                      |
 | `theme`         | `Object`  | Define a custom theme for the component.                                                                                                                     | `new DefaultTextareaTheme()` |
 
-## events
+## Events
 
 | Name    | Description                      | Arguments                               |
 | ------- | -------------------------------- | --------------------------------------- |
 | `input` | Fired when the value is changed. | **`value: string`** — The updated value |
 | `keyup` | Fired when a key is released.    |                                         |
 
-## methods
+## Methods
 
 ### isEmpty()
 

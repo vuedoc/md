@@ -9,14 +9,14 @@ A simple checkbox component
 - **author** - Sébastien
 - **license** - MIT
 
-## slots
+## Slots
 
 | Name      | Description                             | Props |
 | --------- | --------------------------------------- | ----- |
 | `default` |                                         |       |
 | `label`   | Use this slot to set the checkbox label |       |
 
-## props
+## Props
 
 | Name                                               | Type       | Description                     | Default             |
 | -------------------------------------------------- | ---------- | ------------------------------- | ------------------- |
@@ -37,14 +37,14 @@ A simple checkbox component
 | `prop-with-null-as-default-keyword`                | `Object`   |                                 | `null`              |
 | `prop-with-undefined-as-default-keyword`           | `Object`   |                                 | `undefined`         |
 
-## data
+## Data
 
 | Name           | Type     | Description                                                                        | Initial value |
 | -------------- | -------- | ---------------------------------------------------------------------------------- | ------------- |
 | `initialValue` | `string` | The initial component value. Used to detect changes and restore the initial value. |               |
 | `currentValue` | `string` |                                                                                    |               |
 
-## computed properties
+## Computed Properties
 
 | Name                 | Description                                                        | Dependencies                   |
 | -------------------- | ------------------------------------------------------------------ | ------------------------------ |
@@ -52,14 +52,14 @@ A simple checkbox component
 | `changed`            |                                                                    | `currentValue`, `initialValue` |
 | `withNoDependencies` |                                                                    |                                |
 
-## events
+## Events
 
 | Name      | Description                                       | Arguments    |
 | --------- | ------------------------------------------------- | ------------ |
 | `loaded`  | Emitted when the component has been loaded        |              |
 | `enabled` | Emitted the event `enabled` when loaded Multilign | **`x: any`** |
 
-## methods
+## Methods
 
 ### check()
 
