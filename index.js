@@ -2,7 +2,6 @@
 const vuedoc = require('@vuedoc/parser')
 const markdown = require('./lib/markdown')
 
-// eslint-disable-next-line max-len
 module.exports.render = (options) => (component) => new Promise((resolve, reject) => {
   if (component.errors.length) {
     reject(component.errors[0])
@@ -25,11 +24,7 @@ module.exports.render = (options) => (component) => new Promise((resolve, reject
 module.exports.join = (options) => {
   /* eslint-disable-next-line global-require */
   const merge = require('deepmerge')
-
-  /* eslint-disable-next-line arrow-body-style */
-  const parsers = options.filenames.map((filename) => {
-    return vuedoc.parse({ ...options, filename })
-  })
+  const parsers = options.filenames.map((filename) => vuedoc.parse({ ...options, filename }))
 
   return Promise.all(parsers).then(merge.all)
 }

@@ -13,6 +13,7 @@ function getFileContent(filename) {
 }
 
 const fixtures = [
+  'textarea',
   'jsdoc.all',
   'jsdoc.param',
   'jsdoc.returns',
@@ -24,18 +25,18 @@ const fixtures = [
 // Update snapshots
 if (false) {
   fixtures.forEach((fixture) => {
-    const filecontent = getFileContent(`${fixture}.example.vue`)
+    const filename = getFilePath(`${fixture}.example.vue`)
     const snapshotFilename = getFilePath(`${fixture}.output.md`)
 
-    vuedoc.md({ filecontent }).then((component) => fs.writeFileSync(snapshotFilename, component))
+    vuedoc.md({ filename }).then((component) => fs.writeFileSync(snapshotFilename, component))
   })
 }
 
 describe('examples', () => {
   fixtures.forEach((fixture) => it(`should successfully render ${fixture}`, () => {
-    const filecontent = getFileContent(`${fixture}.example.vue`)
+    const filename = getFilePath(`${fixture}.example.vue`)
     const expected = getFileContent(`${fixture}.output.md`)
 
-    return vuedoc.md({ filecontent }).then((component) => expect(component).toEqual(expected))
+    return vuedoc.md({ filename }).then((component) => expect(component).toEqual(expected))
   }))
 })
