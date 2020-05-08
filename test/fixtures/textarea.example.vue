@@ -4,9 +4,8 @@
       <!-- Use this slot to set the label -->
       <slot name="label"></slot>
     </label>
-    <textarea :id="id" v-on:keyup="keyup" v-on:input="input"/>
-    <div class="preview">
-      <!-- Use this slot to set the preview placeholder -->
+    <div class="editor" contenteditable="true">
+      <!-- Use this slot to set the textarea value -->
       <slot></slot>
     </div>
   </div>
