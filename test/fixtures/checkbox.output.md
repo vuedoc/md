@@ -11,10 +11,10 @@ A simple checkbox component
 
 ## Slots
 
-| Name      | Description                             | Props |
-| --------- | --------------------------------------- | ----- |
-| `default` |                                         |       |
-| `label`   | Use this slot to set the checkbox label |       |
+| Name      | Description                             |
+| --------- | --------------------------------------- |
+| `default` |                                         |
+| `label`   | Use this slot to set the checkbox label |
 
 ## Props
 
@@ -39,10 +39,10 @@ A simple checkbox component
 
 ## Data
 
-| Name           | Type     | Description                                                                        | Initial value |
-| -------------- | -------- | ---------------------------------------------------------------------------------- | ------------- |
-| `initialValue` | `string` | The initial component value. Used to detect changes and restore the initial value. |               |
-| `currentValue` | `string` |                                                                                    |               |
+| Name           | Type     | Description                                                                        |
+| -------------- | -------- | ---------------------------------------------------------------------------------- |
+| `initialValue` | `string` | The initial component value. Used to detect changes and restore the initial value. |
+| `currentValue` | `string` |                                                                                    |
 
 ## Computed Properties
 

@@ -73,11 +73,16 @@
        * This will be ignored on rendering
        * @private
        */
-      keyup (e) {
+      keyup(e) {
         /**
          * Fired when a key is released.
+         * @bubbles Yes
+         * @cancelable Yes
+         * @interface [KeyboardEvent](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)
+         * @EventHandlerProperty [onkeyup](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onkeyup)
+         * @param {KeyboardEvent} event - Object describes a user interaction with the keyboard
          */
-        this.$emit('keyup')
+        this.$emit('keyup', e)
       }
     }
   }

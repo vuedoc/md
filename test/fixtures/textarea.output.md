@@ -7,10 +7,10 @@ The custom HTML `<textarea>` component.
 
 ## Slots
 
-| Name      | Description                             | Props |
-| --------- | --------------------------------------- | ----- |
-| `label`   | Use this slot to set the label          |       |
-| `default` | Use this slot to set the textarea value |       |
+| Name      | Description                             |
+| --------- | --------------------------------------- |
+| `label`   | Use this slot to set the label          |
+| `default` | Use this slot to set the textarea value |
 
 ## Props
 
@@ -23,10 +23,10 @@ The custom HTML `<textarea>` component.
 
 ## Events
 
-| Name    | Description                      | Arguments                               |
-| ------- | -------------------------------- | --------------------------------------- |
-| `input` | Fired when the value is changed. | **`value: string`** — The updated value |
-| `keyup` | Fired when a key is released.    |                                         |
+| Name    | Description                      | Arguments                                                                          |
+| ------- | -------------------------------- | ---------------------------------------------------------------------------------- |
+| `input` | Fired when the value is changed. | **`value: string`** — The updated value                                            |
+| `keyup` | Fired when a key is released.    | **`event: KeyboardEvent`** — Object describes a user interaction with the keyboard |
 
 ## Methods
 
