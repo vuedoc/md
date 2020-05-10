@@ -51,17 +51,17 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
       <!-- Use this slot to set the label -->
       <slot name="label"></slot>
     </label>
-    <textarea :id="id" v-on:keyup="keyup" v-on:input="input">
-      <!-- Use this slot to set the default value -->
+    <div class="editor" contenteditable="true">
+      <!-- Use this slot to set the textarea value -->
       <slot></slot>
-    </textarea>
+    </div>
   </div>
 </template>
 
 <script>
   /**
    * The custom HTML `<textarea>` component.
-   * 
+   *
    * @author Sébastien
    * @license MIT
    */
@@ -100,14 +100,14 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
        * Define if the control value is empty of not.
        * @return {boolean} true if empty; otherwise false
        */
-      isEmpty() {
+      isEmpty () {
         return !this.value || this.value.length === 0
       },
       /**
        * This will be ignored on rendering
        * @private
        */
-      input(e) {
+      input (e) {
         this.value = e.target.value
 
         /**
@@ -127,7 +127,7 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
          * @cancelable Yes
          * @interface [KeyboardEvent](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)
          * @EventHandlerProperty [onkeyup](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onkeyup)
-         * @param {KeyboardEvent} event - The keyup event is fired when a key is released
+         * @param {KeyboardEvent} event - Object describes a user interaction with the keyboard
          */
         this.$emit('keyup', e)
       }
