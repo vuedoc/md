@@ -2,10 +2,10 @@
 
 ## Events
 
-| Name       | Description                                        | Arguments                                |
-| ---------- | -------------------------------------------------- | ---------------------------------------- |
-| `created`  | Emitted the event `created` when loaded Multilign  | **`status: any`** — The finishing status |
-| `finished` | Emitted the event `finished` when loaded Multilign | **`status: any`** — The finishing status |
+| Name       | Description                                                                                                                       |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `created`  | Emitted the event `created` when loaded Multilign<br>**Arguments**<br><ul><li>**`status: any`** — The finishing status</li></ul>  |
+| `finished` | Emitted the event `finished` when loaded Multilign<br>**Arguments**<br><ul><li>**`status: any`** — The finishing status</li></ul> |
 
 ## Methods
 
