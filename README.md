@@ -100,21 +100,19 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
        * Define if the control value is empty of not.
        * @return {boolean} true if empty; otherwise false
        */
-      isEmpty () {
-        return !this.value || this.value.length === 0
+      isEmpty() {
+        return !this.value || this.value.length === 0;
       },
       /**
        * This will be ignored on rendering
        * @private
        */
-      input (e) {
-        this.value = e.target.value
-
+      input(e) {
         /**
          * Fired when the value is changed.
          * @param {string} value - The updated value
          */
-        this.$emit('input', this.value)
+        this.$emit('input', this.value);
       },
       /**
        * This will be ignored on rendering
@@ -123,18 +121,20 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
       keyup(e) {
         /**
          * Fired when a key is released.
+         *
          * @bubbles Yes
          * @cancelable Yes
          * @interface [KeyboardEvent](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)
          * @EventHandlerProperty [onkeyup](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onkeyup)
+         *
          * @param {KeyboardEvent} event - Object describes a user interaction with the keyboard
          * @param {DOMString} event.code - The code value of the physical key represented by the event
          * @param {DOMString} event.key - The key value of the key represented by the event
          */
-        this.$emit('keyup', e)
+        this.$emit('keyup', e);
       }
     }
-  }
+  };
 </script>
 ```
 
