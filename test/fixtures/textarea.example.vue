@@ -81,6 +81,8 @@
          * @interface [KeyboardEvent](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)
          * @EventHandlerProperty [onkeyup](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onkeyup)
          * @param {KeyboardEvent} event - Object describes a user interaction with the keyboard
+         * @param {DOMString} event.code - The code value of the physical key represented by the event
+         * @param {DOMString} event.key - The key value of the key represented by the event
          */
         this.$emit('keyup', e)
       }

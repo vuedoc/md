@@ -23,10 +23,10 @@ The custom HTML `<textarea>` component.
 
 ## Events
 
-| Name    | Description                      | Arguments                                                                          |
-| ------- | -------------------------------- | ---------------------------------------------------------------------------------- |
-| `input` | Fired when the value is changed. | **`value: string`** — The updated value                                            |
-| `keyup` | Fired when a key is released.    | **`event: KeyboardEvent`** — Object describes a user interaction with the keyboard |
+| Name    | Description                      | Arguments                                                                                                                                                                                                                                                               |
+| ------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `input` | Fired when the value is changed. | **`value: string`** — The updated value                                                                                                                                                                                                                                 |
+| `keyup` | Fired when a key is released.    | - **`event: KeyboardEvent`** — Object describes a user interaction with the keyboard<br>- **`event.code: DOMString`** — The code value of the physical key represented by the event<br>- **`event.key: DOMString`** — The key value of the key represented by the event |
 
 ## Methods
 
