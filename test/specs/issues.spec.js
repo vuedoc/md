@@ -1,7 +1,6 @@
 'use strict'
 
 const vuedoc = require('../..')
-const path = require('path')
 
 /* global describe it expect */
 
