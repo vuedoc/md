@@ -2,7 +2,7 @@
 
 Generate a Markdown Documentation for a Vue file
 
-[![npm](https://img.shields.io/npm/v/@vuedoc/md.svg)](https://www.npmjs.com/package/@vuedoc/md) [![Build status](https://gitlab.com/vuedoc/md/badges/master/build.svg)](https://gitlab.com/vuedoc/md/pipelines) [![Test coverage](https://gitlab.com/vuedoc/md/badges/master/coverage.svg)](https://gitlab.com/vuedoc/md/-/jobs)
+[![npm](https://img.shields.io/npm/v/@vuedoc/md.svg)](https://www.npmjs.com/package/@vuedoc/md) [![Build status](https://gitlab.com/vuedoc/md/badges/master/pipeline.svg)](https://gitlab.com/vuedoc/md/pipelines) [![Test coverage](https://gitlab.com/vuedoc/md/badges/master/coverage.svg)](https://gitlab.com/vuedoc/md/-/jobs)
 
 ## Table of Contents
 
@@ -67,11 +67,14 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
    */
   export default {
     name: 'my-textarea',
+    model: {
+      prop: 'value',
+      event: 'input'
+    },
     props: {
       /**
        * Use this directive to create two-way data bindings with the component.
        * It automatically picks the correct way to update the element based on the input type.
-       * @model
        */
       value: { type: String },
       /**
@@ -97,13 +100,14 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
        * Define if the control value is empty of not.
        * @return {boolean} true if empty; otherwise false
        */
-      isEmpty () {
+      isEmpty() {
         return !this.value || this.value.length === 0
       },
       /**
+       * This will be ignored on rendering
        * @private
        */
-      input (e) {
+      input(e) {
         this.value = e.target.value
 
         /**
@@ -113,13 +117,19 @@ First use comments to document your component (see [test/fixtures/checkbox.vue](
         this.$emit('input', this.value)
       },
       /**
+       * This will be ignored on rendering
        * @private
        */
-      keyup (e) {
+      keyup(e) {
         /**
          * Fired when a key is released.
+         * @bubbles Yes
+         * @cancelable Yes
+         * @interface [KeyboardEvent](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)
+         * @EventHandlerProperty [onkeyup](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onkeyup)
+         * @param {KeyboardEvent} event - The keyup event is fired when a key is released
          */
-        this.$emit('keyup')
+        this.$emit('keyup', e)
       }
     }
   }
@@ -154,48 +164,51 @@ cat components/textarea.vue | vuedoc.md
 Output:
 
 ```md
-# my-textarea 
+# my-textarea
 
 The custom HTML `<textarea>` component.
 
-- **author** - Sébastien 
-- **license** - MIT 
+- **author** - Sébastien
+- **license** - MIT
 
-## props 
+## Slots
 
-- `v-model` ***String*** (*optional*) 
+| Name      | Description                             |
+| --------- | --------------------------------------- |
+| `label`   | Use this slot to set the label          |
+| `default` | Use this slot to set the textarea value |
 
-  Use this directive to create two-way data bindings with the component. It automatically picks the correct way to update the element based on the input type.
+## Props
 
-- `id` ***String*** (*required*) 
+| Name            | Type      | Description                                                                                                                                                  | Default                      |
+| --------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------- |
+| `v-model`       | `String`  | Use this directive to create two-way data bindings with the component. It automatically picks the correct way to update the element based on the input type. |                              |
+| `id` *required* | `String`  | Defines a unique identifier (ID) which must be unique in the whole document.                                                                                 |                              |
+| `disable`       | `Boolean` | This Boolean property indicates that the user cannot interact with the control.                                                                              | `false`                      |
+| `theme`         | `Object`  | Define a custom theme for the component.                                                                                                                     | `new DefaultTextareaTheme()` |
 
-  Defines a unique identifier (ID) which must be unique in the whole document.
+## Events
 
-- `disable` ***Boolean*** (*optional*) `default: false` 
+| Name    | Description                      | Arguments                                                                          |
+| ------- | -------------------------------- | ---------------------------------------------------------------------------------- |
+| `input` | Fired when the value is changed. | **`value: string`** — The updated value                                            |
+| `keyup` | Fired when a key is released.    | **`event: KeyboardEvent`** — Object describes a user interaction with the keyboard |
 
-  This Boolean property indicates that the user cannot interact with the control.
+## Methods
 
-- `theme` ***Object*** (*optional*) `default: new DefaultTextareaTheme()` 
+### isEmpty()
 
-  Define a custom theme for the component.
+Define if the control value is empty of not.
 
-## slots 
+**Syntax**
 
-- `label` Use this slot to set the label 
+```ts
+isEmpty(): boolean
+```
 
-- `default` Use this slot to set the default value 
+**Return value**
 
-## events 
-
-- `input` Fired when the value is changed. 
-
-- `keyup` Fired when a key is released. 
-
-## methods 
-
-- `isEmpty()` 
-
-  Define if the control value is empty of not.
+true if empty; otherwise false
 ```
 
 ## Command line options
@@ -285,8 +298,14 @@ export default {
 
 ## Specific Keywords for Props
 
-- `@default {value}`: Commented prop will use the provided value as default prop description. This option may be helpful in case the prop type is an object or function
-- `@type {typeName}`: Commented prop will use provided type name as type instead of type in source code. This option may be helpful in case the prop type is an object or a function, which you may want to further detail with `@typedef` in another place
+- `@default {value}`: Commented prop will use the provided value as default
+  prop description. This option may be helpful in case the prop type is an
+  object or function
+
+- `@type {typeName}`: Commented prop will use provided type name as type
+  instead of type in source code. This option may be helpful in case the prop
+  type is an object or a function, which you may want to further detail with
+  `@typedef` in another place
 
 **Example**
 
