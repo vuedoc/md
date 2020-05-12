@@ -32,4 +32,30 @@ describe('issues', () => {
       return vuedoc.md(options).then((doc) => expect(doc.trim()).toEqual(expected))
     })
   })
+
+  describe('#7 - Spread Operator not working in component methods', () => {
+    it('should parse without errors', () => {
+      const options = {
+        filecontent: `
+          <script>
+            import { mapActions, mapMutations, mapGetters } from 'vuex';
+
+            export default {
+              methods: {
+                ...mapActions(['storeAction']),
+                ...mapMutations(['storeMutation']),
+              },
+              computed: {
+                ...mapGetters(['storeGetter']),
+              }
+            }
+          </script>
+        `
+      }
+
+      const expected = [].join('\n')
+
+      return vuedoc.md(options).then((doc) => expect(doc.trim()).toEqual(expected))
+    })
+  })
 })
