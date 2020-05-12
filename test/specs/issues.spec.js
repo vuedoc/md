@@ -58,4 +58,37 @@ describe('issues', () => {
       return vuedoc.md(options).then((doc) => expect(doc.trim()).toEqual(expected))
     })
   })
+
+  describe('#27 - feat: consider handling local functions as not part of the component doc', () => {
+    it('should parse without errors', () => {
+      const options = {
+        filecontent: `
+          <template>
+            <div />
+          </template>
+
+          <script>
+            export default {
+
+            }
+
+            /**
+             * @protected
+             * some description
+             */
+            function someLocalFunction  (params) {
+
+            }
+          </script>
+
+          <style lang="css" scoped>
+          </style>
+        `
+      }
+
+      const expected = [].join('\n')
+
+      return vuedoc.md(options).then((doc) => expect(doc.trim()).toEqual(expected))
+    })
+  })
 })
