@@ -109,7 +109,3 @@ Enable the checkbox
 enable(value: any): void
 ```
 
-**Parameters**
-
-- **`value`**
-

@@ -12,10 +12,6 @@ Name only
 nameOnly(somebody: any): void
 ```
 
-**Parameters**
-
-- **`somebody`**
-
 ### nameAndType()
 
 Name and type
@@ -25,10 +21,6 @@ Name and type
 ```ts
 nameAndType(somebody: string): void
 ```
-
-**Parameters**
-
-- **`somebody`**
 
 ### nameTypeAndDescription()
 

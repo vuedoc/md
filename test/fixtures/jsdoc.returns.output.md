@@ -12,12 +12,6 @@ Returns the sum of a and b
 withType(a: number, b: number): number
 ```
 
-**Parameters**
-
-- **`a`**
-
-- **`b`**
-
 ### withMultipleType()
 
 Returns the sum of a and b
@@ -50,12 +44,6 @@ Returns the sum of a and b
 ```ts
 withPromise(a: number, b: number): Promise
 ```
-
-**Parameters**
-
-- **`a`**
-
-- **`b`**
 
 **Return value**
 
