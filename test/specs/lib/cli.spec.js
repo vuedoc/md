@@ -9,6 +9,7 @@ const { spawn } = require('child_process')
 const cli = require('../../../lib/cli')
 const fixturesPath = path.join(__dirname, '../../fixtures')
 const readmefile = path.join(fixturesPath, 'README.md')
+const readme2file = path.join(fixturesPath, 'README2.md')
 const notfoundfile = path.join(fixturesPath, 'notfound.vue')
 const checkboxfile = path.join(fixturesPath, 'checkbox.example.vue')
 
@@ -56,6 +57,14 @@ fs.$setMockFiles({
     '# Sample\n\n',
     'Description\n\n',
     '# API\n',
+    '**WIP**\n\n',
+    '# License\n\n',
+    'MIT'
+  ].join(''),
+  [readme2file]: [
+    '# Sample\n\n',
+    'Description\n\n',
+    '###### API\n',
     '**WIP**\n\n',
     '# License\n\n',
     'MIT'
@@ -385,6 +394,25 @@ describe('lib/cli', () => {
           'Description\n\n',
           '# API\n\n',
           '## void\n\n',
+          'Void component\n\n',
+          '# License\n\n',
+          'MIT\n'
+        ].join('')
+
+        return cli.processWithOutputOption(options).then(() => {
+          expect(fs.readFileSync(output, 'utf8')).toEqual(expected)
+        })
+      })
+
+      it('with --section and implicit level === 6', () => {
+        const section = 'API'
+        const output = readme2file
+        const options = { output, filenames, section }
+        const expected = [
+          '# Sample\n\n',
+          'Description\n\n',
+          '###### API\n\n',
+          '###### void\n\n',
           'Void component\n\n',
           '# License\n\n',
           'MIT\n'

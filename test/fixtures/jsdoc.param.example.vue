@@ -91,7 +91,7 @@ export default Vue.extend({
 
     /**
      * An optional parameter and default value
-    * @param {string} [somebody=John Doe] - Somebody's name.
+    * @param {string} [somebody='John Doe'] - Somebody's name.
     */
     withOptionalParameterAndDefaultValue(somebody) {
         if (!somebody) {

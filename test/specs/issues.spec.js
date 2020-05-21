@@ -91,4 +91,55 @@ describe('issues', () => {
       return vuedoc.md(options).then((doc) => expect(doc.trim()).toEqual(expected))
     })
   })
+
+  describe('#19 - vuedoc.md does not render default param values for function', () => {
+    it('should render default param values for function', () => {
+      const options = {
+        filecontent: `
+          <script>
+            export default {
+              methods: {
+                /**
+                 * Load the given \`schema\` with initial filled \`value\`
+                 * Use this to load async schema.
+                 *
+                 * @param {object} schema - The JSON Schema object to load
+                 * @param {Number|String|Array|Object|Boolean} model - The initial data for the schema.
+                 *
+                 * @Note \`model\` is not a two-way data bindings.
+                 * To get the form data, use the \`v-model\` directive.
+                 */
+                load (schema, model = undefined) {}
+              }
+            }
+          </script>
+        `
+      }
+
+      const expected = [
+        '# Methods',
+        '',
+        '## load()',
+        '',
+        'Load the given `schema` with initial filled `value`',
+        'Use this to load async schema.',
+        '',
+        '**Syntax**',
+        '',
+        '```ts',
+        'load(schema: object, model: Number | String | Array | Object | Boolean = undefined): void',
+        '```',
+        '',
+        '**Parameters**',
+        '',
+        '- **`schema`**<br>',
+        '  The JSON Schema object to load',
+        '',
+        '- **`model`**<br>',
+        '  The initial data for the schema.'
+      ].join('\n')
+
+      return vuedoc.md(options).then((doc) => expect(doc.trim()).toEqual(expected))
+    })
+  })
 })
