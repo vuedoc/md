@@ -267,12 +267,12 @@ export default {
 
 Vuedoc Markdown has been used to generate documentation of bellow components:
 
-| Component file                                                   | Output                                                         |
-|------------------------------------------------------------------|----------------------------------------------------------------|
-| [textarea.example.vue](test/fixtures/textarea.example.vue)       | [textarea.example.md](test/fixtures/textarea.example.md)       |
-| [mdn.string.example.vue](test/fixtures/mdn.string.example.vue)   | [mdn.string.example.md](test/fixtures/mdn.string.example.md)   |
-| [mdn.regexp.example.vue](test/fixtures/mdn.regexp.example.vue)   | [mdn.regexp.example.md](test/fixtures/.example.md)             |
-| [jsdoc.param.example.vue](test/fixtures/jsdoc.param.example.vue) | [jsdoc.param.example.md](test/fixtures/jsdoc.param.example.md) |
+| Component file                                                   | Markdown output                                              |
+|------------------------------------------------------------------|--------------------------------------------------------------|
+| [textarea.example.vue](test/fixtures/textarea.example.vue)       | [textarea.output.md](test/fixtures/textarea.output.md)       |
+| [mdn.string.example.vue](test/fixtures/mdn.string.example.vue)   | [mdn.string.output.md](test/fixtures/mdn.string.output.md)   |
+| [mdn.regexp.example.vue](test/fixtures/mdn.regexp.example.vue)   | [mdn.regexp.output.md](test/fixtures/.output.md)             |
+| [jsdoc.param.example.vue](test/fixtures/jsdoc.param.example.vue) | [jsdoc.param.output.md](test/fixtures/jsdoc.param.output.md) |
 
 Find more examples here: [test/fixtures](test/fixtures)
 
