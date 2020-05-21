@@ -30,7 +30,7 @@ A simple checkbox component
 | `prop-with-default-as-keyword`                     | `Object`   |                                 | `{}`                |
 | `prop-with-empty-default-as-keyword`               | `Object`   |                                 |                     |
 | `number-prop-with-default-as-keyword`              | `Number`   |                                 | `0`                 |
-| `string-prop-with-default-as-keyword`              | `String`   |                                 | `''` *empty string* |
+| `string-prop-with-default-as-keyword`              | `String`   |                                 | `''`                |
 | `boolean-prop-with-default-as-keyword`             | `Boolean`  |                                 | `false`             |
 | `array-prop-with-default-as-keyword`               | `Array`    |                                 | `empty array`       |
 | `function-prop-with-default-as-keyword`            | `Function` |                                 | `identity function` |
