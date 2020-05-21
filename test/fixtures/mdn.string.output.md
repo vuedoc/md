@@ -32,14 +32,14 @@ str.match(regexp)
 
 **Parameters**
 
-- **`regexp`**<br>
+- **`regexp: regexp`**<br>
   A regular expression object.
 
 **Return value**
 
 An Array whose contents depend on the presence or absence of the global (g) flag, or null if no matches are found.
 
-### String.prototype.replace()
+### Textarea.replace()
 
 The `replace()` method returns a new string with some or all matches of
 a `pattern` replaced by a `replacement`. The `pattern` can be a string
@@ -50,6 +50,7 @@ occurrence will be replaced.
 The original string is left unchanged.
 
 **Example**
+
 ```js
 const p = 'The quick brown fox jumps over the lazy dog. If the dog reacted, was it really lazy?';
 const regex = /dog/gi;
@@ -64,21 +65,21 @@ console.log(p.replace('dog', 'monkey'));
 **Syntax**
 
 ```ts
-const newStr = str.replace(regexp|substr, newSubstr|function)
+const newStr = str.replace(pattern|substr, newSubstr|callback)
 ```
 
 **Parameters**
 
-- **`regexp`**<br>
+- **`pattern: RegExp`**<br>
   A RegExp object or literal. The match or matches are replaced with newSubstr or the value returned by the specified function.
 
-- **`substr`**<br>
+- **`substr: String`**<br>
   A String that is to be replaced by newSubstr. It is treated as a literal string and is not interpreted as a regular expression. Only the first occurrence will be replaced.
 
-- **`newSubstr`**<br>
+- **`newSubstr: String`**<br>
   The String that replaces the substring specified by the specified regexp or substr parameter. A number of special replacement patterns are supported; see the "Specifying a string as a parameter" section below.
 
-- **`function`**<br>
+- **`callback: Function`**<br>
   A function to be invoked to create the new substring to be used to replace the matches to the given regexp or substr. The arguments supplied to this function are described in the "Specifying a function as a parameter" section below.
 
 **Return value**
