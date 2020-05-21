@@ -14,6 +14,7 @@ Generate a Markdown Documentation for a Vue file
 - [Documentation Syntax](#documentation-syntax)
 - [Visibility Keywords](#visibility-keywords)
 - [Specific Keywords for Props](#specific-keywords-for-props)
+- [Specific Keywords for Methods](#specific-keywords-for-methods)
 - [Examples](#examples)
   * [Generate a documentation for an SFC component](#generate-a-documentation-for-an-sfc-component)
   * [Generate a MDN-like documentation for a method](#generate-a-mdn-like-documentation-for-a-method)
@@ -261,6 +262,34 @@ export default {
       type: Function,
       default: (value = '') => `${value}`.trim()
     }
+  }
+}
+```
+
+## Specific Keywords for Methods
+
+- `@method {name}`: Use this to set a custom method name
+- `@syntax {string}`: Use this to set a custom method syntax
+
+**Example**
+
+```js
+export default {
+  name: 'TextInput',
+  methods: {
+    /**
+     * This use `@method` to set a custom method name and syntax
+     * @method String.prototype.match
+     * @syntax str.match(regexp)
+     */
+    match(regexp) {},
+    /**
+     * Multiple `@syntax` keywords can be used to define a multiline syntax content
+     * @syntax target.addEventListener(type, listener [, options]);
+     * @syntax target.addEventListener(type, listener [, useCapture]);
+     * @syntax target.addEventListener(type, listener [, useCapture, wantsUntrusted  ]); // Gecko/Mozilla only
+     */
+    addEventListener(type, listener, options, useCapture) {}
   }
 }
 ```
