@@ -15,7 +15,7 @@ Generate a Markdown Documentation for a Vue file
 - [Visibility Keywords](#visibility-keywords)
 - [Specific Keywords for Props](#specific-keywords-for-props)
 - [Examples](#examples)
-  * [Generate a document for an SFC component](#generate-a-document-for-an-sfc-component)
+  * [Generate a documentation for an SFC component](#generate-a-documentation-for-an-sfc-component)
   * [Generate a MDN-like documentation for a method](#generate-a-mdn-like-documentation-for-a-method)
 - [Related projects](#related-projects)
 - [Contribute](#contribute)
@@ -269,7 +269,7 @@ export default {
 
 Vuedoc Markdown has been used to generate documentation of bellow components:
 
-### Generate a document for an SFC component
+### Generate a documentation for an SFC component
 
 | Component file                                                            | Markdown output                                                       |
 |---------------------------------------------------------------------------|-----------------------------------------------------------------------|
