@@ -15,6 +15,8 @@ Generate a Markdown Documentation for a Vue file
 - [Visibility Keywords](#visibility-keywords)
 - [Specific Keywords for Props](#specific-keywords-for-props)
 - [Examples](#examples)
+  * [Generate a document for an SFC component](#generate-a-document-for-an-sfc-component)
+  * [Generate a MDN-like documentation for a method](#generate-a-mdn-like-documentation-for-a-method)
 - [Related projects](#related-projects)
 - [Contribute](#contribute)
 - [Versioning](#versioning)
@@ -267,12 +269,17 @@ export default {
 
 Vuedoc Markdown has been used to generate documentation of bellow components:
 
+### Generate a document for an SFC component
+
+- **Component file**: [textarea.example.vue](test/fixtures/textarea.example.vue)
+- **Markdown output**: [textarea.output.md](test/fixtures/textarea.output.md)
+
+### Generate a MDN-like documentation for a method
+
 | Component file                                                   | Markdown output                                              |
 |------------------------------------------------------------------|--------------------------------------------------------------|
-| [textarea.example.vue](test/fixtures/textarea.example.vue)       | [textarea.output.md](test/fixtures/textarea.output.md)       |
 | [mdn.string.example.vue](test/fixtures/mdn.string.example.vue)   | [mdn.string.output.md](test/fixtures/mdn.string.output.md)   |
 | [mdn.regexp.example.vue](test/fixtures/mdn.regexp.example.vue)   | [mdn.regexp.output.md](test/fixtures/.output.md)             |
-| [jsdoc.param.example.vue](test/fixtures/jsdoc.param.example.vue) | [jsdoc.param.output.md](test/fixtures/jsdoc.param.output.md) |
 
 Find more examples here: [test/fixtures](test/fixtures)
 
