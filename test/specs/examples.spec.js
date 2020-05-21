@@ -24,7 +24,7 @@ const fixtures = [
 ]
 
 // Update snapshots
-if (false) {
+if (!false) {
   fixtures.forEach((fixture) => {
     const filename = getFilePath(`${fixture}.example.vue`)
     const snapshotFilename = getFilePath(`${fixture}.output.md`)

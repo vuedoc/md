@@ -13,44 +13,44 @@ A simple checkbox component
 
 | Name      | Description                             |
 | --------- | --------------------------------------- |
-| `default` |                                         |
+| `default` | &nbsp;                                  |
 | `label`   | Use this slot to set the checkbox label |
 
 ## Props
 
 | Name                                               | Type       | Description                     | Default             |
 | -------------------------------------------------- | ---------- | ------------------------------- | ------------------- |
-| `model` *required*                                 | `Array`    | The checkbox model              |                     |
-| `disabled`                                         | `Boolean`  | Initial checkbox state          |                     |
+| `model` *required*                                 | `Array`    | The checkbox model              | &nbsp;              |
+| `disabled`                                         | `Boolean`  | Initial checkbox state          | &nbsp;              |
 | `enabled`                                          | `Boolean`  | Initial checkbox value          | `true`              |
 | `label`                                            | `String`   | The checkbox label              | `Unamed checkbox`   |
 | `object`                                           | `Object`   | The checkbox custom type object | `null`              |
-| `bool-false`                                       | `Boolean`  |                                 | `false`             |
-| `prop-with-default-as-keyword-but-without-default` | `Object`   |                                 | `{}`                |
-| `prop-with-default-as-keyword`                     | `Object`   |                                 | `{}`                |
-| `prop-with-empty-default-as-keyword`               | `Object`   |                                 |                     |
-| `number-prop-with-default-as-keyword`              | `Number`   |                                 | `0`                 |
-| `string-prop-with-default-as-keyword`              | `String`   |                                 | `''`                |
-| `boolean-prop-with-default-as-keyword`             | `Boolean`  |                                 | `false`             |
-| `array-prop-with-default-as-keyword`               | `Array`    |                                 | `empty array`       |
-| `function-prop-with-default-as-keyword`            | `Function` |                                 | `identity function` |
-| `prop-with-null-as-default-keyword`                | `Object`   |                                 | `null`              |
-| `prop-with-undefined-as-default-keyword`           | `Object`   |                                 | `undefined`         |
+| `bool-false`                                       | `Boolean`  | &nbsp;                          | `false`             |
+| `prop-with-default-as-keyword-but-without-default` | `Object`   | &nbsp;                          | `{}`                |
+| `prop-with-default-as-keyword`                     | `Object`   | &nbsp;                          | `{}`                |
+| `prop-with-empty-default-as-keyword`               | `Object`   | &nbsp;                          | &nbsp;              |
+| `number-prop-with-default-as-keyword`              | `Number`   | &nbsp;                          | `0`                 |
+| `string-prop-with-default-as-keyword`              | `String`   | &nbsp;                          | `''`                |
+| `boolean-prop-with-default-as-keyword`             | `Boolean`  | &nbsp;                          | `false`             |
+| `array-prop-with-default-as-keyword`               | `Array`    | &nbsp;                          | `empty array`       |
+| `function-prop-with-default-as-keyword`            | `Function` | &nbsp;                          | `identity function` |
+| `prop-with-null-as-default-keyword`                | `Object`   | &nbsp;                          | `null`              |
+| `prop-with-undefined-as-default-keyword`           | `Object`   | &nbsp;                          | `undefined`         |
 
 ## Data
 
 | Name           | Type     | Description                                                                        |
 | -------------- | -------- | ---------------------------------------------------------------------------------- |
 | `initialValue` | `string` | The initial component value. Used to detect changes and restore the initial value. |
-| `currentValue` | `string` |                                                                                    |
+| `currentValue` | `string` | &nbsp;                                                                             |
 
 ## Computed Properties
 
-| Name                 | Description                                                        | Dependencies                   |
-| -------------------- | ------------------------------------------------------------------ | ------------------------------ |
-| `id`                 | The component identifier. Generated using the `initialValue` data. | `initialValue`                 |
-| `changed`            |                                                                    | `currentValue`, `initialValue` |
-| `withNoDependencies` |                                                                    |                                |
+| Name                 | Description                                                                                            |
+| -------------------- | ------------------------------------------------------------------------------------------------------ |
+| `id`                 | The component identifier. Generated using the `initialValue` data.<br>**Dependencies**: `initialValue` |
+| `changed`            | **Dependencies**: `currentValue`, `initialValue`                                                       |
+| `withNoDependencies` | &nbsp;                                                                                                 |
 
 ## Events
 
