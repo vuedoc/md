@@ -271,15 +271,18 @@ Vuedoc Markdown has been used to generate documentation of bellow components:
 
 ### Generate a document for an SFC component
 
-- **Component file**: [textarea.example.vue](test/fixtures/textarea.example.vue)
-- **Markdown output**: [textarea.output.md](test/fixtures/textarea.output.md)
+| Component file                                                            | Markdown output                                                       |
+|---------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| [test/fixtures/checkbox.example.vue](test/fixtures/checkbox.example.vue)  | [test/fixtures/checkbox.output.md](test/fixtures/checkbox.output.md)  |
+| [test/fixtures/textarea.example.vue](test/fixtures/textarea.example.vue)  | [test/fixtures/textarea.output.md](test/fixtures/textarea.output.md)  |
 
 ### Generate a MDN-like documentation for a method
 
-| Component file                                                   | Markdown output                                              |
-|------------------------------------------------------------------|--------------------------------------------------------------|
-| [mdn.string.example.vue](test/fixtures/mdn.string.example.vue)   | [mdn.string.output.md](test/fixtures/mdn.string.output.md)   |
-| [mdn.regexp.example.vue](test/fixtures/mdn.regexp.example.vue)   | [mdn.regexp.output.md](test/fixtures/.output.md)             |
+| Component file                                                                | Markdown output                                                           |
+|-------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| [test/fixtures/mdn.event.example.vue](test/fixtures/mdn.event.example.vue)    | [test/fixtures/mdn.event.output.md](test/fixtures/mdn.event.output.md)    |
+| [test/fixtures/mdn.string.example.vue](test/fixtures/mdn.string.example.vue)  | [test/fixtures/mdn.string.output.md](test/fixtures/mdn.string.output.md)  |
+| [test/fixtures/mdn.regexp.example.vue](test/fixtures/mdn.regexp.example.vue)  | [test/fixtures/mdn.regexp.output.md](test/fixtures/.output.md)            |
 
 Find more examples here: [test/fixtures](test/fixtures)
 
