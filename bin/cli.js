@@ -1,27 +1,29 @@
 #!/usr/bin/env node
 
-'use strict'
-
 const cli = require('../lib/cli')
 
 if (process.argv.length < 3) {
-  return process.stderr.write(cli.MISSING_FILENAME_MESSAGE)
+  process.stderr.write(cli.MISSING_FILENAME_MESSAGE)
+  process.exit(1)
 }
+
+const args = process.argv.slice(2)
 
 if (process.argv.length > 2) {
-  return cli.silenceExec(process.argv.slice(2))
+  cli.silenceExec(args)
+} else {
+  process.stdin.setEncoding('utf8')
+
+  let input = ''
+
+  process.stdin.on('readable', () => {
+    let chunk
+
+    /* eslint-disable-next-line no-cond-assign */
+    while ((chunk = process.stdin.read())) {
+      input += chunk
+    }
+  })
+
+  process.stdin.on('end', () => cli.silenceExec(args, input))
 }
-
-process.stdin.setEncoding('utf8')
-
-let rawContent = ''
-
-process.stdin.on('readable', () => {
-  let chunk
-
-  while ((chunk = process.stdin.read())) {
-    rawContent += chunk
-  }
-})
-
-process.stdin.on('end', () => cli.silenceExec(process.argv.slice(2), rawContent))

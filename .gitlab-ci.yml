@@ -1,4 +1,4 @@
-image: node:latest
+image: node:current-alpine
 
 stages:
   - test
@@ -6,40 +6,33 @@ stages:
 
 code quality:
   stage: test
-  script:
+  before_script:
+    - apk add --no-cache git
     - npm ci
+    - npm i --no-save https://gitlab.com/vuedoc/parser.git#dev
+  script:
     - npm run lint
 
 npm outdated:
   stage: test
   script:
+    - npm ci
     - npm outdated
   allow_failure: true
 
 security scan:
   stage: test
   script:
-    - npm audit --only=prod
-  allow_failure: true
-
-test on nodejs 8:
-  stage: test
-  image: node:8.14.0
-  script:
-    - npm it
-  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
-
-test on nodejs 10:
-  stage: test
-  image: node:10.14.1
-  script:
-    - npm it
-  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+    - npm audit --production
 
 test & coverage:
   stage: test
+  before_script:
+    - apk add --no-cache git
+    - npm ci
+    - npm i --no-save https://gitlab.com/vuedoc/parser.git#dev
   script:
-    - npm it
+    - npm test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
     paths:
@@ -62,8 +55,6 @@ coverage report:
 
 package:
   stage: publish
-  only:
-    - tags
   script:
     - npm pack
   artifacts:

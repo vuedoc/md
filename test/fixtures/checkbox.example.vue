@@ -1,6 +1,6 @@
 <template>
   <label>
-    <input :disabled="disabled" type="text" v-model="checkbox">
+    <input :disabled="disabled" type="text" v-model="checkbox"/>
     <slot></slot>
     <!-- Use this slot to set the checkbox label -->
     <slot name="label"></slot>
@@ -24,7 +24,6 @@ const boolFalse = false
  *
  * @author Sébastien
  * @license MIT
- * @input
  */
 export default {
   name: 'checkbox',
@@ -36,12 +35,12 @@ export default {
       type: Array,
       required: true
     },
-    
-    /** 
+
+    /**
      * Initial checkbox state
      */
     disabled: Boolean,
-    
+
     /**
      * Initial checkbox value
      */
@@ -49,7 +48,7 @@ export default {
       type: Boolean,
       default: true
     },
-    
+
     /**
      * The checkbox label
      */
@@ -57,7 +56,7 @@ export default {
       type: String,
       default: 'Unamed checkbox'
     },
-    
+
     /**
      * The checkbox custom type object
      * @type {CustomType}
@@ -66,7 +65,7 @@ export default {
       type: Object,
       default: null
     },
-    
+
     boolFalse: {
       type: Boolean,
       default: false
@@ -151,7 +150,7 @@ export default {
       default: undefinedValue
     }
   },
-  
+
   created () {
     /**
      * Emitted when the component has been loaded
@@ -187,7 +186,7 @@ export default {
       return 'yeah'
     }
   },
-  
+
   methods: {
     /**
      * Check if the input is checked
@@ -195,37 +194,37 @@ export default {
     check () {
       console.log('check')
     },
-    
+
     prop: () => {
       console.log('prop')
     },
-    
+
     // Make component dynamic
     ['dynamic']: () => {
       console.log('dynamic')
     },
-    
+
     // Enter to dynamic mode
     [dynamic2]: () => {
       console.log(dynamic2)
     },
-    
+
     /*
      * This should be ignored
      * @private
      */
     ignored () {},
-    
+
     // Another ignored method
     // @private
     anotherIgnored () {},
-    
+
     // Enable the checkbox
     enable (value) {
       const x = true
-      /** 
+      /**
        * Emitted the event `enabled` when loaded
-       * Multilign 
+       * Multilign
        */
       this.$emit('enabled', x)
     }

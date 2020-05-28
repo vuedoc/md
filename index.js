@@ -1,33 +1,38 @@
-'use strict'
-
+// eslint-disable-next-line import/no-unresolved
 const vuedoc = require('@vuedoc/parser')
-const md = require('./lib/markdown')
+const markdown = require('./lib/markdown')
 
-module.exports.render = (options) => (component) => new Promise((resolve) => {
+module.exports.render = (options) => (component) => new Promise((resolve, reject) => {
+  if (component.errors.length) {
+    reject(component.errors[0])
+    return
+  }
+
   let document = ''
 
-  md.render(component, options)
+  markdown.render(component, options)
     .on('write', (text) => {
       if (options.stream) {
-        return options.stream.write(text)
+        options.stream.write(text)
+      } else {
+        document += text
       }
-      document += text
     })
     .on('end', () => resolve(document))
 })
 
 module.exports.join = (options) => {
+  /* eslint-disable-next-line global-require */
   const merge = require('deepmerge')
-  const parsers = options.filenames.map((filename) => {
-    return vuedoc.parse(Object.assign({}, options, { filename }))
-  })
+  const parsers = options.filenames.map((filename) => vuedoc.parse({ ...options, filename }))
 
   return Promise.all(parsers).then(merge.all)
 }
 
 module.exports.md = (options) => {
-  const opts = Object.assign({}, options)
-  const parse = options.join ? this.join(opts) : vuedoc.parse(opts)
+  const parse = options.join
+    ? this.join(options)
+    : vuedoc.parse(options)
 
-  return parse.then(this.render(opts))
+  return parse.then(this.render(options))
 }
