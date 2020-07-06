@@ -59,7 +59,7 @@ export default {
 
     /**
      * The checkbox custom type object
-     * @type {CustomType}
+     * @type CustomType
      */
     object: {
       type: Object,

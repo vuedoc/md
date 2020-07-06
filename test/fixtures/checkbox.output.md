@@ -18,24 +18,24 @@ A simple checkbox component
 
 ## Props
 
-| Name                                               | Type       | Description                     | Default             |
-| -------------------------------------------------- | ---------- | ------------------------------- | ------------------- |
-| `model` *required*                                 | `Array`    | The checkbox model              |                     |
-| `disabled`                                         | `Boolean`  | Initial checkbox state          |                     |
-| `enabled`                                          | `Boolean`  | Initial checkbox value          | `true`              |
-| `label`                                            | `String`   | The checkbox label              | `Unamed checkbox`   |
-| `object`                                           | `Object`   | The checkbox custom type object | `null`              |
-| `bool-false`                                       | `Boolean`  |                                 | `false`             |
-| `prop-with-default-as-keyword-but-without-default` | `Object`   |                                 | `{}`                |
-| `prop-with-default-as-keyword`                     | `Object`   |                                 | `{}`                |
-| `prop-with-empty-default-as-keyword`               | `Object`   |                                 |                     |
-| `number-prop-with-default-as-keyword`              | `Number`   |                                 | `0`                 |
-| `string-prop-with-default-as-keyword`              | `String`   |                                 | `''`                |
-| `boolean-prop-with-default-as-keyword`             | `Boolean`  |                                 | `false`             |
-| `array-prop-with-default-as-keyword`               | `Array`    |                                 | `empty array`       |
-| `function-prop-with-default-as-keyword`            | `Function` |                                 | `identity function` |
-| `prop-with-null-as-default-keyword`                | `Object`   |                                 | `null`              |
-| `prop-with-undefined-as-default-keyword`           | `Object`   |                                 | `undefined`         |
+| Name                                               | Type         | Description                     | Default             |
+| -------------------------------------------------- | ------------ | ------------------------------- | ------------------- |
+| `model` *required*                                 | `Array`      | The checkbox model              |                     |
+| `disabled`                                         | `Boolean`    | Initial checkbox state          |                     |
+| `enabled`                                          | `Boolean`    | Initial checkbox value          | `true`              |
+| `label`                                            | `String`     | The checkbox label              | `Unamed checkbox`   |
+| `object`                                           | `CustomType` | The checkbox custom type object | `null`              |
+| `bool-false`                                       | `Boolean`    |                                 | `false`             |
+| `prop-with-default-as-keyword-but-without-default` | `Object`     |                                 | `{}`                |
+| `prop-with-default-as-keyword`                     | `Object`     |                                 | `{}`                |
+| `prop-with-empty-default-as-keyword`               | `Object`     |                                 |                     |
+| `number-prop-with-default-as-keyword`              | `Number`     |                                 | `0`                 |
+| `string-prop-with-default-as-keyword`              | `String`     |                                 | `''`                |
+| `boolean-prop-with-default-as-keyword`             | `Boolean`    |                                 | `false`             |
+| `array-prop-with-default-as-keyword`               | `Array`      |                                 | `empty array`       |
+| `function-prop-with-default-as-keyword`            | `Function`   |                                 | `identity function` |
+| `prop-with-null-as-default-keyword`                | `Object`     |                                 | `null`              |
+| `prop-with-undefined-as-default-keyword`           | `Object`     |                                 | `undefined`         |
 
 ## Data
 
