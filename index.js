@@ -30,6 +30,10 @@ module.exports.join = (options) => {
 }
 
 module.exports.md = (options) => {
+  if (!options.hasOwnProperty('stringify')) {
+    options.stringify = true
+  }
+
   const parse = options.join
     ? this.join(options)
     : vuedoc.parse(options)

@@ -71,6 +71,11 @@ export default {
       default: false
     },
 
+    int: {
+      type: Number,
+      default: 100_000_000
+    },
+
     /**
      * @default {}
      */

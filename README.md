@@ -155,6 +155,7 @@ A new string, with some or all matches of a pattern replaced by a replacement.
 
 ```sh
 --join                   # Combine generated documentation for multiple component files into only one
+--stringify [boolean]    # Set to `false` to disable parsing of litteral values and stringify litteral values. Default: `true`
 --level [integer]        # Set the title level. An integer between 1 and 6
 --output [file or dir]   # The output directory. If absent, the STDOUT will be used
 --section [section name] # Inject the generated documentation to a section. Works with `--output file`
