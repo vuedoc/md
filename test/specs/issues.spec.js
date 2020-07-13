@@ -142,4 +142,37 @@ describe('issues', () => {
       return vuedoc.md(options).then((doc) => expect(doc.trim()).toEqual(expected))
     })
   })
+
+  describe('#36 - Property with multiple type options destroys table layout', () => {
+    it('should render default param values for function', () => {
+      const options = {
+        filecontent: `
+          <script>
+            export default {
+              props: {
+                /**
+                 * (Description)
+                 * @type string or Date
+                 */
+                datetime: {
+                  type: [Date, String],
+                  default: null,
+                }// as PropOptions<Date | string | String>,
+              }
+            }
+          </script>
+        `
+      }
+
+      const expected = [
+        '# Props',
+        '',
+        '| Name       | Type             | Description   | Default |',
+        '| ---------- | ---------------- | ------------- | ------- |',
+        '| `datetime` | `string or Date` | (Description) | `null`  |'
+      ].join('\n')
+
+      return vuedoc.md(options).then((doc) => expect(doc.trim()).toEqual(expected))
+    })
+  })
 })

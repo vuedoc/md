@@ -187,6 +187,40 @@ describe('lib/cli', () => {
       })
     })
 
+    describe('--stringify', () => {
+      it('should failed with missing stringify value', () => {
+        const argv = [ '--stringify' ]
+
+        assert.throws(() => cli.parseArgs(argv), /Missing stringify value/)
+      })
+
+      it('should failed with invalid stringify value', () => {
+        const argv = [ '--stringify', '1' ]
+
+        assert.throws(() => cli.parseArgs(argv), /Invalid stringify value/)
+      })
+
+      it('should successfully set the stringify option (true)', () => {
+        const argv = [ '--stringify', 'true' ]
+
+        assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
+
+        const expected = Object.assign({}, defaultOptions, { stringify: true })
+
+        assert.deepEqual(options, expected)
+      })
+
+      it('should successfully set the stringify option (false)', () => {
+        const argv = [ '--stringify', 'false' ]
+
+        assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
+
+        const expected = Object.assign({}, defaultOptions, { stringify: false })
+
+        assert.deepEqual(options, expected)
+      })
+    })
+
     describe('--level', () => {
       it('should failed with missing level value', () => {
         const argv = [ '--level' ]
@@ -603,7 +637,6 @@ describe('lib/cli', () => {
     })
 
     it('should successfully generate the joined components documentation', () => {
-      const joinExpectedDoc = path.join(fixturesPath, 'join.expected.doc.md')
       const expected = [
         'A simple checkbox component',
         '',

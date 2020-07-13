@@ -59,7 +59,7 @@ export default {
 
     /**
      * The checkbox custom type object
-     * @type {CustomType}
+     * @type CustomType
      */
     object: {
       type: Object,
@@ -69,6 +69,11 @@ export default {
     boolFalse: {
       type: Boolean,
       default: false
+    },
+
+    int: {
+      type: Number,
+      default: 100_000_000
     },
 
     /**

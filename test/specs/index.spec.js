@@ -79,8 +79,8 @@ describe('options', () => {
           "keywords": [],
           "name": "schema",
           "type": ["Object", "Promise"],
-          "nativeType": "__undefined__",
-          "default": "__undefined__",
+          "nativeType": "any",
+          "default": undefined,
           "required": true,
           "describeModel": false
         },
@@ -91,7 +91,7 @@ describe('options', () => {
           "keywords": [],
           "name": "value",
           "type": "Object",
-          "nativeType": "ArrowFunctionExpression",
+          "nativeType": "object",
           "default": "{}",
           "required": false,
           "describeModel": true
@@ -104,7 +104,7 @@ describe('options', () => {
           "name": "model",
           "type": "Array",
           "nativeType": "array",
-          "default": "__undefined__",
+          "default": undefined,
           "required": true,
           "describeModel": false
         },
@@ -116,7 +116,7 @@ describe('options', () => {
           "name": "disabled",
           "type": "Boolean",
           "nativeType": "boolean",
-          "default": "__undefined__",
+          "default": undefined,
           "required": false,
           "describeModel": false
         }
