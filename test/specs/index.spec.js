@@ -28,13 +28,17 @@ describe('options', () => {
     assert.equal(/A simple checkbox component/.test(doc), false))
 
   it('should successfully joined parsed files', () => {
-    const filenames = [
-      join(__dirname, '../fixtures/join.component.1.js'),
-      join(__dirname, '../fixtures/join.component.2.vue')
-    ]
     const ignore = ['name']
-    const features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
-    const options = { join: true, filenames, features }
+    const options = {
+      join: true,
+      filenames: [
+        join(__dirname, '../fixtures/join.component.1.js'),
+        join(__dirname, '../fixtures/join.component.2.vue')
+      ],
+      parsingConfig: {
+        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+      }
+    }
 
     const expected = {
       "inheritAttrs": true,

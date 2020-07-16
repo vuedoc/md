@@ -154,34 +154,59 @@ A new string, with some or all matches of a pattern replaced by a replacement.
 ## Command line options
 
 ```sh
---join                   # Combine generated documentation for multiple component files into only one
---stringify [boolean]    # Set to `false` to disable parsing of litteral values and stringify litteral values. Default: `true`
---level [integer]        # Set the title level. An integer between 1 and 6
---output [file or dir]   # The output directory. If absent, the STDOUT will be used
---section [section name] # Inject the generated documentation to a section. Works with `--output file`
---ignore-name            # Ignore the component name on parsing
---ignore-description     # Ignore the component description on parsing
---ignore-keywords        # Ignore the component keywords on parsing
---ignore-slots           # Ignore the component slots on parsing
---ignore-props           # Ignore the component props on parsing
---ignore-computed        # Ignore the component computed properties on parsing
---ignore-data            # Ignore the component data on parsing
---ignore-methods         # Ignore the component methods on parsing
---ignore-events          # Ignore the component events on parsing
+--join                      # Combine generated documentation for multiple component files into only one
+--parsing-config [js file]  # Set to `false` to disable parsing of litteral values and stringify litteral values. Default: `true`
+--level [integer]           # Set the title level. An integer between 1 and 6
+--output [file or dir]      # The output directory. If absent, the STDOUT will be used
+--section [section name]    # Inject the generated documentation to a section. Works with `--output file`
+--ignore-name               # Ignore the component name on parsing
+--ignore-description        # Ignore the component description on parsing
+--ignore-keywords           # Ignore the component keywords on parsing
+--ignore-slots              # Ignore the component slots on parsing
+--ignore-props              # Ignore the component props on parsing
+--ignore-computed           # Ignore the component computed properties on parsing
+--ignore-data               # Ignore the component data on parsing
+--ignore-methods            # Ignore the component methods on parsing
+--ignore-events             # Ignore the component events on parsing
 ```
+
+**Overwrite Vuedoc Parser configuration using `vuedoc.config.js`**
+
+```js
+// vuedoc.config.js
+const Vuedoc = require('@vuedoc/md')
+const TypePugLoader = require('@vuedoc/parser/loader/pug')
+const TypeScriptLoader = require('@vuedoc/parser/loader/typescript')
+
+module.exports = {
+  features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
+  loaders: [
+    Vuedoc.Parser.Loader.extend('pug', TypePugLoader),
+    Vuedoc.Parser.Loader.extend('ts', TypeScriptLoader)
+  ]
+}
+```
+
+And then:
+
+```sh
+vuedoc.md --output docs/ --parsing-config vuedoc.config.js components/*.vue
+```
+
+See [Vuedoc Parser documentation](https://gitlab.com/vuedoc/parser#options)
+for parsing options.
 
 ## Programmatic Usage
 
 **Options**
 
-| Name      | Type    | Description                                                                                                |
-|-----------|---------|------------------------------------------------------------------------------------------------------------|
-| `level`   | Integer | Set the title level. An integer between 1 and 6                                                            |
-| `output`  | String  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used |
-| `section` | String  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
-| `join`    | Boolean | Combine generated documentation for multiple component files into only one                                 |
-
-For parsing options please read the [Vuedoc Parser documentation](https://gitlab.com/vuedoc/parser#options)
+| Name            | Type    | Description                                                                                                |
+|-----------------|---------|------------------------------------------------------------------------------------------------------------|
+| `level`         | Integer | Set the title level. An integer between 1 and 6                                                            |
+| `output`        | String  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used |
+| `section`       | String  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
+| `join`          | Boolean | Combine generated documentation for multiple component files into only one                                 |
+| `parsingConfig` | Object  | Overwrite the default [Vuedoc Parser configuration](https://gitlab.com/vuedoc/parser#options)              |
 
 **Usage**
 
@@ -195,6 +220,32 @@ vuedoc.md(options)
   .then((document) => console.log(document))
   .catch((err) => console.error(err))
 ```
+
+**Overwrite the default Vuedoc Parser configuration**
+
+```js
+const Vuedoc = require('@vuedoc/md')
+const TypePugLoader = require('@vuedoc/parser/loader/pug')
+const TypeScriptLoader = require('@vuedoc/parser/loader/typescript')
+
+const options = {
+  filename: 'test/fixtures/checkbox.vue',
+  parsingConfig: {
+    features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
+    loaders: [
+      Vuedoc.Parser.Loader.extend('pug', TypePugLoader),
+      Vuedoc.Parser.Loader.extend('ts', TypeScriptLoader)
+    ]
+  }
+}
+
+Vuedoc.md(options)
+  .then((document) => console.log(document))
+  .catch((err) => console.error(err))
+```
+
+See [Vuedoc Parser documentation](https://gitlab.com/vuedoc/parser#options)
+for parsing options.
 
 ## Documentation Syntax
 
