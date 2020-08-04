@@ -1,4 +1,6 @@
 module.exports = {
-  features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
-  loaders: []
+  parsing: {
+    features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
+    loaders: []
+  }
 }

@@ -33,17 +33,17 @@
   "homepage": "https://gitlab.com/vuedoc/md",
   "dependencies": {
     "@textlint/markdown-to-ast": "^6.1.7",
-    "ast-to-markdown": "^0.2.2",
+    "ast-to-markdown": "^1.0.0",
     "deepmerge": "^4.2.2",
     "markdown-table": "^2.0.0",
-    "md-node-inject": "^1.0.0",
+    "md-node-inject": "^1.0.1",
     "mdast-util-to-string": "^1.1.0"
   },
   "peerDependencies": {
-    "@vuedoc/parser": "^2.3.0"
+    "@vuedoc/parser": "^3.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.4.0",
+    "eslint": "^7.5.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",

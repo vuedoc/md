@@ -20,7 +20,7 @@ describe('issues', () => {
         </script>
       `
 
-      const parsingConfig = { filecontent }
+      const parsing = { filecontent }
       const expected = [
         '# Props',
         '',
@@ -29,13 +29,13 @@ describe('issues', () => {
         '| `v-model` | `Boolean` |             | `undefined` |'
       ].join('\n')
 
-      return vuedoc.md({ parsingConfig }).then((doc) => expect(doc.trim()).toEqual(expected))
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
     })
   })
 
   describe('#7 - Spread Operator not working in component methods', () => {
     it('should parse without errors', () => {
-      const parsingConfig = {
+      const parsing = {
         filecontent: `
           <script>
             import { mapActions, mapMutations, mapGetters } from 'vuex';
@@ -55,13 +55,13 @@ describe('issues', () => {
 
       const expected = [].join('\n')
 
-      return vuedoc.md({ parsingConfig }).then((doc) => expect(doc.trim()).toEqual(expected))
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
     })
   })
 
   describe('#27 - feat: consider handling local functions as not part of the component doc', () => {
     it('should parse without errors', () => {
-      const parsingConfig = {
+      const parsing = {
         filecontent: `
           <template>
             <div />
@@ -88,13 +88,13 @@ describe('issues', () => {
 
       const expected = [].join('\n')
 
-      return vuedoc.md({ parsingConfig }).then((doc) => expect(doc.trim()).toEqual(expected))
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
     })
   })
 
   describe('#19 - vuedoc.md does not render default param values for function', () => {
     it('should render default param values for function', () => {
-      const parsingConfig = {
+      const parsing = {
         filecontent: `
           <script>
             export default {
@@ -139,13 +139,13 @@ describe('issues', () => {
         '  The initial data for the schema.'
       ].join('\n')
 
-      return vuedoc.md({ parsingConfig }).then((doc) => expect(doc.trim()).toEqual(expected))
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
     })
   })
 
   describe('#36 - Property with multiple type options destroys table layout', () => {
     it('should render default param values for function', () => {
-      const parsingConfig = {
+      const parsing = {
         filecontent: `
           <script>
             export default {
@@ -172,7 +172,7 @@ describe('issues', () => {
         '| `datetime` | `string or Date` | (Description) | `null`  |'
       ].join('\n')
 
-      return vuedoc.md({ parsingConfig }).then((doc) => expect(doc.trim()).toEqual(expected))
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
     })
   })
 })

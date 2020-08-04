@@ -13,6 +13,7 @@ function getFileContent(filename) {
 }
 
 const fixtures = [
+  'formschema',
   'textarea',
   'checkbox',
   'jsdoc.all',

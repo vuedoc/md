@@ -23,26 +23,26 @@ module.exports.render = (options) => (component) => new Promise((resolve, reject
     .on('end', () => resolve(document))
 })
 
-module.exports.join = ({ parsingConfig, ...options }) => {
+module.exports.join = ({ parsing, ...options }) => {
   /* eslint-disable-next-line global-require */
   const merge = require('deepmerge')
-  const parsers = options.filenames.map((filename) => vuedoc.parse({ ...parsingConfig, filename }))
+  const parsers = options.filenames.map((filename) => vuedoc.parse({ ...parsing, filename }))
 
   return Promise.all(parsers).then(merge.all)
 }
 
 module.exports.md = ({ filename, ...options }) => {
-  if (!options.parsingConfig) {
-    options.parsingConfig = {
+  if (!options.parsing || typeof options.parsing !== 'object') {
+    options.parsing = {
       stringify: true
     }
-  } else if (!options.parsingConfig.hasOwnProperty('stringify')) {
-    options.parsingConfig.stringify = true
+  } else {
+    options.parsing.stringify = true
   }
 
   const parse = options.join
     ? this.join(options)
-    : vuedoc.parse({ ...options.parsingConfig, filename })
+    : vuedoc.parse({ ...options.parsing, filename })
 
   return parse.then(this.render(options))
 }

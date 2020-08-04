@@ -155,7 +155,7 @@ A new string, with some or all matches of a pattern replaced by a replacement.
 
 ```sh
 --join                      # Combine generated documentation for multiple component files into only one
---parsing-config [js file]  # Set to `false` to disable parsing of litteral values and stringify litteral values. Default: `true`
+--config [js file]  # Set to `false` to disable parsing of litteral values and stringify litteral values. Default: `true`
 --level [integer]           # Set the title level. An integer between 1 and 6
 --output [file or dir]      # The output directory. If absent, the STDOUT will be used
 --section [section name]    # Inject the generated documentation to a section. Works with `--output file`
@@ -190,7 +190,7 @@ module.exports = {
 And then:
 
 ```sh
-vuedoc.md --output docs/ --parsing-config vuedoc.config.js components/*.vue
+vuedoc.md --output docs/ --config vuedoc.config.js components/*.vue
 ```
 
 See [Vuedoc Parser documentation](https://gitlab.com/vuedoc/parser#options)
@@ -206,7 +206,7 @@ for parsing options.
 | `output`        | String  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used |
 | `section`       | String  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
 | `join`          | Boolean | Combine generated documentation for multiple component files into only one                                 |
-| `parsingConfig` | Object  | Overwrite the default [Vuedoc Parser configuration](https://gitlab.com/vuedoc/parser#options)              |
+| `parsing` | Object  | Overwrite the default [Vuedoc Parser configuration](https://gitlab.com/vuedoc/parser#options)              |
 
 **Usage**
 
@@ -230,7 +230,7 @@ const TypeScriptLoader = require('@vuedoc/parser/loader/typescript')
 
 const options = {
   filename: 'test/fixtures/checkbox.vue',
-  parsingConfig: {
+  parsing: {
     features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
     loaders: [
       Vuedoc.Parser.Loader.extend('pug', TypePugLoader),
@@ -284,36 +284,6 @@ export default {
      * @protected
      */
     commit() {}
-  }
-}
-```
-
-## Specific Keywords for Props
-
-- `@type {typeName}`: Commented prop will use provided type name as type
-  instead of type in source code. This option may be helpful in case the prop
-  type is an object or a function, which you may want to further detail with
-  `@typedef` in another place
-
-- `@default {value}`: Commented prop will use the provided value as default
-  prop description. This option may be helpful in case the prop type is an
-  object or function
-
-**Example**
-
-```js
-export default {
-  name: 'TextInput',
-  props: {
-    /**
-     * The input format callback
-     * @type TextInput.FormatCallback
-     * @default value.trim()
-     */
-    format: {
-      type: Function,
-      default: (value = '') => `${value}`.trim()
-    }
   }
 }
 ```

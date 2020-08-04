@@ -35,7 +35,7 @@ describe('options', () => {
         join(__dirname, '../fixtures/join.component.1.js'),
         join(__dirname, '../fixtures/join.component.2.vue')
       ],
-      parsingConfig: {
+      parsing: {
         features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
       }
     }
@@ -83,7 +83,6 @@ describe('options', () => {
           "keywords": [],
           "name": "schema",
           "type": ["Object", "Promise"],
-          "nativeType": "any",
           "default": undefined,
           "required": true,
           "describeModel": false
@@ -95,7 +94,6 @@ describe('options', () => {
           "keywords": [],
           "name": "value",
           "type": "Object",
-          "nativeType": "object",
           "default": "{}",
           "required": false,
           "describeModel": true
@@ -107,7 +105,6 @@ describe('options', () => {
           "keywords": [],
           "name": "model",
           "type": "Array",
-          "nativeType": "array",
           "default": undefined,
           "required": true,
           "describeModel": false
@@ -119,7 +116,6 @@ describe('options', () => {
           "keywords": [],
           "name": "disabled",
           "type": "Boolean",
-          "nativeType": "boolean",
           "default": undefined,
           "required": false,
           "describeModel": false
