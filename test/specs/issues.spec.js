@@ -126,7 +126,7 @@ describe('issues', () => {
         '',
         '**Syntax**',
         '',
-        '```ts',
+        '```typescript',
         'load(schema: object, model: Number | String | Array | Object | Boolean = undefined): void',
         '```',
         '',

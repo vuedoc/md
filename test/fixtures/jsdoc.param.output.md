@@ -8,7 +8,7 @@ Name only
 
 **Syntax**
 
-```ts
+```typescript
 nameOnly(somebody: any): void
 ```
 
@@ -18,7 +18,7 @@ Name and type
 
 **Syntax**
 
-```ts
+```typescript
 nameAndType(somebody: string): void
 ```
 
@@ -28,7 +28,7 @@ Name, type, and description
 
 **Syntax**
 
-```ts
+```typescript
 nameTypeAndDescription(somebody: string): void
 ```
 
@@ -43,7 +43,7 @@ Name, type, and description, with a hyphen before the description
 
 **Syntax**
 
-```ts
+```typescript
 nameTypeAndDescriptionWithHyphen(somebody: string): void
 ```
 
@@ -58,7 +58,7 @@ Assign the project to an employee.
 
 **Syntax**
 
-```ts
+```typescript
 withParameterProperties(employee: Object): void
 ```
 
@@ -79,7 +79,7 @@ Assign the project to an employee.
 
 **Syntax**
 
-```ts
+```typescript
 withDestructuringParameter(employee: Object): void
 ```
 
@@ -100,7 +100,7 @@ Assign the project to a list of employees.
 
 **Syntax**
 
-```ts
+```typescript
 withPropertiesOfValuesInAnArray(employees: Object[]): void
 ```
 
@@ -121,7 +121,7 @@ An optional parameter (using JSDoc syntax)
 
 **Syntax**
 
-```ts
+```typescript
 withOptionalParameter(somebody?: string): void
 ```
 
@@ -136,7 +136,7 @@ An optional parameter and default value
 
 **Syntax**
 
-```ts
+```typescript
 withOptionalParameterAndDefaultValue(somebody: string = 'John Doe'): void
 ```
 
@@ -151,7 +151,7 @@ Allows one type OR another type (type union)
 
 **Syntax**
 
-```ts
+```typescript
 withMultipleType(somebody: string | string[] = John Doe): void
 ```
 
@@ -166,7 +166,7 @@ Allows any type
 
 **Syntax**
 
-```ts
+```typescript
 withAnyType(somebody: any): void
 ```
 
@@ -182,7 +182,7 @@ Returns the sum of all numbers passed to the function.
 
 **Syntax**
 
-```ts
+```typescript
 withSpreadNotation(...num: number[]): void
 ```
 
@@ -197,7 +197,7 @@ Does something asynchronously and executes the callback on completion.
 
 **Syntax**
 
-```ts
+```typescript
 doSomethingAsynchronously(cb: requestCallback): void
 ```
 

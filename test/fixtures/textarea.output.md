@@ -55,7 +55,7 @@ console.log(p.replace('dog', 'monkey'));
 
 **Syntax**
 
-```ts
+```typescript
 const newStr = str.replace(pattern|substr, newSubstr|callback)
 ```
 

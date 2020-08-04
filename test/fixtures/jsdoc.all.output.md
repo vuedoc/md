@@ -15,7 +15,7 @@ Set the checkbox ID
 
 **Syntax**
 
-```ts
+```typescript
 set(id: string, name?: string, order: number = 1, values?: string | string[]): boolean
 ```
 
