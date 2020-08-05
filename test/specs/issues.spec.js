@@ -175,4 +175,54 @@ describe('issues', () => {
       return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
     })
   })
+
+  describe('vuedoc/parser#83 - Parser issue with !(...)', () => {
+    it('should render without errors', () => {
+      const parsing = {
+        filecontent: `
+          <script>
+            import Vue from 'vue'
+
+            /**
+             * @mixin
+             */
+            export function TestMixinFactory(boundValue: number) {
+                return Vue.extend({
+                    methods: {
+                        /**
+                         * Testing
+                         *
+                         * @public
+                         */
+                        myFunction(test: Promise<string>): number {
+                            let a, b, c = 0
+                            let d = !(a || b || c)
+                            return boundValue
+                        },
+                    },
+                })
+            }
+          </script>
+        `
+      }
+
+      const expected = [
+        '# TestMixinFactory',
+        '',
+        '## Methods',
+        '',
+        '### myFunction()',
+        '',
+        'Testing',
+        '',
+        '**Syntax**',
+        '',
+        '```typescript',
+        'myFunction(test: Promise<string>): number',
+        '```',
+      ].join('\n')
+
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
+    })
+  })
 })
