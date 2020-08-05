@@ -28,13 +28,17 @@ describe('options', () => {
     assert.equal(/A simple checkbox component/.test(doc), false))
 
   it('should successfully joined parsed files', () => {
-    const filenames = [
-      join(__dirname, '../fixtures/join.component.1.js'),
-      join(__dirname, '../fixtures/join.component.2.vue')
-    ]
     const ignore = ['name']
-    const features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
-    const options = { join: true, filenames, features }
+    const options = {
+      join: true,
+      filenames: [
+        join(__dirname, '../fixtures/join.component.1.js'),
+        join(__dirname, '../fixtures/join.component.2.vue')
+      ],
+      parsing: {
+        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+      }
+    }
 
     const expected = {
       "inheritAttrs": true,
@@ -79,7 +83,6 @@ describe('options', () => {
           "keywords": [],
           "name": "schema",
           "type": ["Object", "Promise"],
-          "nativeType": "any",
           "default": undefined,
           "required": true,
           "describeModel": false
@@ -91,7 +94,6 @@ describe('options', () => {
           "keywords": [],
           "name": "value",
           "type": "Object",
-          "nativeType": "object",
           "default": "{}",
           "required": false,
           "describeModel": true
@@ -103,7 +105,6 @@ describe('options', () => {
           "keywords": [],
           "name": "model",
           "type": "Array",
-          "nativeType": "array",
           "default": undefined,
           "required": true,
           "describeModel": false
@@ -115,7 +116,6 @@ describe('options', () => {
           "keywords": [],
           "name": "disabled",
           "type": "Boolean",
-          "nativeType": "boolean",
           "default": undefined,
           "required": false,
           "describeModel": false

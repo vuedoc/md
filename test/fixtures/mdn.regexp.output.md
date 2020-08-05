@@ -40,7 +40,7 @@ while ((array1 = regex1.exec(str1)) !== null) {
 
 **Syntax**
 
-```ts
+```typescript
 regexObj.exec(str: string): any[]
 ```
 

@@ -128,7 +128,7 @@ console.log(p.replace('dog', 'monkey'));
 
 **Syntax**
 
-```ts
+```typescript
 const newStr = str.replace(pattern|substr, newSubstr|callback)
 ```
 
@@ -154,21 +154,47 @@ A new string, with some or all matches of a pattern replaced by a replacement.
 ## Command line options
 
 ```sh
---join                   # Combine generated documentation for multiple component files into only one
---stringify [boolean]    # Set to `false` to disable parsing of litteral values and stringify litteral values. Default: `true`
---level [integer]        # Set the title level. An integer between 1 and 6
---output [file or dir]   # The output directory. If absent, the STDOUT will be used
---section [section name] # Inject the generated documentation to a section. Works with `--output file`
---ignore-name            # Ignore the component name on parsing
---ignore-description     # Ignore the component description on parsing
---ignore-keywords        # Ignore the component keywords on parsing
---ignore-slots           # Ignore the component slots on parsing
---ignore-props           # Ignore the component props on parsing
---ignore-computed        # Ignore the component computed properties on parsing
---ignore-data            # Ignore the component data on parsing
---ignore-methods         # Ignore the component methods on parsing
---ignore-events          # Ignore the component events on parsing
+--join                    # Combine generated documentation for multiple component files into only one
+--config [js file]        # Set to `false` to disable parsing of litteral values and stringify litteral values. Default: `true`
+--level [integer]         # Set the title level. An integer between 1 and 6
+--output [file or dir]    # The output directory. If absent, the STDOUT will be used
+--section [section name]  # Inject the generated documentation to a section. Works with `--output file`
+--ignore-name             # Ignore the component name on parsing
+--ignore-description      # Ignore the component description on parsing
+--ignore-keywords         # Ignore the component keywords on parsing
+--ignore-slots            # Ignore the component slots on parsing
+--ignore-props            # Ignore the component props on parsing
+--ignore-computed         # Ignore the component computed properties on parsing
+--ignore-data             # Ignore the component data on parsing
+--ignore-methods          # Ignore the component methods on parsing
+--ignore-events           # Ignore the component events on parsing
 ```
+
+**Overwrite Vuedoc Parser configuration using `vuedoc.config.js`**
+
+```js
+// vuedoc.config.js
+const Vuedoc = require('@vuedoc/md')
+const TypePugLoader = require('@vuedoc/parser/loader/pug')
+
+module.exports = {
+  parsing: {
+    features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
+    loaders: [
+      Vuedoc.Parser.Loader.extend('pug', TypePugLoader)
+    ]
+  }
+}
+```
+
+And then:
+
+```sh
+vuedoc.md --output docs/ --config vuedoc.config.js components/*.vue
+```
+
+See [Vuedoc Parser documentation](https://gitlab.com/vuedoc/parser#options)
+for parsing options.
 
 ## Programmatic Usage
 
@@ -180,8 +206,7 @@ A new string, with some or all matches of a pattern replaced by a replacement.
 | `output`  | String  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used |
 | `section` | String  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
 | `join`    | Boolean | Combine generated documentation for multiple component files into only one                                 |
-
-For parsing options please read the [Vuedoc Parser documentation](https://gitlab.com/vuedoc/parser#options)
+| `parsing` | Object  | Overwrite the default [Vuedoc Parser configuration](https://gitlab.com/vuedoc/parser#options)              |
 
 **Usage**
 
@@ -195,6 +220,30 @@ vuedoc.md(options)
   .then((document) => console.log(document))
   .catch((err) => console.error(err))
 ```
+
+**Overwrite the default Vuedoc Parser configuration**
+
+```js
+const Vuedoc = require('@vuedoc/md')
+const TypePugLoader = require('@vuedoc/parser/loader/pug')
+
+const options = {
+  filename: 'test/fixtures/checkbox.vue',
+  parsing: {
+    features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
+    loaders: [
+      Vuedoc.Parser.Loader.extend('pug', TypePugLoader)
+    ]
+  }
+}
+
+Vuedoc.md(options)
+  .then((document) => console.log(document))
+  .catch((err) => console.error(err))
+```
+
+See [Vuedoc Parser documentation](https://gitlab.com/vuedoc/parser#options)
+for parsing options.
 
 ## Documentation Syntax
 
@@ -239,33 +288,32 @@ export default {
 
 ## Specific Keywords for Props
 
-- `@type {typeName}`: Commented prop will use provided type name as type
-  instead of type in source code. This option may be helpful in case the prop
-  type is an object or a function, which you may want to further detail with
-  `@typedef` in another place
-
-- `@default {value}`: Commented prop will use the provided value as default
-  prop description. This option may be helpful in case the prop type is an
-  object or function
+You can assing a reference to a type using `@typeref {url}`
 
 **Example**
 
 ```js
 export default {
-  name: 'TextInput',
   props: {
     /**
-     * The input format callback
-     * @type TextInput.FormatCallback
-     * @default value.trim()
+     * UI Schema Descriptor to use for rendering.
+     *
+     * @typeref https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
      */
-    format: {
-      type: Function,
-      default: (value = '') => `${value}`.trim()
+    descriptor: {
+      type: Object
     }
   }
 }
 ```
+
+This will render:
+
+````md
+| Name         | Type                                                                                                 | Description                                 |
+| -------------| ---------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `descriptor` | [`Object`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)  | UI Schema Descriptor to use for rendering.  |
+````
 
 ## Specific Keywords for Methods
 

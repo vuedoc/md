@@ -34,7 +34,7 @@ while ((array1 = regex1.exec(str1)) !== null) {
 
 **Syntax**
 
-```ts
+```typescript
 target.addEventListener(type, listener [, options]);
 target.addEventListener(type, listener [, useCapture]);
 target.addEventListener(type, listener [, useCapture, wantsUntrusted  ]); // Gecko/Mozilla only

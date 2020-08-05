@@ -2,6 +2,8 @@
 const vuedoc = require('@vuedoc/parser')
 const markdown = require('./lib/markdown')
 
+module.exports.Parser = vuedoc
+
 module.exports.render = (options) => (component) => new Promise((resolve, reject) => {
   if (component.errors.length) {
     reject(component.errors[0])
@@ -21,22 +23,26 @@ module.exports.render = (options) => (component) => new Promise((resolve, reject
     .on('end', () => resolve(document))
 })
 
-module.exports.join = (options) => {
+module.exports.join = ({ parsing, ...options }) => {
   /* eslint-disable-next-line global-require */
   const merge = require('deepmerge')
-  const parsers = options.filenames.map((filename) => vuedoc.parse({ ...options, filename }))
+  const parsers = options.filenames.map((filename) => vuedoc.parse({ ...parsing, filename }))
 
   return Promise.all(parsers).then(merge.all)
 }
 
-module.exports.md = (options) => {
-  if (!options.hasOwnProperty('stringify')) {
-    options.stringify = true
+module.exports.md = ({ filename, ...options }) => {
+  if (!options.parsing || typeof options.parsing !== 'object') {
+    options.parsing = {
+      stringify: true
+    }
+  } else {
+    options.parsing.stringify = true
   }
 
   const parse = options.join
     ? this.join(options)
-    : vuedoc.parse(options)
+    : vuedoc.parse({ ...options.parsing, filename })
 
   return parse.then(this.render(options))
 }

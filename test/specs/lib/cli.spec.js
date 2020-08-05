@@ -42,10 +42,13 @@ const defaultOptions = {
   join: false,
   stream: true,
   filenames: [],
-  features: Parser.SUPPORTED_FEATURES
+  parsing: {
+    features: Parser.SUPPORTED_FEATURES
+  }
 }
 
 const voidfile = '/tmp/void.vue'
+const parsingFile = path.join(fixturesPath, 'vuedoc.config.js')
 
 jest.mock('fs')
 
@@ -187,37 +190,33 @@ describe('lib/cli', () => {
       })
     })
 
-    describe('--stringify', () => {
-      it('should failed with missing stringify value', () => {
-        const argv = [ '--stringify' ]
+    describe('--config', () => {
+      it('should failed with missing parsing config value', () => {
+        const argv = [ '--config' ]
 
-        assert.throws(() => cli.parseArgs(argv), /Missing stringify value/)
+        assert.throws(() => cli.parseArgs(argv), /Missing parsing config file/)
       })
 
-      it('should failed with invalid stringify value', () => {
-        const argv = [ '--stringify', '1' ]
+      it('should failed with invalid parsing config value', () => {
+        const argv = [ '--config', 'no found file' ]
 
-        assert.throws(() => cli.parseArgs(argv), /Invalid stringify value/)
+        assert.throws(() => cli.parseArgs(argv), /Cannot find module/)
       })
 
-      it('should successfully set the stringify option (true)', () => {
-        const argv = [ '--stringify', 'true' ]
+      it('should successfully set the parsing config option', () => {
+        const argv = [ '--config', parsingFile ]
 
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
-        const expected = Object.assign({}, defaultOptions, { stringify: true })
+        const expected = Object.assign({}, defaultOptions, {
+          parsing: {
+            ...defaultOptions.parsing,
+            features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
+            loaders: []
+          }
+        })
 
-        assert.deepEqual(options, expected)
-      })
-
-      it('should successfully set the stringify option (false)', () => {
-        const argv = [ '--stringify', 'false' ]
-
-        assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
-
-        const expected = Object.assign({}, defaultOptions, { stringify: false })
-
-        assert.deepEqual(options, expected)
+        expect(options).toEqual(expected)
       })
     })
 
@@ -300,17 +299,21 @@ describe('lib/cli', () => {
       })
     })
 
-    defaultOptions.features.forEach((feature) => {
+    defaultOptions.parsing.features.forEach((feature) => {
       describe(`--ignore-${feature}`, () => {
         it(`should successfully set the ignore-${feature} option`, () => {
           const argv = [ `--ignore-${feature}` ]
-          const features = defaultOptions.features.filter((item) => item !== feature)
-          const expected = Object.assign({}, defaultOptions, { features })
+          const expected = Object.assign({}, defaultOptions, {
+            parsing: {
+              ...defaultOptions.parsing,
+              features: defaultOptions.parsing.features.filter((item) => item !== feature)
+            }
+          })
 
           assert.doesNotThrow(() => {
             const options = cli.parseArgs(argv)
 
-            assert.deepEqual(options, expected)
+            expect(options).toEqual(expected)
           })
         })
       })
@@ -333,7 +336,6 @@ describe('lib/cli', () => {
 
   describe('parseArgs(argv, requireFiles)', () => {
     let options
-    const argv = ['node', 'vuedoc.md']
 
     beforeEach(() => {
       options = {}
@@ -509,12 +511,12 @@ describe('lib/cli', () => {
           '',
           '## Props',
           '',
-          '| Name                | Type                 | Description                                        | Default |',
-          '| ------------------- | -------------------- | -------------------------------------------------- | ------- |',
-          '| `schema` *required* | `Object` | `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
-          '| `v-model`           | `Object`             | Use this directive to create two-way data bindings | `{}`    |',
-          '| `model` *required*  | `Array`              | The checkbox model                                 |         |',
-          '| `disabled`          | `Boolean`            | Initial checkbox state                             | &nbsp;  |',
+          '| Name                | Type                      | Description                                        | Default |',
+          '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+          '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+          '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+          '| `model` *required*  | `Array`                   | The checkbox model                                 |         |',
+          '| `disabled`          | `Boolean`                 | Initial checkbox state                             | &nbsp;  |',
           '',
           '## Events',
           '',
@@ -584,12 +586,12 @@ describe('lib/cli', () => {
         '',
         '## Props',
         '',
-        '| Name                | Type                 | Description                                        | Default |',
-        '| ------------------- | -------------------- | -------------------------------------------------- | ------- |',
-        '| `schema` *required* | `Object` | `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
-        '| `v-model`           | `Object`             | Use this directive to create two-way data bindings | `{}`    |',
-        '| `model` *required*  | `Array`              | The checkbox model                                 |         |',
-        '| `disabled`          | `Boolean`            | Initial checkbox state                             | &nbsp;  |',
+        '| Name                | Type                      | Description                                        | Default |',
+        '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+        '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+        '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+        '| `model` *required*  | `Array`                   | The checkbox model                                 |         |',
+        '| `disabled`          | `Boolean`                 | Initial checkbox state                             | &nbsp;  |',
         '',
         '## Events',
         '',
@@ -653,12 +655,12 @@ describe('lib/cli', () => {
         '',
         '# Props',
         '',
-        '| Name                | Type                 | Description                                        | Default |',
-        '| ------------------- | -------------------- | -------------------------------------------------- | ------- |',
-        '| `schema` *required* | `Object` | `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
-        '| `v-model`           | `Object`             | Use this directive to create two-way data bindings | `{}`    |',
-        '| `model` *required*  | `Array`              | The checkbox model                                 |         |',
-        '| `disabled`          | `Boolean`            | Initial checkbox state                             | &nbsp;  |',
+        '| Name                | Type                      | Description                                        | Default |',
+        '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+        '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+        '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+        '| `model` *required*  | `Array`                   | The checkbox model                                 |         |',
+        '| `disabled`          | `Boolean`                 | Initial checkbox state                             | &nbsp;  |',
         '',
         '# Events',
         '',

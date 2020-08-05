@@ -26,7 +26,7 @@ console.log(found);
 
 **Syntax**
 
-```ts
+```typescript
 str.match(regexp)
 ```
 
@@ -64,7 +64,7 @@ console.log(p.replace('dog', 'monkey'));
 
 **Syntax**
 
-```ts
+```typescript
 const newStr = str.replace(pattern|substr, newSubstr|callback)
 ```
 

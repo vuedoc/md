@@ -43,7 +43,6 @@ module.exports = {
       }
     ],
     'arrow-parens': [ 'error', 'always' ],
-    'arrow-body-style': [ 'error', 'as-needed' ],
     'guard-for-in': 'off',
     'no-nested-ternary': 'off',
     'object-curly-newline': 'off',
