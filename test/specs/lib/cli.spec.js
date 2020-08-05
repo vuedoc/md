@@ -48,7 +48,8 @@ const defaultOptions = {
 }
 
 const voidfile = '/tmp/void.vue'
-const parsingFile = path.join(fixturesPath, 'vuedoc.config.js')
+const vuedocConfigFile = path.join(fixturesPath, 'vuedoc.config.js')
+const invalidVuedocConfigFile = path.join(fixturesPath, 'vuedoc.invalid.config.js')
 
 jest.mock('fs')
 
@@ -200,7 +201,7 @@ describe('lib/cli', () => {
       })
 
       it('should successfully set the parsing config option', () => {
-        const argv = [ arg, parsingFile ]
+        const argv = [ arg, vuedocConfigFile ]
 
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
@@ -624,6 +625,22 @@ describe('lib/cli', () => {
         expect(data.toString()).toEqual(expected)
         done()
       })
+    })
+
+    it('should successfully handle invalid vuedoc config file error', () => {
+      return cli.exec([ '-c', invalidVuedocConfigFile, checkboxfile ])
+        .then(() => Promise.reject(new Error('Should failed with invalid vuedoc config file')))
+        .catch((err) => {
+          expect(err.message).toEqual('Invalid options')
+          expect(err.errors.length).toBe(1)
+          expect(err.errors[0].prop).toBe('join')
+          expect(err.errors[0].errors).toEqual([
+            {
+              keyword: 'type',
+              message: 'invalid type'
+            }
+          ])
+        })
     })
 
     it('should successfully generate the component documentation with --output', () => {

@@ -209,20 +209,23 @@ for parsing options.
 
 **Options**
 
-| Name      | Type    | Description                                                                                                |
-|-----------|---------|------------------------------------------------------------------------------------------------------------|
-| `level`   | Integer | Set the title level. An integer between 1 and 6                                                            |
-| `output`  | String  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used |
-| `section` | String  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
-| `join`    | Boolean | Combine generated documentation for multiple component files into only one                                 |
-| `parsing` | Object  | Overwrite the default [Vuedoc Parser configuration](https://gitlab.com/vuedoc/parser#options)              |
+| Name        | Type      | Description                                                                                                |
+|-------------|-----------|------------------------------------------------------------------------------------------------------------|
+| `level`     | Integer   | Set the title level. An integer between 1 and 6                                                            |
+| `output`    | String    | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used |
+| `section`   | String    | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
+| `join`      | Boolean   | Combine generated documentation for multiple component files into only one                                 |
+| `parsing`   | Object    | Overwrite the default [Vuedoc Parser configuration](https://gitlab.com/vuedoc/parser#options)              |
+| `filenames` | String[]  | List of filenames to parse and render                                                                      |
 
 **Usage**
 
 ```js
 const vuedoc = require('@vuedoc/md')
 const options = {
-  filename: 'test/fixtures/checkbox.vue'
+  filenames: [
+    'test/fixtures/checkbox.vue'
+  ]
 }
 
 vuedoc.md(options)
@@ -237,7 +240,9 @@ const Vuedoc = require('@vuedoc/md')
 const TypePugLoader = require('@vuedoc/parser/loader/pug')
 
 const options = {
-  filename: 'test/fixtures/checkbox.vue',
+  filenames: [
+    'test/fixtures/checkbox.vue'
+  ],
   parsing: {
     features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
     loaders: [

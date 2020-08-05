@@ -1,12 +1,18 @@
 // eslint-disable-next-line import/no-unresolved
 const vuedoc = require('@vuedoc/parser')
+const JsonSchemav = require('jsonschemav')
+const ValidationError = require('jsonschemav/lib/error')
 const markdown = require('./lib/markdown')
+const schema = require('./lib/config.schema')
+
+const jsv = new JsonSchemav()
+const validator = jsv.compile(schema)
 
 module.exports.Parser = vuedoc
 
 module.exports.render = (options) => (component) => new Promise((resolve, reject) => {
   if (component.errors.length) {
-    reject(component.errors[0])
+    reject(new Error(component.errors[0]))
     return
   }
 
@@ -32,7 +38,7 @@ module.exports.join = ({ parsing, ...options }) => {
 }
 
 module.exports.md = ({ filename, ...options }) => {
-  if (!options.parsing || typeof options.parsing !== 'object') {
+  if (!options.parsing) {
     options.parsing = {
       stringify: true
     }
@@ -40,9 +46,22 @@ module.exports.md = ({ filename, ...options }) => {
     options.parsing.stringify = true
   }
 
-  const parse = options.join
-    ? this.join(options)
-    : vuedoc.parse({ ...options.parsing, filename })
+  return validator
+    .then((instance) => instance.validate(options))
+    .then((parsedData) => {
+      const parse = parsedData.join
+        ? this.join(parsedData)
+        : vuedoc.parse({ ...parsedData.parsing, filename })
 
-  return parse.then(this.render(options))
+      return parse.then(this.render(parsedData))
+    })
+    .catch((err) => {
+      if (err instanceof ValidationError) {
+        err.message = 'Invalid options'
+
+        return Promise.reject(err)
+      }
+
+      return Promise.reject(err)
+    })
 }

@@ -4,7 +4,7 @@ const { Parser } = require('@vuedoc/parser/lib/parser/Parser')
 
 const vuedoc = require('../..')
 
-/* global describe it beforeEach */
+/* global describe it beforeEach expect */
 
 const filename = join(__dirname, '../fixtures/checkbox.example.vue')
 
@@ -145,6 +145,6 @@ describe('options', () => {
       "errors": []
     }
 
-    return vuedoc.join(options).then((ast) => assert.deepEqual(ast, expected))
+    return vuedoc.join(options).then((ast) => expect(ast).toEqual(expected))
   })
 })

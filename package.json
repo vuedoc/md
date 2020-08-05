@@ -35,6 +35,7 @@
     "@textlint/markdown-to-ast": "^6.2.5",
     "ast-to-markdown": "^1.0.0",
     "deepmerge": "^4.2.2",
+    "jsonschemav": "^1.0.7",
     "markdown-table": "^2.0.0",
     "md-node-inject": "^1.0.1",
     "mdast-util-to-string": "^1.1.0"
