@@ -166,45 +166,41 @@ describe('lib/cli', () => {
 
     beforeEach(() => {
       options = {}
-    })
+    });
 
-    describe('--version', () => {
-      const exec = path.join(__dirname, '../../../bin/cli.js')
-      const options = ['--version', '-v']
+    [ '-v', '--version' ].forEach((arg) => describe(arg, () => {
+      it(`should display package version with ${arg}`, (done) => {
+        const exec = path.join(__dirname, '../../../bin/cli.js')
+        const args = [ arg ]
+        const proc = child.spawn(exec, args, { stdio: 'pipe' })
 
-      options.forEach((arg) => {
-        it(`should display package version with ${arg}`, (done) => {
-          const args = [ arg ]
-          const proc = child.spawn(exec, args, { stdio: 'pipe' })
+        const { name, version } = require('../../../package.json')
+        const expected = `${name} v${version}\n`
 
-          const { name, version } = require('../../../package.json')
-          const expected = `${name} v${version}\n`
+        proc.stderr.once('data', done)
 
-          proc.stderr.once('data', done)
-
-          proc.stdout.once('data', (output) => {
-            expect(output.toString('utf-8')).toEqual(expected)
-            done()
-          })
+        proc.stdout.once('data', (output) => {
+          expect(output.toString('utf-8')).toEqual(expected)
+          done()
         })
       })
-    })
+    }));
 
-    describe('--config', () => {
-      it('should failed with missing parsing config value', () => {
-        const argv = [ '--config' ]
+    [ '-c', '--config' ].forEach((arg) => describe(arg, () => {
+      it('should successfully parse with missing config value', () => {
+        const argv = [ arg ]
 
-        assert.throws(() => cli.parseArgs(argv), /Missing parsing config file/)
+        assert.doesNotThrow(() => cli.parseArgs(argv))
       })
 
-      it('should failed with invalid parsing config value', () => {
-        const argv = [ '--config', 'no found file' ]
+      it('should failed with invalid config value', () => {
+        const argv = [ arg, 'no found file' ]
 
         assert.throws(() => cli.parseArgs(argv), /Cannot find module/)
       })
 
       it('should successfully set the parsing config option', () => {
-        const argv = [ '--config', parsingFile ]
+        const argv = [ arg, parsingFile ]
 
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
@@ -218,24 +214,24 @@ describe('lib/cli', () => {
 
         expect(options).toEqual(expected)
       })
-    })
+    }));
 
-    describe('--level', () => {
+    [ '-l', '--level' ].forEach((arg) => describe(arg, () => {
       it('should failed with missing level value', () => {
-        const argv = [ '--level' ]
+        const argv = [ arg ]
 
         assert.throws(() => cli.parseArgs(argv), /Missing level value/)
       })
 
       it('should failed with invalid level value', () => {
-        const argv = [ '--level', 'hello.vue' ]
+        const argv = [ arg, 'hello.vue' ]
 
         assert.throws(() => cli.parseArgs(argv), /Invalid level value/)
       })
 
       it('should successfully set the level option', () => {
         const level = 2
-        const argv = [ '--level', level ]
+        const argv = [ arg, level ]
 
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
@@ -243,18 +239,18 @@ describe('lib/cli', () => {
 
         assert.deepEqual(options, expected)
       })
-    })
+    }));
 
-    describe('--output', () => {
+    [ '-o', '--output' ].forEach((arg) => describe(arg, () => {
       it('should failed with missing level value', () => {
-        const argv = [ '--output' ]
+        const argv = [ arg ]
 
         assert.throws(() => cli.parseArgs(argv), /Missing output value/)
       })
 
       it('should successfully set the output option', () => {
         const output = fixturesPath
-        const argv = [ '--output', output ]
+        const argv = [ arg, output ]
 
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
@@ -262,11 +258,11 @@ describe('lib/cli', () => {
 
         assert.deepEqual(options, expected)
       })
-    })
+    }));
 
-    describe('--section', () => {
+    [ '-s', '--section' ].forEach((arg) => describe(arg, () => {
       it('should failed with missing level value', () => {
-        const argv = [ '--section' ]
+        const argv = [ arg ]
 
         assert.throws(() => cli.parseArgs(argv), /Missing section value/)
       })
@@ -275,7 +271,7 @@ describe('lib/cli', () => {
         const section = 'API'
         const output = readmefile
         const argv = [
-          '--section', section,
+          arg, section,
           '--output', output
         ]
 
@@ -285,11 +281,11 @@ describe('lib/cli', () => {
 
         assert.deepEqual(options, expected)
       })
-    })
+    }));
 
-    describe('--join', () => {
+    [ '-j', '--join' ].forEach((arg) => describe(arg, () => {
       it('should successfully set the join option', () => {
-        const argv = [ '--join' ]
+        const argv = [ arg ]
 
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
@@ -297,7 +293,7 @@ describe('lib/cli', () => {
 
         assert.deepEqual(options, expected)
       })
-    })
+    }));
 
     defaultOptions.parsing.features.forEach((feature) => {
       describe(`--ignore-${feature}`, () => {

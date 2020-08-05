@@ -66,6 +66,12 @@ vuedoc.md --join components/*.vue --output README.md
 
 # using pipe
 cat components/textarea.vue | vuedoc.md
+
+# using a configuration file
+vuedoc.md --config vuedoc.config.js components/*.vue
+
+# using the configuration file vuedoc.config.js
+vuedoc.md -c components/*.vue
 ```
 
 Bellow an output sample of [test/fixtures/textarea.example.vue](test/fixtures/textarea.example.vue):
@@ -154,20 +160,20 @@ A new string, with some or all matches of a pattern replaced by a replacement.
 ## Command line options
 
 ```sh
---join                    # Combine generated documentation for multiple component files into only one
---config [js file]        # Set to `false` to disable parsing of litteral values and stringify litteral values. Default: `true`
---level [integer]         # Set the title level. An integer between 1 and 6
---output [file or dir]    # The output directory. If absent, the STDOUT will be used
---section [section name]  # Inject the generated documentation to a section. Works with `--output file`
---ignore-name             # Ignore the component name on parsing
---ignore-description      # Ignore the component description on parsing
---ignore-keywords         # Ignore the component keywords on parsing
---ignore-slots            # Ignore the component slots on parsing
---ignore-props            # Ignore the component props on parsing
---ignore-computed         # Ignore the component computed properties on parsing
---ignore-data             # Ignore the component data on parsing
---ignore-methods          # Ignore the component methods on parsing
---ignore-events           # Ignore the component events on parsing
+-j, --join                    # Combine generated documentation for multiple component files into only one
+-c, --config <filename>       # Use this config file (if argument is used but value is unspecified, defaults to vuedoc.config.js)
+-l, --level <integer>         # Set the title level. An integer between 1 and 6
+-o, --output <file or dir>    # The output directory. If absent, the STDOUT will be used
+-s, --section <section name>  # Inject the generated documentation to a section. Works with `--output file`
+--ignore-name                 # Ignore the component name on parsing
+--ignore-description          # Ignore the component description on parsing
+--ignore-keywords             # Ignore the component keywords on parsing
+--ignore-slots                # Ignore the component slots on parsing
+--ignore-props                # Ignore the component props on parsing
+--ignore-computed             # Ignore the component computed properties on parsing
+--ignore-data                 # Ignore the component data on parsing
+--ignore-methods              # Ignore the component methods on parsing
+--ignore-events               # Ignore the component events on parsing
 ```
 
 **Overwrite Vuedoc Parser configuration using `vuedoc.config.js`**
@@ -178,6 +184,7 @@ const Vuedoc = require('@vuedoc/md')
 const TypePugLoader = require('@vuedoc/parser/loader/pug')
 
 module.exports = {
+  output: 'docs/',
   parsing: {
     features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
     loaders: [
@@ -190,7 +197,9 @@ module.exports = {
 And then:
 
 ```sh
-vuedoc.md --output docs/ --config vuedoc.config.js components/*.vue
+vuedoc.md --config vuedoc.config.js components/*.vue
+# or
+vuedoc.md -c components/*.vue
 ```
 
 See [Vuedoc Parser documentation](https://gitlab.com/vuedoc/parser#options)
