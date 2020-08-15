@@ -24,11 +24,11 @@ withMultipleType(a: number, b: number, retArr: boolean): number | Array
 
 **Parameters**
 
-- **`a`**
+- **`a: number`**
 
-- **`b`**
+- **`b: number`**
 
-- **`retArr`**<br>
+- **`retArr: boolean`**<br>
   If set to true, the function will return an array
 
 **Return value**

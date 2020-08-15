@@ -2,7 +2,7 @@
 const vuedoc = require('@vuedoc/parser')
 const JsonSchemav = require('jsonschemav')
 const ValidationError = require('jsonschemav/lib/error')
-const markdown = require('./lib/markdown')
+const Markdown = require('./lib/Markdown')
 const schema = require('./lib/config.schema')
 
 const jsv = new JsonSchemav()
@@ -18,15 +18,15 @@ module.exports.render = (options) => (component) => new Promise((resolve, reject
 
   let document = ''
 
-  markdown.render(component, options)
-    .on('write', (text) => {
+  Markdown.render(component, options)
+    .on(Markdown.Event.write, (text) => {
       if (options.stream) {
         options.stream.write(text)
       } else {
         document += text
       }
     })
-    .on('end', () => resolve(document))
+    .on(Markdown.Event.end, () => resolve(document))
 })
 
 module.exports.join = ({ parsing, ...options }) => {
@@ -39,11 +39,7 @@ module.exports.join = ({ parsing, ...options }) => {
 
 module.exports.md = ({ filename, ...options }) => {
   if (!options.parsing) {
-    options.parsing = {
-      stringify: true
-    }
-  } else {
-    options.parsing.stringify = true
+    options.parsing = {}
   }
 
   return validator

@@ -132,10 +132,10 @@ describe('issues', () => {
         '',
         '**Parameters**',
         '',
-        '- **`schema`**<br>',
+        '- **`schema: object`**<br>',
         '  The JSON Schema object to load',
         '',
-        '- **`model`**<br>',
+        '- **`model: Number | String | Array | Object | Boolean = undefined`**<br>',
         '  The initial data for the schema.'
       ].join('\n')
 

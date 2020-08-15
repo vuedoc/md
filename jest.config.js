@@ -4,7 +4,6 @@ module.exports = {
   testMatch: [
     '<rootDir>/test/specs/**/*.spec.js'
   ],
-  collectCoverage: true,
   collectCoverageFrom: [
     'index.js',
     'lib/**'

@@ -43,27 +43,26 @@ describe('options', () => {
     const expected = {
       "inheritAttrs": true,
       "description": "A simple checkbox component",
+      "author": [
+        "Sébastien"
+      ],
       "keywords": [
-        {
-          "name": "author",
-          "description": "Sébastien"
-        },
         {
           "name": "license",
           "description": "MIT"
         },
         {
-          "name": "input",
-          "description": ""
+          "name": "input"
         }
       ],
       "slots": [
         {
           "kind": "slot",
           "visibility": "public",
-          "description": "",
+          "description": undefined,
           "keywords": [],
           "name": "default",
+          "category": undefined,
           "props": []
         },
         {
@@ -72,6 +71,7 @@ describe('options', () => {
           "description": "Use this slot to set the checkbox label",
           "keywords": [],
           "name": "label",
+          "category": undefined,
           "props": []
         }
       ],
@@ -85,6 +85,7 @@ describe('options', () => {
           "type": ["Object", "Promise"],
           "default": undefined,
           "required": true,
+          "category": undefined,
           "describeModel": false
         },
         {
@@ -96,6 +97,7 @@ describe('options', () => {
           "type": "Object",
           "default": "{}",
           "required": false,
+          "category": undefined,
           "describeModel": true
         },
         {
@@ -107,6 +109,7 @@ describe('options', () => {
           "type": "Array",
           "default": undefined,
           "required": true,
+          "category": undefined,
           "describeModel": false
         },
         {
@@ -118,6 +121,7 @@ describe('options', () => {
           "type": "Boolean",
           "default": undefined,
           "required": false,
+          "category": undefined,
           "describeModel": false
         }
       ],
@@ -130,6 +134,7 @@ describe('options', () => {
           "description": "Emitted when the component has been created",
           "keywords": [],
           "name": "created",
+          "category": undefined,
           "arguments": []
         },
         {
@@ -138,6 +143,7 @@ describe('options', () => {
           "description": "Emitted when the component has been loaded",
           "keywords": [],
           "name": "loaded",
+          "category": undefined,
           "arguments": []
         }
       ],

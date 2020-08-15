@@ -12,7 +12,6 @@ Generate a Markdown Documentation for a Vue file
 - [Command line options](#command-line-options)
 - [Programmatic Usage](#programmatic-usage)
 - [Documentation Syntax](#documentation-syntax)
-- [Visibility Keywords](#visibility-keywords)
 - [Specific Keywords for Props](#specific-keywords-for-props)
 - [Specific Keywords for Methods](#specific-keywords-for-methods)
 - [Examples](#examples)
@@ -264,14 +263,6 @@ for parsing options.
 For the complete documentation syntax, please follow this link:
 
 - Vuedoc Syntax: https://gitlab.com/vuedoc/parser#syntax
-
-## Visibility Keywords
-
-| Keywords      | Description
-|---------------|-----------------------------------------------------------------------------------------------------|
-| `@public`     | By default all commented members are public; this means they will be part of the documented members |
-| `@protected`  | Commented members with this will be ignored                                                         |
-| `@private`    | Commented members with this will be ignored                                                         |
 
 **Example**
 
