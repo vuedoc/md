@@ -12,8 +12,7 @@ Generate a Markdown Documentation for a Vue file
 - [Command line options](#command-line-options)
 - [Programmatic Usage](#programmatic-usage)
 - [Documentation Syntax](#documentation-syntax)
-- [Specific Keywords for Props](#specific-keywords-for-props)
-- [Specific Keywords for Methods](#specific-keywords-for-methods)
+- [Specific Tags for Props](#specific-tags-for-props)
 - [Examples](#examples)
   * [Generate a documentation for an SFC component](#generate-a-documentation-for-an-sfc-component)
   * [Generate a MDN-like documentation for a method](#generate-a-mdn-like-documentation-for-a-method)
@@ -308,7 +307,7 @@ export default {
 }
 ```
 
-## Specific Keywords for Props
+## Specific Tags for Props
 
 You can assing a reference to a type using `@typeref {url}`
 
@@ -336,34 +335,6 @@ This will render:
 | -------------| ---------------------------------------------------------------------------------------------------- | ------------------------------------------- |
 | `descriptor` | [`Object`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)  | UI Schema Descriptor to use for rendering.  |
 ````
-
-## Specific Keywords for Methods
-
-- `@method {name}`: Use this to set a custom method name
-- `@syntax {string}`: Use this to set a custom method syntax
-
-**Example**
-
-```js
-export default {
-  name: 'TextInput',
-  methods: {
-    /**
-     * This use `@method` to set a custom method name and syntax
-     * @method String.prototype.match
-     * @syntax str.match(regexp)
-     */
-    match(regexp) {},
-    /**
-     * Multiple `@syntax` keywords can be used to define a multiline syntax content
-     * @syntax target.addEventListener(type, listener [, options]);
-     * @syntax target.addEventListener(type, listener [, useCapture]);
-     * @syntax target.addEventListener(type, listener [, useCapture, wantsUntrusted  ]); // Gecko/Mozilla only
-     */
-    addEventListener(type, listener, options, useCapture) {}
-  }
-}
-```
 
 ## Examples
 
