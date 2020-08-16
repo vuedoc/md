@@ -720,6 +720,58 @@ describe('lib/CLI', () => {
       return cli.exec([ '--ignore-name', '--join', file1, file2 ])
         .then(() => expect(streamContent).toEqual(expected))
     })
+
+    it('should successfully generate doc with multiple authors', () => {
+      const expected = [
+        '**Authors:**',
+        '- Arya Stark',
+        '- Jon Snow <jon.snow@got.net>',
+        '',
+        'A simple checkbox component',
+        '',
+        '- **license** - MIT',
+        '- **input**',
+        '',
+        '# Slots',
+        '',
+        '| Name      | Description                             |',
+        '| --------- | --------------------------------------- |',
+        '| `default` |                                         |',
+        '| `label`   | Use this slot to set the checkbox label |',
+        '',
+        '# Props',
+        '',
+        '| Name               | Type      | Description            |',
+        '| ------------------ | --------- | ---------------------- |',
+        '| `model` *required* | `Array`   | The checkbox model     |',
+        '| `disabled`         | `Boolean` | Initial checkbox state |',
+        '',
+        '# Events',
+        '',
+        '| Name     | Description                                |',
+        '| -------- | ------------------------------------------ |',
+        '| `loaded` | Emitted when the component has been loaded |',
+        '',
+        '# Methods',
+        '',
+        '## reset()',
+        '',
+        '**Author:** Arya',
+        '',
+        '**Syntax**',
+        '',
+        '```typescript',
+        'reset(): void',
+        '```',
+        '',
+        '',
+      ].join('\n')
+
+      const file = path.join(fixturesPath, 'component.authors.vue')
+
+      return cli.exec([ '--ignore-name', file ])
+        .then(() => expect(streamContent).toEqual(expected))
+    })
   })
 
   describe('silenceExec(argv)', () => {
