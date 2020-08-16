@@ -153,4 +153,39 @@ describe('options', () => {
 
     return vuedoc.join(options).then((ast) => expect(ast).toEqual(expected))
   })
+
+  it('should successfully generate doc with @typeref', () => {
+    const options = {
+      parsing: {
+        filecontent: `
+          <script>
+            export default {
+              props: {
+                /**
+                 * Initial input value
+                 * @typeref https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+                 * @typeref https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+                 */
+                value: {
+                  type: [Number, String]
+                }
+              }
+            }
+          </script>
+        `,
+      },
+    };
+
+    const expected = [
+      '# Props',
+      '',
+      '| Name      | Type                                                                                                                                                                                                           | Description         |',
+      '| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |',
+      '| `v-model` | [`Number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) &#124; [`String`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | Initial input value |',
+      '',
+      '',
+    ].join('\n');
+
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
+  })
 })

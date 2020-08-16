@@ -337,6 +337,23 @@ This will render:
 | `descriptor` | [`Object`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)  | UI Schema Descriptor to use for rendering.  |
 ````
 
+You can also define `typeref` for union type:
+
+```js
+export default {
+  props: {
+    /**
+     * Initial input value
+     * @typeref https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+     * @typeref https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+     */
+    value: {
+      type: [Number, String]
+    }
+  }
+}
+```
+
 ## Examples
 
 Vuedoc Markdown has been used to generate documentation of bellow components:
@@ -380,10 +397,12 @@ Contributions to Vuedoc Markdown are welcome. Here is how you can contribute:
 Given a version number `MAJOR.MINOR.PATCH`, increment the:
 
 - `MAJOR` version when you make incompatible API changes,
-- `MINOR` version when you add functionality in a backwards-compatible manner, and
+- `MINOR` version when you add functionality in a backwards-compatible manner,
+  and
 - `PATCH` version when you make backwards-compatible bug fixes.
 
-Additional labels for pre-release and build metadata are available as extensions to the `MAJOR.MINOR.PATCH` format.
+Additional labels for pre-release and build metadata are available as extensions
+to the `MAJOR.MINOR.PATCH` format.
 
 See [SemVer.org](https://semver.org/) for more details.
 
