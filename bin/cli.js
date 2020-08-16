@@ -1,29 +1,29 @@
 #!/usr/bin/env node
 
-const cli = require('../lib/CLI')
+const cli = require('../lib/CLI');
 
 if (process.argv.length < 3) {
-  process.stderr.write(cli.MISSING_FILENAME_MESSAGE)
-  process.exit(1)
+  process.stderr.write(cli.MISSING_FILENAME_MESSAGE);
+  process.exit(1);
 }
 
-const args = process.argv.slice(2)
+const args = process.argv.slice(2);
 
 if (process.argv.length > 2) {
-  cli.silenceExec(args)
+  cli.silenceExec(args);
 } else {
-  process.stdin.setEncoding('utf8')
+  process.stdin.setEncoding('utf8');
 
-  let input = ''
+  let input = '';
 
   process.stdin.on('readable', () => {
-    let chunk
+    let chunk;
 
     /* eslint-disable-next-line no-cond-assign */
     while ((chunk = process.stdin.read())) {
-      input += chunk
+      input += chunk;
     }
-  })
+  });
 
-  process.stdin.on('end', () => cli.silenceExec(args, input))
+  process.stdin.on('end', () => cli.silenceExec(args, input));
 }
