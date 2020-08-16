@@ -176,6 +176,7 @@ A new string, with some or all matches of a pattern replaced by a replacement.
 -j, --join                    # Combine generated documentation for multiple component files into only one
 -c, --config <filename>       # Use this config file (if argument is used but value is unspecified, defaults to vuedoc.config.js)
 -l, --level <integer>         # Set the title level. An integer between 1 and 6
+-w, --wordwrap <integer>      # The width of the text before wrapping to a new line. Default is `80`
 -o, --output <file or dir>    # The output directory. If absent, the STDOUT will be used
 -s, --section <section name>  # Inject the generated documentation to a section. Works with `--output file`
 --ignore-name                 # Ignore the component name on parsing
