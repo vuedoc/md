@@ -50,26 +50,30 @@ target.addEventListener(type, listener [, useCapture, wantsUntrusted  ]); // Gec
   A case-sensitive string representing the event type to listen for.
 
 - **`listener: function`**<br>
-  The object that receives a notification (an object that implements the Event interface) when an event of the
-  specified type occurs. This must be an object implementing the EventListener interface, or a JavaScript
-  function. See The event listener callback for details on the callback itself.
+  The object that receives a notification (an object that implements the Event
+  interface) when an event of the specified type occurs. This must be an object
+  implementing the EventListener interface, or a JavaScript function. See The
+  event listener callback for details on the callback itself.
 
 - **`options: object`**<br>
   An options object specifies characteristics about the event listener.
 
 - **`useCapture: boolean`**<br>
-  A Boolean indicating whether events of this type will be dispatched to the registered listener before being
-  dispatched to any EventTarget beneath it in the DOM tree. Events that are bubbling upward through the tree
-  will not trigger a listener designated to use capture. Event bubbling and capturing are two ways of
-  propagating events that occur in an element that is nested within another element, when both elements have
-  registered a handle for that event. The event propagation mode determines the order in which elements receive
-  the event. See DOM Level 3 Events and JavaScript Event order for a detailed explanation. If not specified,
-  useCapture defaults to false.
+  A Boolean indicating whether events of this type will be dispatched to the
+  registered listener before being dispatched to any EventTarget beneath it in
+  the DOM tree. Events that are bubbling upward through the tree will not
+  trigger a listener designated to use capture. Event bubbling and capturing are
+  two ways of propagating events that occur in an element that is nested within
+  another element, when both elements have registered a handle for that event.
+  The event propagation mode determines the order in which elements receive the
+  event. See DOM Level 3 Events and JavaScript Event order for a detailed
+  explanation. If not specified, useCapture defaults to false.
 
 - **`wantsUntrusted: boolean`**<br>
-  A Firefox (Gecko)-specific parameter. If true, the listener receives synthetic events dispatched by web
-  content (the default is false for browser chrome and true for regular web pages). This parameter is useful for
-  code found in add-ons, as well as the browser itself.
+  A Firefox (Gecko)-specific parameter. If true, the listener receives synthetic
+  events dispatched by web content (the default is false for browser chrome and
+  true for regular web pages). This parameter is useful for code found in
+  add-ons, as well as the browser itself.
 
 **Return value**
 

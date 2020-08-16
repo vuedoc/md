@@ -42,7 +42,7 @@
     "word-wrap": "^1.2.3"
   },
   "peerDependencies": {
-    "@vuedoc/parser": "^3.0.0"
+    "@vuedoc/parser": "^3.0.0-beta1"
   },
   "devDependencies": {
     "eslint": "^7.7.0",
