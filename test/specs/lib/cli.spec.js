@@ -50,6 +50,7 @@ const defaultOptions = {
 const voidfile = '/tmp/void.vue'
 const vuedocConfigFile = path.join(fixturesPath, 'vuedoc.config.js')
 const invalidVuedocConfigFile = path.join(fixturesPath, 'vuedoc.invalid.config.js')
+const componentWordwrapFalse = path.join(fixturesPath, 'component.wordwrap.false.vue')
 
 jest.mock('fs')
 
@@ -72,7 +73,25 @@ fs.$setMockFiles({
     '**WIP**\n\n',
     '# License\n\n',
     'MIT'
-  ].join('')
+  ].join(''),
+  [componentWordwrapFalse]: `
+    <script>
+      /**
+       * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit odio nisi, vel pellentesque augue tempor sed. Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet. Sed maximus massa ex, sed dictum dolor posuere in. Integer metus velit, euismod in turpis id, tincidunt tristique urna. Vivamus sit amet varius nisi. Nullam orci odio, tristique eget convallis ultrices, sodales at mi. Maecenas orci est, placerat eu dolor id, rhoncus congue lacus. Ut facilisis euismod vulputate. Nam metus nibh, blandit in eleifend ultricies, vehicula tempus dolor. Morbi varius lectus vehicula lectus bibendum suscipit. Nunc vel cursus eros, cursus lobortis sem. Nam tellus neque, dapibus id eros non, rhoncus ultricies turpis.
+       */
+      export default {
+        name: 'NumericInput',
+        methods: {
+          /**
+           * @param {number} value - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+           *                         Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.
+           *                         Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.
+           */
+          check(value) {}
+        }
+      }
+    </script>
+  `
 })
 
 /* global describe it expect */
@@ -770,6 +789,35 @@ describe('lib/CLI', () => {
       const file = path.join(fixturesPath, 'component.authors.vue')
 
       return cli.exec([ '--ignore-name', file ])
+        .then(() => expect(streamContent).toEqual(expected))
+    })
+
+    it('should successfully generate doc with options.wordwrap === false', () => {
+      const expected = [
+        '# NumericInput',
+        '',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit odio nisi, vel pellentesque augue tempor sed. Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet. Sed maximus massa ex, sed dictum dolor posuere in. Integer metus velit, euismod in turpis id, tincidunt tristique urna. Vivamus sit amet varius nisi. Nullam orci odio, tristique eget convallis ultrices, sodales at mi. Maecenas orci est, placerat eu dolor id, rhoncus congue lacus. Ut facilisis euismod vulputate. Nam metus nibh, blandit in eleifend ultricies, vehicula tempus dolor. Morbi varius lectus vehicula lectus bibendum suscipit. Nunc vel cursus eros, cursus lobortis sem. Nam tellus neque, dapibus id eros non, rhoncus ultricies turpis.',
+        '',
+        '## Methods',
+        '',
+        '### check()',
+        '',
+        '**Syntax**',
+        '',
+        '```typescript',
+        'check(value: number): void',
+        '```',
+        '',
+        '**Parameters**',
+        '',
+        '- **`value: number`**<br>  ',
+        '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.  ',
+        '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.  ',
+        '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',
+        '',
+      ].join('\n')
+
+      return cli.exec([ '--wordwrap', 'false', componentWordwrapFalse ])
         .then(() => expect(streamContent).toEqual(expected))
     })
   })

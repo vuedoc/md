@@ -176,7 +176,7 @@ A new string, with some or all matches of a pattern replaced by a replacement.
 -j, --join                    # Combine generated documentation for multiple component files into only one
 -c, --config <filename>       # Use this config file (if argument is used but value is unspecified, defaults to vuedoc.config.js)
 -l, --level <integer>         # Set the title level. An integer between 1 and 6
--w, --wordwrap <integer>      # The width of the text before wrapping to a new line. Default is `80`
+-w, --wordwrap <integer>      # The width of the text before wrapping to a new line. Set to `false` to disable word wrapping. Default is `80`
 -o, --output <file or dir>    # The output directory. If absent, the STDOUT will be used
 -s, --section <section name>  # Inject the generated documentation to a section. Works with `--output file`
 --ignore-name                 # Ignore the component name on parsing
@@ -223,16 +223,16 @@ for parsing options.
 
 **Options**
 
-| Name        | Type                    | Description                                                                                                |
-|-------------|-------------------------|------------------------------------------------------------------------------------------------------------|
-| `level`     | Integer                 | Set the title level. An integer between 1 and 6                                                            |
-| `output`    | String                  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used |
-| `section`   | String                  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output       |
-| `join`      | Boolean                 | Combine generated documentation for multiple component files into only one                                 |
-| `parsing`   | Object                  | Overwrite the default [Vuedoc Parser configuration](https://gitlab.com/vuedoc/parser#options)              |
-| `filenames` | String[]                | List of filenames to parse and render                                                                      |
-| `wordwrap`  | Integer                 | The width of the text before wrapping to a new line. Default is `80`                                       |
-| `labels`    | Record<I18nKey, String> | I18n labels for translation. See [`@vuedoc/md/lib/I18n`](lib/I18n.js)                                      |
+| Name        | Type                    | Description                                                                                                   |
+|-------------|-------------------------|---------------------------------------------------------------------------------------------------------------|
+| `level`     | Integer                 | Set the title level. An integer between 1 and 6                                                               |
+| `output`    | String                  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used    |
+| `section`   | String                  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output          |
+| `join`      | Boolean                 | Combine generated documentation for multiple component files into only one                                    |
+| `parsing`   | Object                  | Overwrite the default [Vuedoc Parser configuration](https://gitlab.com/vuedoc/parser#options)                 |
+| `filenames` | String[]                | List of filenames to parse and render                                                                         |
+| `wordwrap`  | Integer | false         | The width of the text before wrapping to a new line. Set to `false` to disable word wrapping. Default is `80` |
+| `labels`    | Record<I18nKey, String> | I18n labels for translation. See [`@vuedoc/md/lib/I18n`](lib/I18n.js)                                         |
 
 **Usage**
 
@@ -310,7 +310,7 @@ export default {
 
 ## Specific Tags for Props
 
-You can assing a reference to a type using `@typeref {url}`
+You can assign a reference to a type using `@typeref {url}`
 
 **Example**
 

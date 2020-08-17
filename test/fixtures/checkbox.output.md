@@ -50,8 +50,8 @@ A simple checkbox component
 
 | Name                 | Description                                                                                            |
 | -------------------- | ------------------------------------------------------------------------------------------------------ |
-| `id`                 | The component identifier. Generated using the `initialValue` data.<br>**Dependencies**: `initialValue` |
-| `changed`            | **Dependencies**: `currentValue`, `initialValue`                                                       |
+| `id`                 | The component identifier. Generated using the `initialValue` data.<br>**Dependencies:** `initialValue` |
+| `changed`            | **Dependencies:** `currentValue`, `initialValue`                                                       |
 | `withNoDependencies` | &nbsp;                                                                                                 |
 
 ## Events
