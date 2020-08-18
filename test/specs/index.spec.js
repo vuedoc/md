@@ -268,4 +268,63 @@ describe('vuedoc', () => {
 
     return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
   })
+
+  it('should successfully generate doc with @version, @since, @category and @author', () => {
+    const options = {
+      parsing: {
+        filecontent: `
+          <script>
+            /**
+             * Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+             * @author Arya Stark
+             * @version 1.2.3
+             * @since 1.0.0
+             * @category form
+             */
+            export default {
+              name: 'NumericInput',
+              methods: {
+                /**
+                 * @param {number} value - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                 *                         Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.
+                 *                         Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.
+                 */
+                check(value) {}
+              }
+            }
+          </script>
+        `,
+      },
+    };
+
+    const expected = [
+      '# NumericInput',
+      '',
+      '**Since:** 1.0.0<br>',
+      '**Version:** 1.2.3<br>',
+      '**Author:** Arya Stark',
+      '',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      '',
+      '## Methods',
+      '',
+      '### check()',
+      '',
+      '**Syntax**',
+      '',
+      '```typescript',
+      'check(value: number): void',
+      '```',
+      '',
+      '**Parameters**',
+      '',
+      '- **`value: number`**<br>',
+      '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.',
+      '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',
+      '',
+    ].join('\n');
+
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
+  })
 })
