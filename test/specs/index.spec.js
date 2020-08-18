@@ -269,7 +269,7 @@ describe('vuedoc', () => {
     return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
   })
 
-  it('should successfully generate doc with @version, @since, @category and @author', () => {
+  it('should successfully generate doc with @version, @since, @category, @deprecated, @see and @author', () => {
     const options = {
       parsing: {
         filecontent: `
@@ -280,6 +280,8 @@ describe('vuedoc', () => {
              * @version 1.2.3
              * @since 1.0.0
              * @category form
+             * @deprecated since 1.2.0
+             * @see http://arya.got
              */
             export default {
               name: 'NumericInput',
@@ -302,6 +304,8 @@ describe('vuedoc', () => {
       '',
       '**Since:** 1.0.0<br>',
       '**Version:** 1.2.3<br>',
+      '**Deprecated:** since 1.2.0<br>',
+      '**See:** http://arya.got<br>',
       '**Author:** Arya Stark',
       '',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
