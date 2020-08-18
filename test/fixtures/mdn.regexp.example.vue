@@ -40,7 +40,8 @@ export default {
      *
      * @syntax regexObj.exec(str: string): any[]
      * @param {string} str - The string against which to match the regular expression.
-     * @returns If the match succeeds, the exec() method returns an array (with extra properties index and input; see below) and updates the lastIndex property of the regular expression object. The returned array has the matched text as the first item, and then one item for each parenthetical capture group of the matched text.<br><br>If the match fails, the exec() method returns null, and sets lastIndex to 0.
+     * @returns If the match succeeds, the exec() method returns an array (with extra properties index and input; see below) and updates the lastIndex property of the regular expression object. The returned array has the matched text as the first item, and then one item for each parenthetical capture group of the matched text.
+     * If the match fails, the exec() method returns null, and sets lastIndex to 0.
      */
     exec(str) {}
   }

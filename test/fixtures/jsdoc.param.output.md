@@ -9,7 +9,7 @@ Name only
 **Syntax**
 
 ```typescript
-nameOnly(somebody: any): void
+nameOnly(somebody: unknow): void
 ```
 
 ### nameAndType()
@@ -34,7 +34,7 @@ nameTypeAndDescription(somebody: string): void
 
 **Parameters**
 
-- **`somebody`**<br>
+- **`somebody: string`**<br>
   Somebody's name.
 
 ### nameTypeAndDescriptionWithHyphen()
@@ -49,7 +49,7 @@ nameTypeAndDescriptionWithHyphen(somebody: string): void
 
 **Parameters**
 
-- **`somebody`**<br>
+- **`somebody: string`**<br>
   Somebody's name.
 
 ### withParameterProperties()
@@ -64,13 +64,13 @@ withParameterProperties(employee: Object): void
 
 **Parameters**
 
-- **`employee`**<br>
+- **`employee: Object`**<br>
   The employee who is responsible for the project.
 
-- **`employee.name`**<br>
+- **`employee.name: string`**<br>
   The name of the employee.
 
-- **`employee.department`**<br>
+- **`employee.department: string`**<br>
   The employee's department.
 
 ### withDestructuringParameter()
@@ -85,13 +85,13 @@ withDestructuringParameter(employee: Object): void
 
 **Parameters**
 
-- **`employee`**<br>
+- **`employee: Object`**<br>
   The employee who is responsible for the project.
 
-- **`employee.name`**<br>
+- **`employee.name: string`**<br>
   The name of the employee.
 
-- **`employee.department`**<br>
+- **`employee.department: string`**<br>
   The employee's department.
 
 ### withPropertiesOfValuesInAnArray()
@@ -106,13 +106,13 @@ withPropertiesOfValuesInAnArray(employees: Object[]): void
 
 **Parameters**
 
-- **`employees`**<br>
+- **`employees: Object[]`**<br>
   The employees who are responsible for the project.
 
-- **`employees[].name`**<br>
+- **`employees[].name: string`**<br>
   The name of an employee.
 
-- **`employees[].department`**<br>
+- **`employees[].department: string`**<br>
   The employee's department.
 
 ### withOptionalParameter()
@@ -127,7 +127,7 @@ withOptionalParameter(somebody?: string): void
 
 **Parameters**
 
-- **`somebody`**<br>
+- **`somebody?: string`**<br>
   Somebody's name.
 
 ### withOptionalParameterAndDefaultValue()
@@ -137,12 +137,12 @@ An optional parameter and default value
 **Syntax**
 
 ```typescript
-withOptionalParameterAndDefaultValue(somebody: string = 'John Doe'): void
+withOptionalParameterAndDefaultValue(somebody?: string = 'John Doe'): void
 ```
 
 **Parameters**
 
-- **`somebody`**<br>
+- **`somebody?: string = 'John Doe'`**<br>
   Somebody's name.
 
 ### withMultipleType()
@@ -152,12 +152,12 @@ Allows one type OR another type (type union)
 **Syntax**
 
 ```typescript
-withMultipleType(somebody: string | string[] = John Doe): void
+withMultipleType(somebody?: string | string[] = John Doe): void
 ```
 
 **Parameters**
 
-- **`somebody`**<br>
+- **`somebody?: string | string[] = John Doe`**<br>
   Somebody's name, or an array of names.
 
 ### withAnyType()
@@ -172,7 +172,7 @@ withAnyType(somebody: any): void
 
 **Parameters**
 
-- **`somebody`**<br>
+- **`somebody: any`**<br>
   Whatever you want.
 
 ### withSpreadNotation()
@@ -183,12 +183,12 @@ Returns the sum of all numbers passed to the function.
 **Syntax**
 
 ```typescript
-withSpreadNotation(...num: number[]): void
+withSpreadNotation(...num: number[]): unknow
 ```
 
 **Parameters**
 
-- **`num`**<br>
+- **`...num: number[]`**<br>
   A positive or negative number.
 
 ### doSomethingAsynchronously()
@@ -203,6 +203,5 @@ doSomethingAsynchronously(cb: requestCallback): void
 
 **Parameters**
 
-- **`cb`**<br>
+- **`cb: requestCallback`**<br>
   The callback that handles the response.
-

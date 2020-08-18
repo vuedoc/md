@@ -66,7 +66,7 @@
        * This will be ignored on rendering
        * @private
        */
-      keyup(e) {
+      keyup(event) {
         /**
          * Fired when a key is released.
          * @bubbles Yes
@@ -77,14 +77,10 @@
          * @param {DOMString} event.code - The code value of the physical key represented by the event
          * @param {DOMString} event.key - The key value of the key represented by the event
          */
-        this.$emit('keyup', e)
+        this.$emit('keyup', event)
       },
       /**
-       * The `replace()` method returns a new string with some or all matches of
-       * a `pattern` replaced by a `replacement`. The `pattern` can be a string
-       * or a RegExp, and the `replacement` can be a string or a function to be
-       * called for each match. If `pattern` is a string, only the first
-       * occurrence will be replaced.
+       * The `replace()` method returns a new string with some or all matches of a `pattern` replaced by a `replacement`. The `pattern` can be a string or a RegExp, and the `replacement` can be a string or a function to be called for each match. If `pattern` is a string, only the first occurrence will be replaced.
        *
        * The original string is left unchanged.
        *
@@ -107,7 +103,7 @@
        * @param {String} substr - A String that is to be replaced by newSubstr. It is treated as a literal string and is not interpreted as a regular expression. Only the first occurrence will be replaced.
        * @param {String} newSubstr - The String that replaces the substring specified by the specified regexp or substr parameter. A number of special replacement patterns are supported; see the "Specifying a string as a parameter" section below.
        * @param {Function} callback - A function to be invoked to create the new substring to be used to replace the matches to the given regexp or substr. The arguments supplied to this function are described in the "Specifying a function as a parameter" section below.
-       * @return A new string, with some or all matches of a pattern replaced by a replacement.
+       * @returns A new string, with some or all matches of a pattern replaced by a replacement.
        */
       replace(str, newSubstr) {
         return this.value.replace(str, newSubstr)

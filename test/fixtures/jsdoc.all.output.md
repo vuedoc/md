@@ -16,27 +16,28 @@ Set the checkbox ID
 **Syntax**
 
 ```typescript
-set(id: string, name?: string, order: number = 1, values?: string | string[]): boolean
+set(id: string, name?: string, order?: number = 1, values?: string | string[], ...rest: unknow[]): boolean
 ```
 
 **Parameters**
 
-- **`id`**<br>
+- **`id: string`**<br>
   The checkbox ID
 
-- **`name`**<br>
+- **`name?: string`**<br>
   The checkbox name
 
-- **`order`**<br>
+- **`order?: number = 1`**<br>
   The checkbox order
 
-- **`values`**<br>
+- **`values?: string | string[]`**<br>
   The checkbox values
 
-- **`...rest`**<br>
+- **`...rest?: any`**<br>
   The rest options
+
+- **`...rest: unknow[]`**
 
 **Return value**
 
 True on success; ortherwise false
-

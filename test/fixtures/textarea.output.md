@@ -1,8 +1,9 @@
 # MyTextarea
 
+**Author:** Arya Stark
+
 The custom HTML `<textarea>` component.
 
-- **author** - Arya Stark
 - **license** - MIT
 
 ## Slots
@@ -32,11 +33,11 @@ The custom HTML `<textarea>` component.
 
 ### Textarea.replace()
 
-The `replace()` method returns a new string with some or all matches of
-a `pattern` replaced by a `replacement`. The `pattern` can be a string
-or a RegExp, and the `replacement` can be a string or a function to be
-called for each match. If `pattern` is a string, only the first
-occurrence will be replaced.
+The `replace()` method returns a new string with some or all matches of a
+`pattern` replaced by a `replacement`. The `pattern` can be a string or a
+RegExp, and the `replacement` can be a string or a function to be called for
+each match. If `pattern` is a string, only the first occurrence will be
+replaced.
 
 The original string is left unchanged.
 
@@ -61,19 +62,27 @@ const newStr = str.replace(pattern|substr, newSubstr|callback)
 
 **Parameters**
 
-- **`pattern: RegExp`**<br>
-  A RegExp object or literal. The match or matches are replaced with newSubstr or the value returned by the specified function.
-
-- **`substr: String`**<br>
-  A String that is to be replaced by newSubstr. It is treated as a literal string and is not interpreted as a regular expression. Only the first occurrence will be replaced.
+- **`str: unknow`**
 
 - **`newSubstr: String`**<br>
-  The String that replaces the substring specified by the specified regexp or substr parameter. A number of special replacement patterns are supported; see the "Specifying a string as a parameter" section below.
+  The String that replaces the substring specified by the specified regexp or
+  substr parameter. A number of special replacement patterns are supported; see
+  the "Specifying a string as a parameter" section below.
+
+- **`pattern: RegExp`**<br>
+  A RegExp object or literal. The match or matches are replaced with newSubstr
+  or the value returned by the specified function.
+
+- **`substr: String`**<br>
+  A String that is to be replaced by newSubstr. It is treated as a literal
+  string and is not interpreted as a regular expression. Only the first
+  occurrence will be replaced.
 
 - **`callback: Function`**<br>
-  A function to be invoked to create the new substring to be used to replace the matches to the given regexp or substr. The arguments supplied to this function are described in the "Specifying a function as a parameter" section below.
+  A function to be invoked to create the new substring to be used to replace the
+  matches to the given regexp or substr. The arguments supplied to this function
+  are described in the "Specifying a function as a parameter" section below.
 
 **Return value**
 
 A new string, with some or all matches of a pattern replaced by a replacement.
-

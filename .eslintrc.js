@@ -11,7 +11,6 @@ module.exports = {
   ],
   'rules': {
     'comma-dangle': 'off',
-    'semi': 'off',
     'prefer-template': 'off',
     'arrow-body-style': 'off',
     'no-restricted-globals': 'off',

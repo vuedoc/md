@@ -6,7 +6,7 @@ const assert = require('assert')
 const { Parser } = require('@vuedoc/parser/lib/parser/Parser')
 const { spawn } = require('child_process')
 
-const cli = require('../../../lib/cli')
+const cli = require('../../../lib/CLI')
 const fixturesPath = path.join(__dirname, '../../fixtures')
 const readmefile = path.join(fixturesPath, 'README.md')
 const readme2file = path.join(fixturesPath, 'README2.md')
@@ -50,6 +50,7 @@ const defaultOptions = {
 const voidfile = '/tmp/void.vue'
 const vuedocConfigFile = path.join(fixturesPath, 'vuedoc.config.js')
 const invalidVuedocConfigFile = path.join(fixturesPath, 'vuedoc.invalid.config.js')
+const componentWordwrapFalse = path.join(fixturesPath, 'component.wordwrap.false.vue')
 
 jest.mock('fs')
 
@@ -72,12 +73,30 @@ fs.$setMockFiles({
     '**WIP**\n\n',
     '# License\n\n',
     'MIT'
-  ].join('')
+  ].join(''),
+  [componentWordwrapFalse]: `
+    <script>
+      /**
+       * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit odio nisi, vel pellentesque augue tempor sed. Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet. Sed maximus massa ex, sed dictum dolor posuere in. Integer metus velit, euismod in turpis id, tincidunt tristique urna. Vivamus sit amet varius nisi. Nullam orci odio, tristique eget convallis ultrices, sodales at mi. Maecenas orci est, placerat eu dolor id, rhoncus congue lacus. Ut facilisis euismod vulputate. Nam metus nibh, blandit in eleifend ultricies, vehicula tempus dolor. Morbi varius lectus vehicula lectus bibendum suscipit. Nunc vel cursus eros, cursus lobortis sem. Nam tellus neque, dapibus id eros non, rhoncus ultricies turpis.
+       */
+      export default {
+        name: 'NumericInput',
+        methods: {
+          /**
+           * @param {number} value - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+           *                         Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.
+           *                         Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.
+           */
+          check(value) {}
+        }
+      }
+    </script>
+  `
 })
 
 /* global describe it expect */
 
-describe('lib/cli', () => {
+describe('lib/CLI', () => {
   const originalStderr = process.stderr
   const originalConsoleError = console.error
 
@@ -206,6 +225,7 @@ describe('lib/cli', () => {
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
         const expected = Object.assign({}, defaultOptions, {
+          wordwrap: 110,
           parsing: {
             ...defaultOptions.parsing,
             features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
@@ -237,6 +257,31 @@ describe('lib/cli', () => {
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
         const expected = Object.assign({}, defaultOptions, { level })
+
+        assert.deepEqual(options, expected)
+      })
+    }));
+
+    [ '-w', '--wordwrap' ].forEach((arg) => describe(arg, () => {
+      it('should failed with missing wordwrap value', () => {
+        const argv = [ arg ]
+
+        assert.throws(() => cli.parseArgs(argv), /Missing wordwrap value/)
+      })
+
+      it('should failed with invalid wordwrap value', () => {
+        const argv = [ arg, 'hello.vue' ]
+
+        assert.throws(() => cli.parseArgs(argv), /Invalid wordwrap value/)
+      })
+
+      it('should successfully set the wordwrap option', () => {
+        const wordwrap = 110
+        const argv = [ arg, wordwrap ]
+
+        assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
+
+        const expected = Object.assign({}, defaultOptions, { wordwrap })
 
         assert.deepEqual(options, expected)
       })
@@ -493,9 +538,10 @@ describe('lib/cli', () => {
         const expected = [
           '# checkbox',
           '',
+          '**Author:** Sébastien',
+          '',
           'A simple checkbox component',
           '',
-          '- **author** - Sébastien',
           '- **license** - MIT',
           '- **input**',
           '',
@@ -522,7 +568,7 @@ describe('lib/cli', () => {
           '| `created` | Emitted when the component has been created |',
           '| `loaded`  | Emitted when the component has been loaded  |',
           '',
-          ''
+          '',
         ].join('\n')
 
         return cli.processWithOutputOption(options)
@@ -568,9 +614,10 @@ describe('lib/cli', () => {
       const expected = [
         '# checkbox',
         '',
+        '**Author:** Sébastien',
+        '',
         'A simple checkbox component',
         '',
-        '- **author** - Sébastien',
         '- **license** - MIT',
         '- **input**',
         '',
@@ -597,7 +644,7 @@ describe('lib/cli', () => {
         '| `created` | Emitted when the component has been created |',
         '| `loaded`  | Emitted when the component has been loaded  |',
         '',
-        ''
+        '',
       ].join('\n')
 
       return cli.processWithoutOutputOption(options)
@@ -653,9 +700,10 @@ describe('lib/cli', () => {
 
     it('should successfully generate the joined components documentation', () => {
       const expected = [
+        '**Author:** Sébastien',
+        '',
         'A simple checkbox component',
         '',
-        '- **author** - Sébastien',
         '- **license** - MIT',
         '- **input**',
         '',
@@ -682,13 +730,95 @@ describe('lib/cli', () => {
         '| `created` | Emitted when the component has been created |',
         '| `loaded`  | Emitted when the component has been loaded  |',
         '',
-        ''
+        '',
       ].join('\n')
 
       const file1 = path.join(fixturesPath, 'join.component.1.js')
       const file2 = path.join(fixturesPath, 'join.component.2.vue')
 
       return cli.exec([ '--ignore-name', '--join', file1, file2 ])
+        .then(() => expect(streamContent).toEqual(expected))
+    })
+
+    it('should successfully generate doc with multiple authors', () => {
+      const expected = [
+        '**Authors:**',
+        '- Arya Stark',
+        '- Jon Snow <jon.snow@got.net>',
+        '',
+        'A simple checkbox component',
+        '',
+        '- **license** - MIT',
+        '- **input**',
+        '',
+        '# Slots',
+        '',
+        '| Name      | Description                             |',
+        '| --------- | --------------------------------------- |',
+        '| `default` |                                         |',
+        '| `label`   | Use this slot to set the checkbox label |',
+        '',
+        '# Props',
+        '',
+        '| Name               | Type      | Description            |',
+        '| ------------------ | --------- | ---------------------- |',
+        '| `model` *required* | `Array`   | The checkbox model     |',
+        '| `disabled`         | `Boolean` | Initial checkbox state |',
+        '',
+        '# Events',
+        '',
+        '| Name     | Description                                |',
+        '| -------- | ------------------------------------------ |',
+        '| `loaded` | Emitted when the component has been loaded |',
+        '',
+        '# Methods',
+        '',
+        '## reset()',
+        '',
+        '**Author:** Arya',
+        '',
+        '**Syntax**',
+        '',
+        '```typescript',
+        'reset(): void',
+        '```',
+        '',
+        '',
+      ].join('\n')
+
+      const file = path.join(fixturesPath, 'component.authors.vue')
+
+      return cli.exec([ '--ignore-name', file ])
+        .then(() => expect(streamContent).toEqual(expected))
+    })
+
+    it('should successfully generate doc with options.wordwrap === false', () => {
+      const expected = [
+        '# NumericInput',
+        '',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit odio nisi, vel pellentesque augue tempor sed. Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet. Sed maximus massa ex, sed dictum dolor posuere in. Integer metus velit, euismod in turpis id, tincidunt tristique urna. Vivamus sit amet varius nisi. Nullam orci odio, tristique eget convallis ultrices, sodales at mi. Maecenas orci est, placerat eu dolor id, rhoncus congue lacus. Ut facilisis euismod vulputate. Nam metus nibh, blandit in eleifend ultricies, vehicula tempus dolor. Morbi varius lectus vehicula lectus bibendum suscipit. Nunc vel cursus eros, cursus lobortis sem. Nam tellus neque, dapibus id eros non, rhoncus ultricies turpis.',
+        '',
+        '## Methods',
+        '',
+        '### check()',
+        '',
+        '**Syntax**',
+        '',
+        '```typescript',
+        'check(value: number): void',
+        '```',
+        '',
+        '**Parameters**',
+        '',
+        '- **`value: number`**<br>  ',
+        '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.  ',
+        '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.  ',
+        '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',
+        '',
+        '',
+      ].join('\n')
+
+      return cli.exec([ '--wordwrap', 'false', componentWordwrapFalse ])
         .then(() => expect(streamContent).toEqual(expected))
     })
   })

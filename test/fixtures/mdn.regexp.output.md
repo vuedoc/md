@@ -3,7 +3,8 @@
 This example demonstrates how to generate a MDN-like documentation
 for a method.
 
-The output is similar to [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec)
+The output is similar to
+[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec)
 
 ## Methods
 
@@ -19,7 +20,8 @@ be used to iterate over multiple matches in a string of text (with
 capture groups), as opposed to getting just the matching strings with
 `String.prototype.match()`.
 
-A newer function has been proposed to simplify matching multiple parts of a string (with capture groups): `String.prototype.matchAll()`.
+A newer function has been proposed to simplify matching multiple parts of a
+string (with capture groups): `String.prototype.matchAll()`.
 
 If you are executing a match simply to find `true` or `false`, use
 `RegExp.prototype.test()` method or String.prototype.search() instead.
@@ -51,5 +53,8 @@ regexObj.exec(str: string): any[]
 
 **Return value**
 
-If the match succeeds, the exec() method returns an array (with extra properties index and input; see below) and updates the lastIndex property of the regular expression object. The returned array has the matched text as the first item, and then one item for each parenthetical capture group of the matched text.<br><br>If the match fails, the exec() method returns null, and sets lastIndex to 0.
-
+If the match succeeds, the exec() method returns an array (with extra properties
+index and input; see below) and updates the lastIndex property of the regular
+expression object. The returned array has the matched text as the first item,
+and then one item for each parenthetical capture group of the matched text.
+If the match fails, the exec() method returns null, and sets lastIndex to 0.
