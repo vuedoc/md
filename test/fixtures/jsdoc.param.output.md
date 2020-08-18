@@ -8,8 +8,8 @@ Name only
 
 **Syntax**
 
-```ts
-nameOnly(somebody: any): void
+```typescript
+nameOnly(somebody: unknow): void
 ```
 
 ### nameAndType()
@@ -18,7 +18,7 @@ Name and type
 
 **Syntax**
 
-```ts
+```typescript
 nameAndType(somebody: string): void
 ```
 
@@ -28,13 +28,13 @@ Name, type, and description
 
 **Syntax**
 
-```ts
+```typescript
 nameTypeAndDescription(somebody: string): void
 ```
 
 **Parameters**
 
-- **`somebody`**<br>
+- **`somebody: string`**<br>
   Somebody's name.
 
 ### nameTypeAndDescriptionWithHyphen()
@@ -43,13 +43,13 @@ Name, type, and description, with a hyphen before the description
 
 **Syntax**
 
-```ts
+```typescript
 nameTypeAndDescriptionWithHyphen(somebody: string): void
 ```
 
 **Parameters**
 
-- **`somebody`**<br>
+- **`somebody: string`**<br>
   Somebody's name.
 
 ### withParameterProperties()
@@ -58,19 +58,19 @@ Assign the project to an employee.
 
 **Syntax**
 
-```ts
+```typescript
 withParameterProperties(employee: Object): void
 ```
 
 **Parameters**
 
-- **`employee`**<br>
+- **`employee: Object`**<br>
   The employee who is responsible for the project.
 
-- **`employee.name`**<br>
+- **`employee.name: string`**<br>
   The name of the employee.
 
-- **`employee.department`**<br>
+- **`employee.department: string`**<br>
   The employee's department.
 
 ### withDestructuringParameter()
@@ -79,19 +79,19 @@ Assign the project to an employee.
 
 **Syntax**
 
-```ts
+```typescript
 withDestructuringParameter(employee: Object): void
 ```
 
 **Parameters**
 
-- **`employee`**<br>
+- **`employee: Object`**<br>
   The employee who is responsible for the project.
 
-- **`employee.name`**<br>
+- **`employee.name: string`**<br>
   The name of the employee.
 
-- **`employee.department`**<br>
+- **`employee.department: string`**<br>
   The employee's department.
 
 ### withPropertiesOfValuesInAnArray()
@@ -100,19 +100,19 @@ Assign the project to a list of employees.
 
 **Syntax**
 
-```ts
+```typescript
 withPropertiesOfValuesInAnArray(employees: Object[]): void
 ```
 
 **Parameters**
 
-- **`employees`**<br>
+- **`employees: Object[]`**<br>
   The employees who are responsible for the project.
 
-- **`employees[].name`**<br>
+- **`employees[].name: string`**<br>
   The name of an employee.
 
-- **`employees[].department`**<br>
+- **`employees[].department: string`**<br>
   The employee's department.
 
 ### withOptionalParameter()
@@ -121,13 +121,13 @@ An optional parameter (using JSDoc syntax)
 
 **Syntax**
 
-```ts
+```typescript
 withOptionalParameter(somebody?: string): void
 ```
 
 **Parameters**
 
-- **`somebody`**<br>
+- **`somebody?: string`**<br>
   Somebody's name.
 
 ### withOptionalParameterAndDefaultValue()
@@ -136,13 +136,13 @@ An optional parameter and default value
 
 **Syntax**
 
-```ts
-withOptionalParameterAndDefaultValue(somebody: string = 'John Doe'): void
+```typescript
+withOptionalParameterAndDefaultValue(somebody?: string = 'John Doe'): void
 ```
 
 **Parameters**
 
-- **`somebody`**<br>
+- **`somebody?: string = 'John Doe'`**<br>
   Somebody's name.
 
 ### withMultipleType()
@@ -151,13 +151,13 @@ Allows one type OR another type (type union)
 
 **Syntax**
 
-```ts
-withMultipleType(somebody: string | string[] = John Doe): void
+```typescript
+withMultipleType(somebody?: string | string[] = John Doe): void
 ```
 
 **Parameters**
 
-- **`somebody`**<br>
+- **`somebody?: string | string[] = John Doe`**<br>
   Somebody's name, or an array of names.
 
 ### withAnyType()
@@ -166,13 +166,13 @@ Allows any type
 
 **Syntax**
 
-```ts
+```typescript
 withAnyType(somebody: any): void
 ```
 
 **Parameters**
 
-- **`somebody`**<br>
+- **`somebody: any`**<br>
   Whatever you want.
 
 ### withSpreadNotation()
@@ -182,13 +182,13 @@ Returns the sum of all numbers passed to the function.
 
 **Syntax**
 
-```ts
-withSpreadNotation(...num: number[]): void
+```typescript
+withSpreadNotation(...num: number[]): unknow
 ```
 
 **Parameters**
 
-- **`num`**<br>
+- **`...num: number[]`**<br>
   A positive or negative number.
 
 ### doSomethingAsynchronously()
@@ -197,12 +197,11 @@ Does something asynchronously and executes the callback on completion.
 
 **Syntax**
 
-```ts
+```typescript
 doSomethingAsynchronously(cb: requestCallback): void
 ```
 
 **Parameters**
 
-- **`cb`**<br>
+- **`cb: requestCallback`**<br>
   The callback that handles the response.
-

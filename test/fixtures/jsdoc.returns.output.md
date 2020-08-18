@@ -8,7 +8,7 @@ Returns the sum of a and b
 
 **Syntax**
 
-```ts
+```typescript
 withType(a: number, b: number): number
 ```
 
@@ -18,17 +18,17 @@ Returns the sum of a and b
 
 **Syntax**
 
-```ts
+```typescript
 withMultipleType(a: number, b: number, retArr: boolean): number | Array
 ```
 
 **Parameters**
 
-- **`a`**
+- **`a: number`**
 
-- **`b`**
+- **`b: number`**
 
-- **`retArr`**<br>
+- **`retArr: boolean`**<br>
   If set to true, the function will return an array
 
 **Return value**
@@ -41,11 +41,10 @@ Returns the sum of a and b
 
 **Syntax**
 
-```ts
+```typescript
 withPromise(a: number, b: number): Promise
 ```
 
 **Return value**
 
 Promise object represents the sum of a and b
-

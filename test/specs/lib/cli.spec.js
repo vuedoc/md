@@ -6,7 +6,7 @@ const assert = require('assert')
 const { Parser } = require('@vuedoc/parser/lib/parser/Parser')
 const { spawn } = require('child_process')
 
-const cli = require('../../../lib/cli')
+const cli = require('../../../lib/CLI')
 const fixturesPath = path.join(__dirname, '../../fixtures')
 const readmefile = path.join(fixturesPath, 'README.md')
 const readme2file = path.join(fixturesPath, 'README2.md')
@@ -42,10 +42,15 @@ const defaultOptions = {
   join: false,
   stream: true,
   filenames: [],
-  features: Parser.SUPPORTED_FEATURES
+  parsing: {
+    features: Parser.SUPPORTED_FEATURES
+  }
 }
 
 const voidfile = '/tmp/void.vue'
+const vuedocConfigFile = path.join(fixturesPath, 'vuedoc.config.js')
+const invalidVuedocConfigFile = path.join(fixturesPath, 'vuedoc.invalid.config.js')
+const componentWordwrapFalse = path.join(fixturesPath, 'component.wordwrap.false.vue')
 
 jest.mock('fs')
 
@@ -68,12 +73,30 @@ fs.$setMockFiles({
     '**WIP**\n\n',
     '# License\n\n',
     'MIT'
-  ].join('')
+  ].join(''),
+  [componentWordwrapFalse]: `
+    <script>
+      /**
+       * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit odio nisi, vel pellentesque augue tempor sed. Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet. Sed maximus massa ex, sed dictum dolor posuere in. Integer metus velit, euismod in turpis id, tincidunt tristique urna. Vivamus sit amet varius nisi. Nullam orci odio, tristique eget convallis ultrices, sodales at mi. Maecenas orci est, placerat eu dolor id, rhoncus congue lacus. Ut facilisis euismod vulputate. Nam metus nibh, blandit in eleifend ultricies, vehicula tempus dolor. Morbi varius lectus vehicula lectus bibendum suscipit. Nunc vel cursus eros, cursus lobortis sem. Nam tellus neque, dapibus id eros non, rhoncus ultricies turpis.
+       */
+      export default {
+        name: 'NumericInput',
+        methods: {
+          /**
+           * @param {number} value - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+           *                         Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.
+           *                         Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.
+           */
+          check(value) {}
+        }
+      }
+    </script>
+  `
 })
 
 /* global describe it expect */
 
-describe('lib/cli', () => {
+describe('lib/CLI', () => {
   const originalStderr = process.stderr
   const originalConsoleError = console.error
 
@@ -163,80 +186,73 @@ describe('lib/cli', () => {
 
     beforeEach(() => {
       options = {}
-    })
+    });
 
-    describe('--version', () => {
-      const exec = path.join(__dirname, '../../../bin/cli.js')
-      const options = ['--version', '-v']
+    [ '-v', '--version' ].forEach((arg) => describe(arg, () => {
+      it(`should display package version with ${arg}`, (done) => {
+        const exec = path.join(__dirname, '../../../bin/cli.js')
+        const args = [ arg ]
+        const proc = child.spawn(exec, args, { stdio: 'pipe' })
 
-      options.forEach((arg) => {
-        it(`should display package version with ${arg}`, (done) => {
-          const args = [ arg ]
-          const proc = child.spawn(exec, args, { stdio: 'pipe' })
+        const { name, version } = require('../../../package.json')
+        const expected = `${name} v${version}\n`
 
-          const { name, version } = require('../../../package.json')
-          const expected = `${name} v${version}\n`
+        proc.stderr.once('data', done)
 
-          proc.stderr.once('data', done)
-
-          proc.stdout.once('data', (output) => {
-            expect(output.toString('utf-8')).toEqual(expected)
-            done()
-          })
+        proc.stdout.once('data', (output) => {
+          expect(output.toString('utf-8')).toEqual(expected)
+          done()
         })
       })
-    })
+    }));
 
-    describe('--stringify', () => {
-      it('should failed with missing stringify value', () => {
-        const argv = [ '--stringify' ]
+    [ '-c', '--config' ].forEach((arg) => describe(arg, () => {
+      it('should successfully parse with missing config value', () => {
+        const argv = [ arg ]
 
-        assert.throws(() => cli.parseArgs(argv), /Missing stringify value/)
+        assert.doesNotThrow(() => cli.parseArgs(argv))
       })
 
-      it('should failed with invalid stringify value', () => {
-        const argv = [ '--stringify', '1' ]
+      it('should failed with invalid config value', () => {
+        const argv = [ arg, 'no found file' ]
 
-        assert.throws(() => cli.parseArgs(argv), /Invalid stringify value/)
+        assert.throws(() => cli.parseArgs(argv), /Cannot find module/)
       })
 
-      it('should successfully set the stringify option (true)', () => {
-        const argv = [ '--stringify', 'true' ]
+      it('should successfully set the parsing config option', () => {
+        const argv = [ arg, vuedocConfigFile ]
 
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
-        const expected = Object.assign({}, defaultOptions, { stringify: true })
+        const expected = Object.assign({}, defaultOptions, {
+          wordwrap: 110,
+          parsing: {
+            ...defaultOptions.parsing,
+            features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
+            loaders: []
+          }
+        })
 
-        assert.deepEqual(options, expected)
+        expect(options).toEqual(expected)
       })
+    }));
 
-      it('should successfully set the stringify option (false)', () => {
-        const argv = [ '--stringify', 'false' ]
-
-        assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
-
-        const expected = Object.assign({}, defaultOptions, { stringify: false })
-
-        assert.deepEqual(options, expected)
-      })
-    })
-
-    describe('--level', () => {
+    [ '-l', '--level' ].forEach((arg) => describe(arg, () => {
       it('should failed with missing level value', () => {
-        const argv = [ '--level' ]
+        const argv = [ arg ]
 
         assert.throws(() => cli.parseArgs(argv), /Missing level value/)
       })
 
       it('should failed with invalid level value', () => {
-        const argv = [ '--level', 'hello.vue' ]
+        const argv = [ arg, 'hello.vue' ]
 
         assert.throws(() => cli.parseArgs(argv), /Invalid level value/)
       })
 
       it('should successfully set the level option', () => {
         const level = 2
-        const argv = [ '--level', level ]
+        const argv = [ arg, level ]
 
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
@@ -244,18 +260,43 @@ describe('lib/cli', () => {
 
         assert.deepEqual(options, expected)
       })
-    })
+    }));
 
-    describe('--output', () => {
+    [ '-w', '--wordwrap' ].forEach((arg) => describe(arg, () => {
+      it('should failed with missing wordwrap value', () => {
+        const argv = [ arg ]
+
+        assert.throws(() => cli.parseArgs(argv), /Missing wordwrap value/)
+      })
+
+      it('should failed with invalid wordwrap value', () => {
+        const argv = [ arg, 'hello.vue' ]
+
+        assert.throws(() => cli.parseArgs(argv), /Invalid wordwrap value/)
+      })
+
+      it('should successfully set the wordwrap option', () => {
+        const wordwrap = 110
+        const argv = [ arg, wordwrap ]
+
+        assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
+
+        const expected = Object.assign({}, defaultOptions, { wordwrap })
+
+        assert.deepEqual(options, expected)
+      })
+    }));
+
+    [ '-o', '--output' ].forEach((arg) => describe(arg, () => {
       it('should failed with missing level value', () => {
-        const argv = [ '--output' ]
+        const argv = [ arg ]
 
         assert.throws(() => cli.parseArgs(argv), /Missing output value/)
       })
 
       it('should successfully set the output option', () => {
         const output = fixturesPath
-        const argv = [ '--output', output ]
+        const argv = [ arg, output ]
 
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
@@ -263,11 +304,11 @@ describe('lib/cli', () => {
 
         assert.deepEqual(options, expected)
       })
-    })
+    }));
 
-    describe('--section', () => {
+    [ '-s', '--section' ].forEach((arg) => describe(arg, () => {
       it('should failed with missing level value', () => {
-        const argv = [ '--section' ]
+        const argv = [ arg ]
 
         assert.throws(() => cli.parseArgs(argv), /Missing section value/)
       })
@@ -276,7 +317,7 @@ describe('lib/cli', () => {
         const section = 'API'
         const output = readmefile
         const argv = [
-          '--section', section,
+          arg, section,
           '--output', output
         ]
 
@@ -286,11 +327,11 @@ describe('lib/cli', () => {
 
         assert.deepEqual(options, expected)
       })
-    })
+    }));
 
-    describe('--join', () => {
+    [ '-j', '--join' ].forEach((arg) => describe(arg, () => {
       it('should successfully set the join option', () => {
-        const argv = [ '--join' ]
+        const argv = [ arg ]
 
         assert.doesNotThrow(() => (options = cli.parseArgs(argv)))
 
@@ -298,19 +339,23 @@ describe('lib/cli', () => {
 
         assert.deepEqual(options, expected)
       })
-    })
+    }));
 
-    defaultOptions.features.forEach((feature) => {
+    defaultOptions.parsing.features.forEach((feature) => {
       describe(`--ignore-${feature}`, () => {
         it(`should successfully set the ignore-${feature} option`, () => {
           const argv = [ `--ignore-${feature}` ]
-          const features = defaultOptions.features.filter((item) => item !== feature)
-          const expected = Object.assign({}, defaultOptions, { features })
+          const expected = Object.assign({}, defaultOptions, {
+            parsing: {
+              ...defaultOptions.parsing,
+              features: defaultOptions.parsing.features.filter((item) => item !== feature)
+            }
+          })
 
           assert.doesNotThrow(() => {
             const options = cli.parseArgs(argv)
 
-            assert.deepEqual(options, expected)
+            expect(options).toEqual(expected)
           })
         })
       })
@@ -333,7 +378,6 @@ describe('lib/cli', () => {
 
   describe('parseArgs(argv, requireFiles)', () => {
     let options
-    const argv = ['node', 'vuedoc.md']
 
     beforeEach(() => {
       options = {}
@@ -494,9 +538,10 @@ describe('lib/cli', () => {
         const expected = [
           '# checkbox',
           '',
+          '**Author:** Sébastien',
+          '',
           'A simple checkbox component',
           '',
-          '- **author** - Sébastien',
           '- **license** - MIT',
           '- **input**',
           '',
@@ -509,12 +554,12 @@ describe('lib/cli', () => {
           '',
           '## Props',
           '',
-          '| Name                | Type                 | Description                                        | Default |',
-          '| ------------------- | -------------------- | -------------------------------------------------- | ------- |',
-          '| `schema` *required* | `Object` | `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
-          '| `v-model`           | `Object`             | Use this directive to create two-way data bindings | `{}`    |',
-          '| `model` *required*  | `Array`              | The checkbox model                                 |         |',
-          '| `disabled`          | `Boolean`            | Initial checkbox state                             | &nbsp;  |',
+          '| Name                | Type                      | Description                                        | Default |',
+          '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+          '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+          '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+          '| `model` *required*  | `Array`                   | The checkbox model                                 |         |',
+          '| `disabled`          | `Boolean`                 | Initial checkbox state                             | &nbsp;  |',
           '',
           '## Events',
           '',
@@ -523,7 +568,7 @@ describe('lib/cli', () => {
           '| `created` | Emitted when the component has been created |',
           '| `loaded`  | Emitted when the component has been loaded  |',
           '',
-          ''
+          '',
         ].join('\n')
 
         return cli.processWithOutputOption(options)
@@ -569,9 +614,10 @@ describe('lib/cli', () => {
       const expected = [
         '# checkbox',
         '',
+        '**Author:** Sébastien',
+        '',
         'A simple checkbox component',
         '',
-        '- **author** - Sébastien',
         '- **license** - MIT',
         '- **input**',
         '',
@@ -584,12 +630,12 @@ describe('lib/cli', () => {
         '',
         '## Props',
         '',
-        '| Name                | Type                 | Description                                        | Default |',
-        '| ------------------- | -------------------- | -------------------------------------------------- | ------- |',
-        '| `schema` *required* | `Object` | `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
-        '| `v-model`           | `Object`             | Use this directive to create two-way data bindings | `{}`    |',
-        '| `model` *required*  | `Array`              | The checkbox model                                 |         |',
-        '| `disabled`          | `Boolean`            | Initial checkbox state                             | &nbsp;  |',
+        '| Name                | Type                      | Description                                        | Default |',
+        '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+        '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+        '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+        '| `model` *required*  | `Array`                   | The checkbox model                                 |         |',
+        '| `disabled`          | `Boolean`                 | Initial checkbox state                             | &nbsp;  |',
         '',
         '## Events',
         '',
@@ -598,7 +644,7 @@ describe('lib/cli', () => {
         '| `created` | Emitted when the component has been created |',
         '| `loaded`  | Emitted when the component has been loaded  |',
         '',
-        ''
+        '',
       ].join('\n')
 
       return cli.processWithoutOutputOption(options)
@@ -628,6 +674,22 @@ describe('lib/cli', () => {
       })
     })
 
+    it('should successfully handle invalid vuedoc config file error', () => {
+      return cli.exec([ '-c', invalidVuedocConfigFile, checkboxfile ])
+        .then(() => Promise.reject(new Error('Should failed with invalid vuedoc config file')))
+        .catch((err) => {
+          expect(err.message).toEqual('Invalid options')
+          expect(err.errors.length).toBe(1)
+          expect(err.errors[0].prop).toBe('join')
+          expect(err.errors[0].errors).toEqual([
+            {
+              keyword: 'type',
+              message: 'invalid type'
+            }
+          ])
+        })
+    })
+
     it('should successfully generate the component documentation with --output', () => {
       return cli.exec([ checkboxfile, '--output', fixturesPath ])
     })
@@ -638,9 +700,10 @@ describe('lib/cli', () => {
 
     it('should successfully generate the joined components documentation', () => {
       const expected = [
+        '**Author:** Sébastien',
+        '',
         'A simple checkbox component',
         '',
-        '- **author** - Sébastien',
         '- **license** - MIT',
         '- **input**',
         '',
@@ -653,12 +716,12 @@ describe('lib/cli', () => {
         '',
         '# Props',
         '',
-        '| Name                | Type                 | Description                                        | Default |',
-        '| ------------------- | -------------------- | -------------------------------------------------- | ------- |',
-        '| `schema` *required* | `Object` | `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
-        '| `v-model`           | `Object`             | Use this directive to create two-way data bindings | `{}`    |',
-        '| `model` *required*  | `Array`              | The checkbox model                                 |         |',
-        '| `disabled`          | `Boolean`            | Initial checkbox state                             | &nbsp;  |',
+        '| Name                | Type                      | Description                                        | Default |',
+        '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+        '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+        '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+        '| `model` *required*  | `Array`                   | The checkbox model                                 |         |',
+        '| `disabled`          | `Boolean`                 | Initial checkbox state                             | &nbsp;  |',
         '',
         '# Events',
         '',
@@ -667,13 +730,95 @@ describe('lib/cli', () => {
         '| `created` | Emitted when the component has been created |',
         '| `loaded`  | Emitted when the component has been loaded  |',
         '',
-        ''
+        '',
       ].join('\n')
 
       const file1 = path.join(fixturesPath, 'join.component.1.js')
       const file2 = path.join(fixturesPath, 'join.component.2.vue')
 
       return cli.exec([ '--ignore-name', '--join', file1, file2 ])
+        .then(() => expect(streamContent).toEqual(expected))
+    })
+
+    it('should successfully generate doc with multiple authors', () => {
+      const expected = [
+        '**Authors:**',
+        '- Arya Stark',
+        '- Jon Snow <jon.snow@got.net>',
+        '',
+        'A simple checkbox component',
+        '',
+        '- **license** - MIT',
+        '- **input**',
+        '',
+        '# Slots',
+        '',
+        '| Name      | Description                             |',
+        '| --------- | --------------------------------------- |',
+        '| `default` |                                         |',
+        '| `label`   | Use this slot to set the checkbox label |',
+        '',
+        '# Props',
+        '',
+        '| Name               | Type      | Description            |',
+        '| ------------------ | --------- | ---------------------- |',
+        '| `model` *required* | `Array`   | The checkbox model     |',
+        '| `disabled`         | `Boolean` | Initial checkbox state |',
+        '',
+        '# Events',
+        '',
+        '| Name     | Description                                |',
+        '| -------- | ------------------------------------------ |',
+        '| `loaded` | Emitted when the component has been loaded |',
+        '',
+        '# Methods',
+        '',
+        '## reset()',
+        '',
+        '**Author:** Arya',
+        '',
+        '**Syntax**',
+        '',
+        '```typescript',
+        'reset(): void',
+        '```',
+        '',
+        '',
+      ].join('\n')
+
+      const file = path.join(fixturesPath, 'component.authors.vue')
+
+      return cli.exec([ '--ignore-name', file ])
+        .then(() => expect(streamContent).toEqual(expected))
+    })
+
+    it('should successfully generate doc with options.wordwrap === false', () => {
+      const expected = [
+        '# NumericInput',
+        '',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit odio nisi, vel pellentesque augue tempor sed. Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet. Sed maximus massa ex, sed dictum dolor posuere in. Integer metus velit, euismod in turpis id, tincidunt tristique urna. Vivamus sit amet varius nisi. Nullam orci odio, tristique eget convallis ultrices, sodales at mi. Maecenas orci est, placerat eu dolor id, rhoncus congue lacus. Ut facilisis euismod vulputate. Nam metus nibh, blandit in eleifend ultricies, vehicula tempus dolor. Morbi varius lectus vehicula lectus bibendum suscipit. Nunc vel cursus eros, cursus lobortis sem. Nam tellus neque, dapibus id eros non, rhoncus ultricies turpis.',
+        '',
+        '## Methods',
+        '',
+        '### check()',
+        '',
+        '**Syntax**',
+        '',
+        '```typescript',
+        'check(value: number): void',
+        '```',
+        '',
+        '**Parameters**',
+        '',
+        '- **`value: number`**<br>  ',
+        '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.  ',
+        '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.  ',
+        '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',
+        '',
+        '',
+      ].join('\n')
+
+      return cli.exec([ '--wordwrap', 'false', componentWordwrapFalse ])
         .then(() => expect(streamContent).toEqual(expected))
     })
   })

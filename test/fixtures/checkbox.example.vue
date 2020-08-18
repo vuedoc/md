@@ -132,11 +132,14 @@ export default {
     },
 
     /**
-     * @default identity function
+     * The input validation function
+     * @kind function
+     * @param {any} value - User input value to validate
+     * @returns {boolean} - `true` if validation succeeds; `false` otherwise.
      */
-    functionPropWithDefaultAsKeyword: {
+    validator: {
       type: Function,
-      default: (x) => x
+      default: (value) => !Number.isNaN(value)
     },
 
     /**

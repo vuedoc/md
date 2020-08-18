@@ -3,6 +3,7 @@ coverage
 .*
 sample.js
 jest.config.js
+vuedoc.config.js
 result.json
 yarn.lock
 *.tgz
