@@ -44,17 +44,14 @@ The original string is left unchanged.
 **Example**
 
 ```js
-const p = 'The quick brown fox jumps over the lazy dog. If the dog reacted, was
-it really lazy?';
+const p = 'The quick brown fox jumps over the lazy dog. If the dog reacted, was it really lazy?';
 const regex = /dog/gi;
 
 console.log(p.replace(regex, 'ferret'));
-// expected output: "The quick brown fox jumps over the lazy ferret. If the
-ferret reacted, was it really lazy?"
+// expected output: "The quick brown fox jumps over the lazy ferret. If the ferret reacted, was it really lazy?"
 
 console.log(p.replace('dog', 'monkey'));
-// expected output: "The quick brown fox jumps over the lazy monkey. If the dog
-reacted, was it really lazy?"
+// expected output: "The quick brown fox jumps over the lazy monkey. If the dog reacted, was it really lazy?"
 ```
 
 **Syntax**
@@ -89,4 +86,3 @@ const newStr = str.replace(pattern|substr, newSubstr|callback)
 **Return value**
 
 A new string, with some or all matches of a pattern replaced by a replacement.
-

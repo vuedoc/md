@@ -178,7 +178,6 @@ describe('vuedoc', () => {
       'input',
       'value',
       '',
-      '',
     ].join('\n');
 
     return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
@@ -264,7 +263,6 @@ describe('vuedoc', () => {
       '| Name      | Type                                                                                                                                                                                                           | Description         |',
       '| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |',
       '| `v-model` | [`Number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) &#124; [`String`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | Initial input value |',
-      '',
       '',
     ].join('\n');
 

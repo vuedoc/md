@@ -34,12 +34,9 @@ const str1 = 'table football, foosball';
 let array1;
 
 while ((array1 = regex1.exec(str1)) !== null) {
-
-console.log(`Found ${array1[0]}. Next starts at ${regex1.lastIndex}.`);
-
-// expected output: "Found foo. Next starts at 9."
-
-// expected output: "Found foo. Next starts at 19."
+  console.log(`Found ${array1[0]}. Next starts at ${regex1.lastIndex}.`);
+  // expected output: "Found foo. Next starts at 9."
+  // expected output: "Found foo. Next starts at 19."
 }
 ```
 
@@ -61,4 +58,3 @@ index and input; see below) and updates the lastIndex property of the regular
 expression object. The returned array has the matched text as the first item,
 and then one item for each parenthetical capture group of the matched text.
 If the match fails, the exec() method returns null, and sets lastIndex to 0.
-

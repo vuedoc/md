@@ -26,7 +26,7 @@ module.exports.render = (options) => (component) => new Promise((resolve, reject
         document += text;
       }
     })
-    .on(Markdown.Event.end, () => resolve(document));
+    .on(Markdown.Event.end, () => resolve(document.trim() + '\n'));
 });
 
 module.exports.join = ({ parsing, ...options }) => {

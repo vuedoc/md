@@ -568,7 +568,7 @@ describe('lib/CLI', () => {
           '| `created` | Emitted when the component has been created |',
           '| `loaded`  | Emitted when the component has been loaded  |',
           '',
-          ''
+          '',
         ].join('\n')
 
         return cli.processWithOutputOption(options)
@@ -644,7 +644,7 @@ describe('lib/CLI', () => {
         '| `created` | Emitted when the component has been created |',
         '| `loaded`  | Emitted when the component has been loaded  |',
         '',
-        ''
+        '',
       ].join('\n')
 
       return cli.processWithoutOutputOption(options)
@@ -730,7 +730,7 @@ describe('lib/CLI', () => {
         '| `created` | Emitted when the component has been created |',
         '| `loaded`  | Emitted when the component has been loaded  |',
         '',
-        ''
+        '',
       ].join('\n')
 
       const file1 = path.join(fixturesPath, 'join.component.1.js')
@@ -814,6 +814,7 @@ describe('lib/CLI', () => {
         '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.  ',
         '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.  ',
         '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',
+        '',
         '',
       ].join('\n')
 

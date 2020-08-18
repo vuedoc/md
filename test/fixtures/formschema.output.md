@@ -38,4 +38,3 @@
 | `fieldId`   | **Dependencies:** `id`                                                                                                                                         |
 | `options`   | **Dependencies:** `schema`, `initialModel`, `name`, `fieldId`, `descriptor`, `components`, `bracketedObjectInputName`, `emitInputEvent`, `validator`, `update` |
 | `listeners` | **Dependencies:** `$listeners`, `parser`                                                                                                                       |
-

@@ -41,4 +41,3 @@ set(id: string, name?: string, order?: number = 1, values?: string | string[], .
 **Return value**
 
 True on success; ortherwise false
-

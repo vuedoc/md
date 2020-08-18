@@ -205,4 +205,3 @@ doSomethingAsynchronously(cb: requestCallback): void
 
 - **`cb: requestCallback`**<br>
   The callback that handles the response.
-

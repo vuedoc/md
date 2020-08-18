@@ -110,4 +110,3 @@ Enable the checkbox
 ```typescript
 enable(value: unknow): void
 ```
-

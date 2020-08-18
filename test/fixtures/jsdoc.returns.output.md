@@ -48,4 +48,3 @@ withPromise(a: number, b: number): Promise
 **Return value**
 
 Promise object represents the sum of a and b
-
