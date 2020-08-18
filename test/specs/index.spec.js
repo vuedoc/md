@@ -331,4 +331,110 @@ describe('vuedoc', () => {
 
     return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
   })
+
+  it('should successfully generate doc with @description, @desc and @example', () => {
+    const options = {
+      parsing: {
+        filecontent: `
+          <script>
+            /**
+             * Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+             * @example
+             * \`\`\`js
+             * console.log('hello')
+             * \`\`\`
+             * @description Description suite
+             * @example
+             * \`\`\`js
+             * console.log('hello mario')
+             * \`\`\`
+             * @desc Description suite 2
+             */
+            export default {
+              name: 'NumericInput',
+              methods: {
+                /**
+                 * Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                 * @example
+                 * \`\`\`js
+                 * console.log('hello')
+                 * \`\`\`
+                 * @description Description suite
+                 * @example
+                 * \`\`\`js
+                 * console.log('hello mario')
+                 * \`\`\`
+                 * @desc Description suite 2
+                 * @param {number} value - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                 *                         Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.
+                 *                         Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.
+                 */
+                check(value) {}
+              }
+            }
+          </script>
+        `,
+      },
+    };
+
+    const expected = [
+      '# NumericInput',
+      '',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      '',
+      '**Example**',
+      '',
+      '```js',
+      'console.log(\'hello\')',
+      '```',
+      '',
+      'Description suite',
+      '',
+      '**Example**',
+      '',
+      '```js',
+      'console.log(\'hello mario\')',
+      '```',
+      '',
+      'Description suite 2',
+      '',
+      '## Methods',
+      '',
+      '### check()',
+      '',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      '',
+      '**Example**',
+      '',
+      '```js',
+      'console.log(\'hello\')',
+      '```',
+      '',
+      'Description suite',
+      '',
+      '**Example**',
+      '',
+      '```js',
+      'console.log(\'hello mario\')',
+      '```',
+      '',
+      'Description suite 2',
+      '',
+      '**Syntax**',
+      '',
+      '```typescript',
+      'check(value: number): void',
+      '```',
+      '',
+      '**Parameters**',
+      '',
+      '- **`value: number`**<br>',
+      '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.',
+      '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',
+      '',
+    ].join('\n');
+
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
+  })
 })

@@ -40,6 +40,7 @@ npm install --global @vuedoc/parser @vuedoc/md
 - Generate documentation for component slots
 - Generate documentation for component methods
 - Support of JSDoc, Class Component, Vue Property Decorator, TypeDoc
+- Support of `@description`, `@desc` and `@example`
 
 Prop Types support
 
