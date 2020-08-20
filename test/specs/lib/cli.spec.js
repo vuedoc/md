@@ -810,7 +810,7 @@ describe('lib/CLI', () => {
         '',
         '**Parameters**',
         '',
-        '- **`value: number`**<br>  ',
+        '- `value: number`<br>  ',
         '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.  ',
         '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.  ',
         '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',

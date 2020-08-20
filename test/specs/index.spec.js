@@ -225,7 +225,7 @@ describe('vuedoc', () => {
       '',
       '**Parameters**',
       '',
-      '- **`value: number`**<br>  ',
+      '- `value: number`<br>  ',
       '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.  ',
       '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.  ',
       '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',
@@ -322,7 +322,7 @@ describe('vuedoc', () => {
       '',
       '**Parameters**',
       '',
-      '- **`value: number`**<br>',
+      '- `value: number`<br>',
       '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.',
       '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',
@@ -428,10 +428,59 @@ describe('vuedoc', () => {
       '',
       '**Parameters**',
       '',
-      '- **`value: number`**<br>',
+      '- `value: number`<br>',
       '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.',
       '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',
+      '',
+    ].join('\n');
+
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
+  })
+
+  it('should successfully generate doc with @kind function', () => {
+    const options = {
+      parsing: {
+        filecontent: `
+          <script>
+            export default {
+              name: 'NumericInput',
+              props: {
+                /**
+                 * The validator function to use to validate data before to emit the \`input\` event.
+                 *
+                 * @see [Custom Validation API](#custom-validation-api)
+                 * @kind function
+                 * @param {GenericField} field - The field that requests validation
+                 * @param {string} field.id - The input ID attribute value
+                 * @param {string} field.name - The input name attribute value
+                 * @param {any} field.value - The input value for validation
+                 * @param {JsonSchema} field.schema - The JSON Schema object of the input
+                 * @param {boolean} field.required - Boolean indicating whether or not the field is mandatory
+                 * @param {boolean} field.hasChildren - Boolean indicating whether or not the field has children
+                 * @param {any} field.initialValue - The initial input value
+                 * @param {Message[]} field.messages - The input value for validation
+                 * @returns {Promise<boolean>} A promise that return \`true\` if validation success and \`false\` otherwise
+                 */
+                validator: {
+                  type: Function,
+                  default: null
+                }
+              }
+            }
+          </script>
+        `,
+      },
+    };
+
+    const expected = [
+      '# NumericInput',
+      '',
+      '## Props',
+      '',
+      '| Name        | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Default |',
+      '| ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |',
+      '| `validator` | `Function` | The validator function to use to validate data before to emit the `input` event.<br>**Syntax**<br><code class="language-typescript">function validator(field: GenericField): Promise&lt;boolean&gt;</code><br>**Parameters**<br><ul><li>`field: GenericField` The field that requests validation</li><li>`field.id: string` The input ID attribute value</li><li>`field.name: string` The input name attribute value</li><li>`field.value: any` The input value for validation</li><li>`field.schema: JsonSchema` The JSON Schema object of the input</li><li>`field.required: boolean` Boolean indicating whether or not the field is mandatory</li><li>`field.hasChildren: boolean` Boolean indicating whether or not the field has children</li><li>`field.initialValue: any` The initial input value</li><li>`field.messages: Message[]` The input value for validation</li></ul>**Return value**<br>A promise that return `true` if validation success and `false` otherwise<br> | `null`  |',
       '',
     ].join('\n');
 
