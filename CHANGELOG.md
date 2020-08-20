@@ -1,3 +1,8 @@
+## Vuedoc Markdown v3.0.0-beta2
+
+This release improves parsing of props definitions with `@kind function`.
+It also requires the latest Vuedoc Parser 3.0.0-beta2.
+
 ## Vuedoc Markdown v3.0.0-beta1
 
 This version is the first version with Vuedoc Parser 3.0.0-beta1 support.
