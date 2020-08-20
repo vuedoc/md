@@ -1,6 +1,6 @@
 {
   "name": "@vuedoc/md",
-  "version": "3.0.0-beta1",
+  "version": "3.0.0-beta2",
   "description": "Generate a Markdown Documentation for a Vue file component",
   "main": "index.js",
   "bin": {
@@ -42,7 +42,7 @@
     "word-wrap": "^1.2.3"
   },
   "peerDependencies": {
-    "@vuedoc/parser": "^3.0.0-beta1"
+    "@vuedoc/parser": "^3.0.0-beta2"
   },
   "devDependencies": {
     "eslint": "^7.7.0",
