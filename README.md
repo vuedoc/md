@@ -376,7 +376,7 @@ Find more examples here: [test/fixtures](test/fixtures)
 ## Related projects
 
 - `jsdoc-vuedoc`: https://github.com/ccqgithub/jsdoc-vuedoc
-- `rollup-plugin-vuedoc`: https://www.npmjs.com/package/rollup-plugin-vuedoc
+- `rollup-plugin-vuedoc`: https://github.com/h-ikeda/rollup-plugin-vuedoc
 
 ## Contribute
 
