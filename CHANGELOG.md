@@ -1,3 +1,12 @@
+## Vuedoc Markdown v3.0.0
+
+This is the official release of Vuedoc Markdown 3.0.0.
+The only change with the previous beta 2 is the requirement to use the
+Vuedoc Parser 3.0.0 as a peer dependency.
+
+Please see [release notes of previous betas](https://gitlab.com/vuedoc/md/-/blob/v3.0.0/CHANGELOG.md)
+for all changes on Vuedoc Markdown 3.0.0.
+
 ## Vuedoc Markdown v3.0.0-beta2
 
 This release improves parsing of props definitions with `@kind function`.
