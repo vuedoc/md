@@ -9,7 +9,7 @@ code quality:
   before_script:
     - apk add --no-cache git
     - npm ci
-    - npm i --no-save https://gitlab.com/vuedoc/parser.git#dev
+    - npm i --no-save @vuedoc/parser
   script:
     - npm run lint
 
@@ -30,7 +30,7 @@ test & coverage:
   before_script:
     - apk add --no-cache git
     - npm ci
-    - npm i --no-save https://gitlab.com/vuedoc/parser.git#dev
+    - npm i --no-save @vuedoc/parser
   script:
     - npm test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
