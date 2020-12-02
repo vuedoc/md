@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest --coverage",
     "lint": "eslint index.js bin lib",
-    "lint:fix": "eslint --fix index.js bin lib",
+    "lint:fix": "eslint --fix index.js bin lib test",
     "install:dev": "npm i && npm i --no-save @vuedoc/parser",
     "gimtoc": "gimtoc -f README.md -s 'Table of Contents' -o README.md"
   },

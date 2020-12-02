@@ -1,34 +1,36 @@
-const assert = require('assert')
-const { join } = require('path')
-const { Parser } = require('@vuedoc/parser/lib/parser/Parser')
-
-const vuedoc = require('../..')
-
+/* eslint-disable max-len */
 /* global describe it beforeEach expect */
 
-const filename = join(__dirname, '../fixtures/checkbox.example.vue')
+const assert = require('assert');
+const { join } = require('path');
+const { Parser } = require('@vuedoc/parser/lib/parser/Parser');
+
+const vuedoc = require('../..');
+
+const filename = join(__dirname, '../fixtures/checkbox.example.vue');
 
 describe('vuedoc', () => {
-  let doc = null
-  const ignore = ['name', 'description']
-  const features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
-  const options = { filename, features }
+  let doc = null;
+  const ignore = [ 'name', 'description' ];
+  const features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature));
+  const options = { filename, features };
 
   beforeEach(() => {
     return vuedoc.md(options)
-      .then((_doc) => (doc = _doc))
-      .catch((err) => { throw err })
-  })
+      .then((_doc) => {
+        doc = _doc;
+      })
+      .catch((err) => { throw err; });
+  });
 
   it('should render without main title', () => {
-    assert.equal(/# checkbox/.test(doc), false)
-  })
+    assert.equal(/# checkbox/.test(doc), false);
+  });
 
-  it('should render without description', () =>
-    assert.equal(/A simple checkbox component/.test(doc), false))
+  it('should render without description', () => assert.equal(/A simple checkbox component/.test(doc), false));
 
   it('should successfully joined parsed files', () => {
-    const ignore = ['name']
+    const ignore = [ 'name' ];
     const options = {
       join: true,
       filenames: [
@@ -38,121 +40,130 @@ describe('vuedoc', () => {
       parsing: {
         features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
       }
-    }
+    };
 
     const expected = {
-      "inheritAttrs": true,
-      "description": "A simple checkbox component",
-      "author": [
-        "Sébastien"
+      inheritAttrs: true,
+      description: 'A simple checkbox component',
+      author: [
+        'Sébastien'
       ],
-      "keywords": [
+      keywords: [
         {
-          "name": "license",
-          "description": "MIT"
+          name: 'license',
+          description: 'MIT'
         },
         {
-          "name": "input"
+          name: 'input'
         }
       ],
-      "slots": [
+      slots: [
         {
-          "kind": "slot",
-          "visibility": "public",
-          "description": undefined,
-          "keywords": [],
-          "name": "default",
-          "category": undefined,
-          "props": []
+          kind: 'slot',
+          visibility: 'public',
+          description: undefined,
+          keywords: [],
+          name: 'default',
+          category: undefined,
+          version: undefined,
+          props: []
         },
         {
-          "kind": "slot",
-          "visibility": "public",
-          "description": "Use this slot to set the checkbox label",
-          "keywords": [],
-          "name": "label",
-          "category": undefined,
-          "props": []
+          kind: 'slot',
+          visibility: 'public',
+          description: 'Use this slot to set the checkbox label',
+          keywords: [],
+          name: 'label',
+          category: undefined,
+          version: undefined,
+          props: []
         }
       ],
-      "props": [
+      props: [
         {
-          "kind": "prop",
-          "visibility": "public",
-          "description": "The JSON Schema object. Use the `v-if` directive",
-          "keywords": [],
-          "name": "schema",
-          "type": ["Object", "Promise"],
-          "default": undefined,
-          "required": true,
-          "category": undefined,
-          "describeModel": false
+          kind: 'prop',
+          visibility: 'public',
+          description: 'The JSON Schema object. Use the `v-if` directive',
+          keywords: [],
+          name: 'schema',
+          type: [ 'Object', 'Promise' ],
+          default: undefined,
+          required: true,
+          category: undefined,
+          version: undefined,
+          describeModel: false
         },
         {
-          "kind": "prop",
-          "visibility": "public",
-          "description": "Use this directive to create two-way data bindings",
-          "keywords": [],
-          "name": "value",
-          "type": "Object",
-          "default": "{}",
-          "required": false,
-          "category": undefined,
-          "describeModel": true
+          kind: 'prop',
+          visibility: 'public',
+          description: 'Use this directive to create two-way data bindings',
+          keywords: [],
+          name: 'value',
+          type: 'Object',
+          default: '{}',
+          required: false,
+          category: undefined,
+          version: undefined,
+          describeModel: true
         },
         {
-          "kind": "prop",
-          "visibility": "public",
-          "description": "The checkbox model",
-          "keywords": [],
-          "name": "model",
-          "type": "Array",
-          "default": undefined,
-          "required": true,
-          "category": undefined,
-          "describeModel": false
+          kind: 'prop',
+          visibility: 'public',
+          description: 'The checkbox model',
+          keywords: [],
+          name: 'model',
+          type: 'Array',
+          default: undefined,
+          required: true,
+          category: undefined,
+          version: undefined,
+          describeModel: false
         },
         {
-          "kind": "prop",
-          "visibility": "public",
-          "description": "Initial checkbox state",
-          "keywords": [],
-          "name": "disabled",
-          "type": "Boolean",
-          "default": undefined,
-          "required": false,
-          "category": undefined,
-          "describeModel": false
+          kind: 'prop',
+          visibility: 'public',
+          description: 'Initial checkbox state',
+          keywords: [],
+          name: 'disabled',
+          type: 'Boolean',
+          default: undefined,
+          required: false,
+          category: undefined,
+          version: undefined,
+          describeModel: false
         }
       ],
-      "data": [],
-      "computed": [],
-      "events": [
+      data: [],
+      computed: [],
+      events: [
         {
-          "kind": "event",
-          "visibility": "public",
-          "description": "Emitted when the component has been created",
-          "keywords": [],
-          "name": "created",
-          "category": undefined,
-          "arguments": []
+          kind: 'event',
+          visibility: 'public',
+          description: 'Emitted when the component has been created',
+          keywords: [],
+          name: 'created',
+          category: undefined,
+          version: undefined,
+          arguments: []
         },
         {
-          "kind": "event",
-          "visibility": "public",
-          "description": "Emitted when the component has been loaded",
-          "keywords": [],
-          "name": "loaded",
-          "category": undefined,
-          "arguments": []
+          kind: 'event',
+          visibility: 'public',
+          description: 'Emitted when the component has been loaded',
+          keywords: [],
+          name: 'loaded',
+          category: undefined,
+          version: undefined,
+          arguments: []
         }
       ],
-      "methods": [],
-      "errors": []
-    }
+      methods: [],
+      errors: [],
+      warnings: [],
+    };
 
-    return vuedoc.join(options).then((ast) => expect(ast).toEqual(expected))
-  })
+    return vuedoc.join(options).then((ast) => expect(ast).toEqual(expected));
+  });
 
   it('should successfully generate doc with options.wordwrap', () => {
     const options = {
@@ -180,8 +191,8 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
-  })
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
 
   it('should successfully generate doc with options.wordwrap === false', () => {
     const options = {
@@ -232,8 +243,8 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
-  })
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
 
   it('should successfully generate doc with @typeref', () => {
     const options = {
@@ -266,8 +277,8 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
-  })
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
 
   it('should successfully generate doc with @version, @since, @category, @deprecated, @see and @author', () => {
     const options = {
@@ -329,8 +340,8 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
-  })
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
 
   it('should successfully generate doc with @description, @desc and @example', () => {
     const options = {
@@ -435,8 +446,8 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
-  })
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
 
   it('should successfully generate doc with @kind function', () => {
     const options = {
@@ -484,6 +495,6 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
-  })
-})
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
+});
