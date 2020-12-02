@@ -38,7 +38,7 @@
     "jsonschemav": "^1.0.7",
     "markdown-table": "^2.0.0",
     "md-node-inject": "^1.0.1",
-    "mdast-util-to-string": "^1.1.0",
+    "mdast-util-to-string": "^2.0.0",
     "word-wrap": "^1.2.3"
   },
   "peerDependencies": {
