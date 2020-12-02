@@ -115,25 +115,15 @@ describe('lib/CLI', () => {
       streamContent = message;
     };
 
-    process.__defineGetter__('stdout', () => {
-      return new OutputStream();
-    });
-
-    process.__defineGetter__('stderr', () => {
-      return new OutputStream();
-    });
+    process.__defineGetter__('stdout', () => new OutputStream());
+    process.__defineGetter__('stderr', () => new OutputStream());
   });
 
   afterEach(() => {
     console.error = originalConsoleError;
 
-    process.__defineGetter__('stdout', () => {
-      return originalStdout;
-    });
-
-    process.__defineGetter__('stderr', () => {
-      return originalStderr;
-    });
+    process.__defineGetter__('stdout', () => originalStdout);
+    process.__defineGetter__('stderr', () => originalStderr);
   });
 
   describe('validateOptions(options)', () => {
@@ -534,8 +524,8 @@ describe('lib/CLI', () => {
         return cli.processWithOutputOption(options).then(() => {
           const content = fs.readFileSync(output, 'utf8');
 
-          assert.notEqual(content.search(/\n### void/), -1);
-          assert.notEqual(content.search(/\nVoid component/), -1);
+          expect(content.search(/\n### void/)).not.toBe(-1);
+          expect(content.search(/\nVoid component/)).not.toBe(-1);
         });
       });
 
@@ -855,10 +845,43 @@ describe('lib/CLI', () => {
 
     it('should failed with an exception', () => {
       cli.silenceExec([]);
-
-      assert.notEqual(streamContent.search(/Missing filename/), -1);
+      expect(streamContent.search(/Missing filename/)).not.toBe(-1);
     });
 
     it('should failed promise error catching', () => cli.silenceExec([ notfoundfile ]));
+  });
+
+  describe('parsing warnings output', () => {
+    beforeEach(() => {
+      streamContent = '';
+    });
+
+    it('should successfully print parsing warining messages on stderr', async () => {
+      const argv = [];
+      const componentRawContent = `
+        <script>
+          export default {
+            methods: {
+              /**
+               * @private
+               */
+              trigger() {
+                /**
+                 * Foo event description
+                 *
+                 * @arg {Object} {name, val} - foo event param description
+                 */
+                this.$emit("foo-event", { name: "foo-name", val: "voo-val" })
+              }
+            }
+          }
+        </script>
+      `;
+
+      streamContent = '';
+
+      await cli.processRawContent(argv, componentRawContent);
+      expect(streamContent.search(/Warn: Invalid JSDoc syntax: '{Object} {name, val} - foo event param description'/)).not.toBe(-1);
+    });
   });
 });

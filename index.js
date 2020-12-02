@@ -10,11 +10,13 @@ const validator = jsv.compile(schema);
 
 module.exports.Parser = vuedoc;
 
-module.exports.render = (options) => (component) => new Promise((resolve, reject) => {
+module.exports.render = (options) => ({ warnings = [], ...component }) => new Promise((resolve, reject) => {
   if (component.errors.length) {
     reject(new Error(component.errors[0]));
     return;
   }
+
+  warnings.forEach((message) => process.stderr.write(`Warn: ${message}\n`));
 
   let document = '';
 
