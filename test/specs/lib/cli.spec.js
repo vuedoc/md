@@ -51,6 +51,7 @@ const originalStdout = process.stdout;
 const defaultOptions = {
   join: false,
   stream: true,
+  reduce: false,
   filenames: [],
   parsing: {
     features: Parser.SUPPORTED_FEATURES
@@ -465,8 +466,7 @@ describe('lib/CLI', () => {
 
     it('should successfully generate the component documentation', () => {
       const argv = [];
-      const filename = checkboxfile;
-      const componentRawContent = fs.readFileSync(filename).toString();
+      const componentRawContent = fs.readFileSync(checkboxfile).toString();
 
       return cli.processRawContent(argv, componentRawContent);
     });
@@ -592,7 +592,7 @@ describe('lib/CLI', () => {
     });
 
     describe('should failed to generate the component documentation', () => {
-      it('without --section', (done) => {
+      it('without not found file', (done) => {
         const filenames = [ notfoundfile ];
         const options = { output, filenames };
 
@@ -695,11 +695,11 @@ describe('lib/CLI', () => {
         .catch((err) => {
           expect(err.message).toEqual('Invalid options');
           expect(err.errors.length).toBe(1);
-          expect(err.errors[0].prop).toBe('join');
+          expect(err.errors[0].prop).toBe('level');
           expect(err.errors[0].errors).toEqual([
             {
-              keyword: 'type',
-              message: 'invalid type'
+              keyword: 'minimum',
+              message: 'invalid data'
             }
           ]);
         });
@@ -840,12 +840,12 @@ describe('lib/CLI', () => {
 
   describe('silenceExec(argv)', () => {
     it('should successfully generate the component documentation with --output', () => {
-      cli.silenceExec([ checkboxfile ]);
+      return cli.silenceExec([ checkboxfile ]);
     });
 
-    it('should failed with an exception', () => {
-      cli.silenceExec([]);
-      expect(streamContent.search(/Missing filename/)).not.toBe(-1);
+    it('should failed with an exception', async () => {
+      await cli.silenceExec([]);
+      expect(streamContent.search(/Missing filenames/)).not.toBe(-1);
     });
 
     it('should failed promise error catching', () => cli.silenceExec([ notfoundfile ]));
@@ -856,7 +856,7 @@ describe('lib/CLI', () => {
       streamContent = '';
     });
 
-    it('should successfully print parsing warining messages on stderr', async () => {
+    it('should successfully print parsing warning messages on stderr', async () => {
       const argv = [];
       const componentRawContent = `
         <script>
@@ -877,8 +877,6 @@ describe('lib/CLI', () => {
           }
         </script>
       `;
-
-      streamContent = '';
 
       await cli.processRawContent(argv, componentRawContent);
       expect(streamContent.search(/Warn: Invalid JSDoc syntax: '{Object} {name, val} - foo event param description'/)).not.toBe(-1);

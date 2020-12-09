@@ -221,24 +221,26 @@ for parsing options.
 
 **Options**
 
-| Name        | Type                    | Description                                                                                                   |
-|-------------|-------------------------|---------------------------------------------------------------------------------------------------------------|
-| `level`     | Integer                 | Set the title level. An integer between 1 and 6                                                               |
-| `output`    | String                  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used    |
-| `section`   | String                  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output          |
-| `join`      | Boolean                 | Combine generated documentation for multiple component files into only one                                    |
-| `parsing`   | Object                  | Overwrite the default [Vuedoc Parser configuration](https://gitlab.com/vuedoc/parser#options)                 |
-| `filenames` | String[]                | List of filenames to parse and render                                                                         |
-| `wordwrap`  | Integer | false         | The width of the text before wrapping to a new line. Set to `false` to disable word wrapping. Default is `80` |
-| `labels`    | Record<I18nKey, String> | I18n labels for translation. See [`@vuedoc/md/lib/I18n`](lib/I18n.js)                                         |
+| Name        | Type                    | Description                                                                                                                                                     |
+|-------------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `level`     | Integer                 | Set the title level. An integer between 1 and 6                                                                                                                 |
+| `output`    | String                  | The output of the documentation. Can be a directory or a Markdown file. If absent, the STDOUT will be used                                                      |
+| `section`   | String                  | Inject the generated documentation to a section. Works with `options.output` as Markdown file output                                                            |
+| `parsing`   | Object                  | Overwrite the default [Vuedoc Parser configuration](https://gitlab.com/vuedoc/parser#options)                                                                   |
+| `join`      | Boolean                 | Combine generated documentation for multiple component files into only one                                                                                      |
+| `filenames` | String[]                | List of component filenames to parse and render. If `options.join === true`, `options.filenames` will parsing will be joined and rendered as a single component |
+| `wordwrap`  | Integer                 | The width of the text before wrapping to a new line. Set to `0` to disable word wrapping. Default is `80`                                                       |
+| `labels`    | Record<I18nKey, String> | I18n labels for translation. See [`@vuedoc/md/lib/I18n`](lib/I18n.js)                                                                                           |
 
 **Usage**
 
 ```js
 const vuedoc = require('@vuedoc/md')
 const options = {
+  join: true,
   filenames: [
-    'test/fixtures/checkbox.vue'
+    'components/input.mixin.vue',
+    'components/checkbox.vue',
   ]
 }
 
@@ -255,7 +257,7 @@ const TypePugLoader = require('@vuedoc/parser/loader/pug')
 
 const options = {
   filenames: [
-    'test/fixtures/checkbox.vue'
+    'test/fixtures/checkbox.vue',
   ],
   parsing: {
     features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],

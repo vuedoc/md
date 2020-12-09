@@ -13,7 +13,7 @@ describe('vuedoc', () => {
   let doc = null;
   const ignore = [ 'name', 'description' ];
   const features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature));
-  const options = { filename, features };
+  const options = { filenames: [ filename ], parsing: { features } };
 
   beforeEach(() => {
     return vuedoc.md(options)
@@ -24,10 +24,10 @@ describe('vuedoc', () => {
   });
 
   it('should render without main title', () => {
-    assert.equal(/# checkbox/.test(doc), false);
+    assert.strictEqual(/# checkbox/.test(doc), false);
   });
 
-  it('should render without description', () => assert.equal(/A simple checkbox component/.test(doc), false));
+  it('should render without description', () => assert.strictEqual(/A simple checkbox component/.test(doc), false));
 
   it('should successfully joined parsed files', () => {
     const ignore = [ 'name' ];
@@ -39,130 +39,105 @@ describe('vuedoc', () => {
       ],
       parsing: {
         features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
-      }
+      },
     };
 
-    const expected = {
-      inheritAttrs: true,
-      description: 'A simple checkbox component',
-      author: [
-        'Sébastien'
+    const expected = [
+      '**Author:** Sébastien',
+      '',
+      'A simple checkbox component',
+      '',
+      '- **license** - MIT',
+      '- **input**',
+      '',
+      '# Slots',
+      '',
+      '| Name      | Description                             |',
+      '| --------- | --------------------------------------- |',
+      '| `default` |                                         |',
+      '| `label`   | Use this slot to set the checkbox label |',
+      '',
+      '# Props',
+      '',
+      '| Name                | Type                      | Description                                        | Default |',
+      '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+      '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+      '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+      '| `model` *required*  | `Array`                   | The checkbox model                                 |         |',
+      '| `disabled`          | `Boolean`                 | Initial checkbox state                             | &nbsp;  |',
+      '',
+      '# Events',
+      '',
+      '| Name      | Description                                 |',
+      '| --------- | ------------------------------------------- |',
+      '| `created` | Emitted when the component has been created |',
+      '| `loaded`  | Emitted when the component has been loaded  |',
+      '',
+    ].join('\n');
+
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
+
+  it('should successfully render multiple files', () => {
+    const ignore = [ 'name' ];
+    const options = {
+      filenames: [
+        join(__dirname, '../fixtures/join.component.1.js'),
+        join(__dirname, '../fixtures/join.component.2.vue'),
       ],
-      keywords: [
-        {
-          name: 'license',
-          description: 'MIT'
-        },
-        {
-          name: 'input'
-        }
-      ],
-      slots: [
-        {
-          kind: 'slot',
-          visibility: 'public',
-          description: undefined,
-          keywords: [],
-          name: 'default',
-          category: undefined,
-          version: undefined,
-          props: []
-        },
-        {
-          kind: 'slot',
-          visibility: 'public',
-          description: 'Use this slot to set the checkbox label',
-          keywords: [],
-          name: 'label',
-          category: undefined,
-          version: undefined,
-          props: []
-        }
-      ],
-      props: [
-        {
-          kind: 'prop',
-          visibility: 'public',
-          description: 'The JSON Schema object. Use the `v-if` directive',
-          keywords: [],
-          name: 'schema',
-          type: [ 'Object', 'Promise' ],
-          default: undefined,
-          required: true,
-          category: undefined,
-          version: undefined,
-          describeModel: false
-        },
-        {
-          kind: 'prop',
-          visibility: 'public',
-          description: 'Use this directive to create two-way data bindings',
-          keywords: [],
-          name: 'value',
-          type: 'Object',
-          default: '{}',
-          required: false,
-          category: undefined,
-          version: undefined,
-          describeModel: true
-        },
-        {
-          kind: 'prop',
-          visibility: 'public',
-          description: 'The checkbox model',
-          keywords: [],
-          name: 'model',
-          type: 'Array',
-          default: undefined,
-          required: true,
-          category: undefined,
-          version: undefined,
-          describeModel: false
-        },
-        {
-          kind: 'prop',
-          visibility: 'public',
-          description: 'Initial checkbox state',
-          keywords: [],
-          name: 'disabled',
-          type: 'Boolean',
-          default: undefined,
-          required: false,
-          category: undefined,
-          version: undefined,
-          describeModel: false
-        }
-      ],
-      data: [],
-      computed: [],
-      events: [
-        {
-          kind: 'event',
-          visibility: 'public',
-          description: 'Emitted when the component has been created',
-          keywords: [],
-          name: 'created',
-          category: undefined,
-          version: undefined,
-          arguments: []
-        },
-        {
-          kind: 'event',
-          visibility: 'public',
-          description: 'Emitted when the component has been loaded',
-          keywords: [],
-          name: 'loaded',
-          category: undefined,
-          version: undefined,
-          arguments: []
-        }
-      ],
-      methods: [],
-      errors: [],
-      warnings: [],
+      parsing: {
+        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+      },
     };
 
-    return vuedoc.join(options).then((ast) => expect(ast).toEqual(expected));
+    const expected = [
+      [
+        '# Props',
+        '',
+        '| Name                | Type                      | Description                                        | Default |',
+        '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+        '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+        '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+        '',
+        '# Events',
+        '',
+        '| Name      | Description                                 |',
+        '| --------- | ------------------------------------------- |',
+        '| `created` | Emitted when the component has been created |',
+        '',
+      ].join('\n'),
+      [
+        '**Author:** Sébastien',
+        '',
+        'A simple checkbox component',
+        '',
+        '- **license** - MIT',
+        '- **input**',
+        '',
+        '# Slots',
+        '',
+        '| Name      | Description                             |',
+        '| --------- | --------------------------------------- |',
+        '| `default` |                                         |',
+        '| `label`   | Use this slot to set the checkbox label |',
+        '',
+        '# Props',
+        '',
+        '| Name               | Type      | Description            |',
+        '| ------------------ | --------- | ---------------------- |',
+        '| `model` *required* | `Array`   | The checkbox model     |',
+        '| `disabled`         | `Boolean` | Initial checkbox state |',
+        '',
+        '# Events',
+        '',
+        '| Name     | Description                                |',
+        '| -------- | ------------------------------------------ |',
+        '| `loaded` | Emitted when the component has been loaded |',
+        '',
+      ].join('\n'),
+    ];
+
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
   });
 
   it('should successfully generate doc with options.wordwrap', () => {
@@ -196,7 +171,7 @@ describe('vuedoc', () => {
 
   it('should successfully generate doc with options.wordwrap === false', () => {
     const options = {
-      wordwrap: false,
+      wordwrap: 0,
       parsing: {
         filecontent: `
           <script>
