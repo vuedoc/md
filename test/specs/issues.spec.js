@@ -1,6 +1,4 @@
-'use strict'
-
-const vuedoc = require('../..')
+const vuedoc = require('../..');
 
 /* global describe it expect */
 
@@ -18,20 +16,20 @@ describe('issues', () => {
             }
           }
         </script>
-      `
+      `;
 
-      const parsing = { filecontent }
+      const parsing = { filecontent };
       const expected = [
         '# Props',
         '',
         '| Name      | Type      | Description | Default     |',
         '| --------- | --------- | ----------- | ----------- |',
         '| `v-model` | `Boolean` |             | `undefined` |'
-      ].join('\n')
+      ].join('\n');
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
-    })
-  })
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+    });
+  });
 
   describe('#7 - Spread Operator not working in component methods', () => {
     it('should parse without errors', () => {
@@ -51,13 +49,13 @@ describe('issues', () => {
             }
           </script>
         `
-      }
+      };
 
-      const expected = [].join('\n')
+      const expected = [].join('\n');
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
-    })
-  })
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+    });
+  });
 
   describe('#27 - feat: consider handling local functions as not part of the component doc', () => {
     it('should parse without errors', () => {
@@ -84,13 +82,13 @@ describe('issues', () => {
           <style lang="css" scoped>
           </style>
         `
-      }
+      };
 
-      const expected = [].join('\n')
+      const expected = [].join('\n');
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
-    })
-  })
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+    });
+  });
 
   describe('#19 - vuedoc.md does not render default param values for function', () => {
     it('should render default param values for function', () => {
@@ -114,7 +112,7 @@ describe('issues', () => {
             }
           </script>
         `
-      }
+      };
 
       const expected = [
         '# Methods',
@@ -132,16 +130,16 @@ describe('issues', () => {
         '',
         '**Parameters**',
         '',
-        '- `schema: object`<br>',
+        '- `schema: object`<br/>',
         '  The JSON Schema object to load',
         '',
-        '- `model: Number | String | Array | Object | Boolean = undefined`<br>',
+        '- `model: Number | String | Array | Object | Boolean = undefined`<br/>',
         '  The initial data for the schema.'
-      ].join('\n')
+      ].join('\n');
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
-    })
-  })
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+    });
+  });
 
   describe('#36 - Property with multiple type options destroys table layout', () => {
     it('should render default param values for function', () => {
@@ -162,7 +160,7 @@ describe('issues', () => {
             }
           </script>
         `
-      }
+      };
 
       const expected = [
         '# Props',
@@ -170,11 +168,11 @@ describe('issues', () => {
         '| Name       | Type             | Description   | Default |',
         '| ---------- | ---------------- | ------------- | ------- |',
         '| `datetime` | `string or Date` | (Description) | `null`  |'
-      ].join('\n')
+      ].join('\n');
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
-    })
-  })
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+    });
+  });
 
   describe('vuedoc/parser#83 - Parser issue with !(...)', () => {
     it('should render without errors', () => {
@@ -204,7 +202,7 @@ describe('issues', () => {
             }
           </script>
         `
-      }
+      };
 
       const expected = [
         '# TestMixinFactory',
@@ -220,9 +218,9 @@ describe('issues', () => {
         '```typescript',
         'myFunction(test: Promise<string>): number',
         '```',
-      ].join('\n')
+      ].join('\n');
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected))
-    })
-  })
-})
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+    });
+  });
+});

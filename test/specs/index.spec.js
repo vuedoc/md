@@ -1,34 +1,36 @@
-const assert = require('assert')
-const { join } = require('path')
-const { Parser } = require('@vuedoc/parser/lib/parser/Parser')
-
-const vuedoc = require('../..')
-
+/* eslint-disable max-len */
 /* global describe it beforeEach expect */
 
-const filename = join(__dirname, '../fixtures/checkbox.example.vue')
+const assert = require('assert');
+const { join } = require('path');
+const { Parser } = require('@vuedoc/parser/lib/parser/Parser');
+
+const vuedoc = require('../..');
+
+const filename = join(__dirname, '../fixtures/checkbox.example.vue');
 
 describe('vuedoc', () => {
-  let doc = null
-  const ignore = ['name', 'description']
-  const features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
-  const options = { filename, features }
+  let doc = null;
+  const ignore = [ 'name', 'description' ];
+  const features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature));
+  const options = { filenames: [ filename ], parsing: { features } };
 
   beforeEach(() => {
     return vuedoc.md(options)
-      .then((_doc) => (doc = _doc))
-      .catch((err) => { throw err })
-  })
+      .then((_doc) => {
+        doc = _doc;
+      })
+      .catch((err) => { throw err; });
+  });
 
   it('should render without main title', () => {
-    assert.equal(/# checkbox/.test(doc), false)
-  })
+    assert.strictEqual(/# checkbox/.test(doc), false);
+  });
 
-  it('should render without description', () =>
-    assert.equal(/A simple checkbox component/.test(doc), false))
+  it('should render without description', () => assert.strictEqual(/A simple checkbox component/.test(doc), false));
 
   it('should successfully joined parsed files', () => {
-    const ignore = ['name']
+    const ignore = [ 'name' ];
     const options = {
       join: true,
       filenames: [
@@ -37,122 +39,164 @@ describe('vuedoc', () => {
       ],
       parsing: {
         features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
-      }
-    }
+      },
+    };
 
-    const expected = {
-      "inheritAttrs": true,
-      "description": "A simple checkbox component",
-      "author": [
-        "Sébastien"
-      ],
-      "keywords": [
-        {
-          "name": "license",
-          "description": "MIT"
-        },
-        {
-          "name": "input"
-        }
-      ],
-      "slots": [
-        {
-          "kind": "slot",
-          "visibility": "public",
-          "description": undefined,
-          "keywords": [],
-          "name": "default",
-          "category": undefined,
-          "props": []
-        },
-        {
-          "kind": "slot",
-          "visibility": "public",
-          "description": "Use this slot to set the checkbox label",
-          "keywords": [],
-          "name": "label",
-          "category": undefined,
-          "props": []
-        }
-      ],
-      "props": [
-        {
-          "kind": "prop",
-          "visibility": "public",
-          "description": "The JSON Schema object. Use the `v-if` directive",
-          "keywords": [],
-          "name": "schema",
-          "type": ["Object", "Promise"],
-          "default": undefined,
-          "required": true,
-          "category": undefined,
-          "describeModel": false
-        },
-        {
-          "kind": "prop",
-          "visibility": "public",
-          "description": "Use this directive to create two-way data bindings",
-          "keywords": [],
-          "name": "value",
-          "type": "Object",
-          "default": "{}",
-          "required": false,
-          "category": undefined,
-          "describeModel": true
-        },
-        {
-          "kind": "prop",
-          "visibility": "public",
-          "description": "The checkbox model",
-          "keywords": [],
-          "name": "model",
-          "type": "Array",
-          "default": undefined,
-          "required": true,
-          "category": undefined,
-          "describeModel": false
-        },
-        {
-          "kind": "prop",
-          "visibility": "public",
-          "description": "Initial checkbox state",
-          "keywords": [],
-          "name": "disabled",
-          "type": "Boolean",
-          "default": undefined,
-          "required": false,
-          "category": undefined,
-          "describeModel": false
-        }
-      ],
-      "data": [],
-      "computed": [],
-      "events": [
-        {
-          "kind": "event",
-          "visibility": "public",
-          "description": "Emitted when the component has been created",
-          "keywords": [],
-          "name": "created",
-          "category": undefined,
-          "arguments": []
-        },
-        {
-          "kind": "event",
-          "visibility": "public",
-          "description": "Emitted when the component has been loaded",
-          "keywords": [],
-          "name": "loaded",
-          "category": undefined,
-          "arguments": []
-        }
-      ],
-      "methods": [],
-      "errors": []
-    }
+    const expected = [
+      '**Author:** Sébastien',
+      '',
+      'A simple checkbox component',
+      '',
+      '- **license** - MIT',
+      '- **input**',
+      '',
+      '# Slots',
+      '',
+      '| Name      | Description                             |',
+      '| --------- | --------------------------------------- |',
+      '| `default` |                                         |',
+      '| `label`   | Use this slot to set the checkbox label |',
+      '',
+      '# Props',
+      '',
+      '| Name                | Type                      | Description                                        | Default |',
+      '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+      '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+      '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+      '| `model` *required*  | `Array`                   | The checkbox model                                 |         |',
+      '| `disabled`          | `Boolean`                 | Initial checkbox state                             | &nbsp;  |',
+      '',
+      '# Events',
+      '',
+      '| Name      | Description                                 |',
+      '| --------- | ------------------------------------------- |',
+      '| `created` | Emitted when the component has been created |',
+      '| `loaded`  | Emitted when the component has been loaded  |',
+      '',
+    ].join('\n');
 
-    return vuedoc.join(options).then((ast) => expect(ast).toEqual(expected))
-  })
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
+
+  it('should successfully render multiple files', () => {
+    const ignore = [ 'name' ];
+    const options = {
+      filenames: [
+        join(__dirname, '../fixtures/join.component.1.js'),
+        join(__dirname, '../fixtures/join.component.2.vue'),
+      ],
+      parsing: {
+        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+      },
+    };
+
+    const expected = [
+      [
+        '# Props',
+        '',
+        '| Name                | Type                      | Description                                        | Default |',
+        '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+        '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+        '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+        '',
+        '# Events',
+        '',
+        '| Name      | Description                                 |',
+        '| --------- | ------------------------------------------- |',
+        '| `created` | Emitted when the component has been created |',
+        '',
+      ].join('\n'),
+      [
+        '**Author:** Sébastien',
+        '',
+        'A simple checkbox component',
+        '',
+        '- **license** - MIT',
+        '- **input**',
+        '',
+        '# Slots',
+        '',
+        '| Name      | Description                             |',
+        '| --------- | --------------------------------------- |',
+        '| `default` |                                         |',
+        '| `label`   | Use this slot to set the checkbox label |',
+        '',
+        '# Props',
+        '',
+        '| Name               | Type      | Description            |',
+        '| ------------------ | --------- | ---------------------- |',
+        '| `model` *required* | `Array`   | The checkbox model     |',
+        '| `disabled`         | `Boolean` | Initial checkbox state |',
+        '',
+        '# Events',
+        '',
+        '| Name     | Description                                |',
+        '| -------- | ------------------------------------------ |',
+        '| `loaded` | Emitted when the component has been loaded |',
+        '',
+      ].join('\n'),
+    ];
+
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
+
+  it('should successfully render with only one file', () => {
+    const ignore = [ 'name' ];
+    const options = {
+      filenames: [
+        join(__dirname, '../fixtures/join.component.1.js'),
+      ],
+      parsing: {
+        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+      },
+    };
+
+    const expected = [
+      '# Props',
+      '',
+      '| Name                | Type                      | Description                                        | Default |',
+      '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+      '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+      '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+      '',
+      '# Events',
+      '',
+      '| Name      | Description                                 |',
+      '| --------- | ------------------------------------------- |',
+      '| `created` | Emitted when the component has been created |',
+      '',
+    ].join('\n');
+
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
+
+  it('should successfully render with options.filename', () => {
+    const ignore = [ 'name' ];
+    const options = {
+      filename: join(__dirname, '../fixtures/join.component.1.js'),
+      parsing: {
+        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+      },
+    };
+
+    const expected = [
+      '# Props',
+      '',
+      '| Name                | Type                      | Description                                        | Default |',
+      '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+      '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+      '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+      '',
+      '# Events',
+      '',
+      '| Name      | Description                                 |',
+      '| --------- | ------------------------------------------- |',
+      '| `created` | Emitted when the component has been created |',
+      '',
+    ].join('\n');
+
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
 
   it('should successfully generate doc with options.wordwrap', () => {
     const options = {
@@ -180,12 +224,12 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
-  })
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
 
-  it('should successfully generate doc with options.wordwrap === false', () => {
+  it('should successfully generate doc with options.wordwrap === 0', () => {
     const options = {
-      wordwrap: false,
+      wordwrap: 0,
       parsing: {
         filecontent: `
           <script>
@@ -225,15 +269,28 @@ describe('vuedoc', () => {
       '',
       '**Parameters**',
       '',
-      '- `value: number`<br>  ',
+      '- `value: number`<br/>  ',
       '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.  ',
       '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.  ',
       '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
-  })
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
+
+  it('should successfully throw an error with missing filenames and parser.filecontent', (done) => {
+    const options = {
+      parsing: {},
+    };
+
+    vuedoc.md(options)
+      .then(() => done(new Error('should throw an error with missing filenames and parser.filecontent')))
+      .catch(({ message }) => {
+        expect(message.search(/^Invalid options\. Missing options\.filenames$/)).not.toBe(-1);
+        done();
+      });
+  });
 
   it('should successfully generate doc with @typeref', () => {
     const options = {
@@ -266,8 +323,8 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
-  })
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
 
   it('should successfully generate doc with @version, @since, @category, @deprecated, @see and @author', () => {
     const options = {
@@ -302,10 +359,10 @@ describe('vuedoc', () => {
     const expected = [
       '# NumericInput',
       '',
-      '**Since:** 1.0.0<br>',
-      '**Version:** 1.2.3<br>',
-      '**Deprecated:** since 1.2.0<br>',
-      '**See:** http://arya.got<br>',
+      '**Since:** 1.0.0<br/>',
+      '**Version:** 1.2.3<br/>',
+      '**Deprecated:** since 1.2.0<br/>',
+      '**See:** http://arya.got<br/>',
       '**Author:** Arya Stark',
       '',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -322,15 +379,15 @@ describe('vuedoc', () => {
       '',
       '**Parameters**',
       '',
-      '- `value: number`<br>',
+      '- `value: number`<br/>',
       '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.',
       '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
-  })
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
 
   it('should successfully generate doc with @description, @desc and @example', () => {
     const options = {
@@ -428,15 +485,15 @@ describe('vuedoc', () => {
       '',
       '**Parameters**',
       '',
-      '- `value: number`<br>',
+      '- `value: number`<br/>',
       '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       '  Curabitur suscipit odio nisi, vel pellentesque augue tempor sed.',
       '  Quisque tempus tortor metus, sit amet vehicula nisi tempus sit amet.',
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
-  })
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
 
   it('should successfully generate doc with @kind function', () => {
     const options = {
@@ -478,12 +535,12 @@ describe('vuedoc', () => {
       '',
       '## Props',
       '',
-      '| Name        | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Default |',
-      '| ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |',
-      '| `validator` | `Function` | The validator function to use to validate data before to emit the `input` event.<br>**Syntax**<br><code class="language-typescript">function validator(field: GenericField): Promise&lt;boolean&gt;</code><br>**Parameters**<br><ul><li>`field: GenericField` The field that requests validation</li><li>`field.id: string` The input ID attribute value</li><li>`field.name: string` The input name attribute value</li><li>`field.value: any` The input value for validation</li><li>`field.schema: JsonSchema` The JSON Schema object of the input</li><li>`field.required: boolean` Boolean indicating whether or not the field is mandatory</li><li>`field.hasChildren: boolean` Boolean indicating whether or not the field has children</li><li>`field.initialValue: any` The initial input value</li><li>`field.messages: Message[]` The input value for validation</li></ul>**Return value**<br>A promise that return `true` if validation success and `false` otherwise<br> | `null`  |',
+      '| Name        | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Default |',
+      '| ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |',
+      '| `validator` | `Function` | The validator function to use to validate data before to emit the `input` event.<br/>**Syntax**<br/><code class="language-typescript">function validator(field: GenericField): Promise&lt;boolean&gt;</code><br/>**Parameters**<br/><ul><li>`field: GenericField` The field that requests validation</li><li>`field.id: string` The input ID attribute value</li><li>`field.name: string` The input name attribute value</li><li>`field.value: any` The input value for validation</li><li>`field.schema: JsonSchema` The JSON Schema object of the input</li><li>`field.required: boolean` Boolean indicating whether or not the field is mandatory</li><li>`field.hasChildren: boolean` Boolean indicating whether or not the field has children</li><li>`field.initialValue: any` The initial input value</li><li>`field.messages: Message[]` The input value for validation</li></ul>**Return value**<br/>A promise that return `true` if validation success and `false` otherwise<br/> | `null`  |',
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected))
-  })
-})
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
+});

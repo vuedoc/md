@@ -8,56 +8,99 @@ const schema = require('./lib/config.schema');
 const jsv = new JsonSchemav();
 const validator = jsv.compile(schema);
 
-module.exports.Parser = vuedoc;
+function renderFile(filename, options) {
+  return ({ warnings = [], ...component }) => new Promise((resolve, reject) => {
+    warnings.forEach((message) => process.stderr.write(`Warn: ${message}\n`));
 
-module.exports.render = (options) => (component) => new Promise((resolve, reject) => {
-  if (component.errors.length) {
-    reject(new Error(component.errors[0]));
-    return;
-  }
+    const renderer = Markdown.render(component, options);
+    const stream = typeof options.stream === 'function' && filename
+      ? options.stream(filename)
+      : options.stream;
 
-  let document = '';
+    if (component.errors.length) {
+      component.errors.forEach((message) => process.stderr.write(`Err: ${message}\n`));
+      reject(new Error(component.errors[0]));
 
-  Markdown.render(component, options)
-    .on(Markdown.Event.write, (text) => {
-      if (options.stream) {
-        options.stream.write(text);
-      } else {
-        document += text;
-      }
-    })
-    .on(Markdown.Event.end, () => resolve(document.trim() + '\n'));
-});
+      return;
+    }
 
-module.exports.join = ({ parsing, ...options }) => {
-  /* eslint-disable-next-line global-require */
-  const merge = require('deepmerge');
-  const parsers = options.filenames.map((filename) => vuedoc.parse({ ...parsing, filename }));
+    if (stream) {
+      renderer.emiter
+        .on(Markdown.Event.write, (text) => stream.write(text))
+        .on(Markdown.Event.end, () => {
+          stream.end();
+          resolve();
+        });
+    } else {
+      let document = '';
 
-  return Promise.all(parsers).then(merge.all);
-};
+      renderer.emiter
+        .on(Markdown.Event.write, (text) => {
+          document += text;
+        })
+        .on(Markdown.Event.end, () => resolve(document.trim() + '\n'));
+    }
 
-module.exports.md = ({ filename, ...options }) => {
+    renderer.start();
+  });
+}
+
+function render({ stream, filename, reduce = true, ...options }) {
   if (!options.parsing) {
     options.parsing = {};
   }
 
+  // compatibility with previous versions
+  if (filename && !options.filenames) {
+    options.filenames = [ filename ];
+  }
+
   return validator
     .then((instance) => instance.validate(options))
-    .then((parsedData) => {
-      const parse = parsedData.join
-        ? this.join(parsedData)
-        : vuedoc.parse({ ...parsedData.parsing, filename });
+    .then(({ parsing: parsingOptions, join, filenames, ...restOptions }) => {
+      const renderOptions = { stream, ...restOptions };
 
-      return parse.then(this.render(parsedData));
+      if (filenames.length) {
+        const parsers = filenames.map((filename) => vuedoc.parse({ ...parsingOptions, filename }));
+
+        if (join) {
+          /* eslint-disable-next-line global-require */
+          const merge = require('deepmerge');
+
+          return [
+            Promise.all(parsers).then(merge.all).then(renderFile(null, renderOptions)),
+          ];
+        }
+
+        return parsers.map((promise, index) => promise.then(renderFile(filenames[index], renderOptions)));
+      }
+
+      if (parsingOptions.filecontent) {
+        return [
+          vuedoc.parse(parsingOptions).then(renderFile(null, renderOptions)),
+        ];
+      }
+
+      return Promise.reject(new Error('Invalid options. Missing options.filenames'));
+    })
+    .then(async (output) => {
+      const docs = await Promise.all(output);
+
+      if (reduce) {
+        return docs.length === 1 ? docs[0] : docs;
+      }
+
+      return docs;
     })
     .catch((err) => {
       if (err instanceof ValidationError) {
         err.message = 'Invalid options';
-
-        return Promise.reject(err);
       }
 
       return Promise.reject(err);
     });
-};
+}
+
+module.exports.Parser = vuedoc;
+module.exports.render = renderFile;
+module.exports.md = render;

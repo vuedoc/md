@@ -1,3 +1,14 @@
+## Vuedoc Markdown v3.1.0
+
+This release adds the support of Vuedoc Parser 3.1.0 and fixes some bugs:
+
+**Changes**
+
+- Upgrade to `@vuedoc/parser@3.1.0`. Parsing warnings messages are forwarded
+  to `STDERR` (241320db)
+- Use <br/> to be compatible with JSX syntax (#40)
+- Fix programmatic API (#41)
+
 ## Vuedoc Markdown v3.0.0
 
 This is the official release of Vuedoc Markdown 3.0.0.

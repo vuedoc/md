@@ -1,7 +1,9 @@
+// invalid config: options.level should be >= 1
+
 module.exports = {
-  join: 'invalid value',
+  level: 0,
   parsing: {
-    features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
+    features: [ 'name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods' ],
     loaders: []
   }
-}
+};

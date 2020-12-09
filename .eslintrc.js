@@ -54,4 +54,4 @@ module.exports = {
     'space-before-function-paren': 'off',
     'no-var': 'error'
   }
-}
+};
