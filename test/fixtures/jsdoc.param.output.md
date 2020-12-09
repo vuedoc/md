@@ -34,7 +34,7 @@ nameTypeAndDescription(somebody: string): void
 
 **Parameters**
 
-- `somebody: string`<br>
+- `somebody: string`<br/>
   Somebody's name.
 
 ### nameTypeAndDescriptionWithHyphen()
@@ -49,7 +49,7 @@ nameTypeAndDescriptionWithHyphen(somebody: string): void
 
 **Parameters**
 
-- `somebody: string`<br>
+- `somebody: string`<br/>
   Somebody's name.
 
 ### withParameterProperties()
@@ -64,13 +64,13 @@ withParameterProperties(employee: Object): void
 
 **Parameters**
 
-- `employee: Object`<br>
+- `employee: Object`<br/>
   The employee who is responsible for the project.
 
-- `employee.name: string`<br>
+- `employee.name: string`<br/>
   The name of the employee.
 
-- `employee.department: string`<br>
+- `employee.department: string`<br/>
   The employee's department.
 
 ### withDestructuringParameter()
@@ -85,13 +85,13 @@ withDestructuringParameter(employee: Object): void
 
 **Parameters**
 
-- `employee: Object`<br>
+- `employee: Object`<br/>
   The employee who is responsible for the project.
 
-- `employee.name: string`<br>
+- `employee.name: string`<br/>
   The name of the employee.
 
-- `employee.department: string`<br>
+- `employee.department: string`<br/>
   The employee's department.
 
 ### withPropertiesOfValuesInAnArray()
@@ -106,13 +106,13 @@ withPropertiesOfValuesInAnArray(employees: Object[]): void
 
 **Parameters**
 
-- `employees: Object[]`<br>
+- `employees: Object[]`<br/>
   The employees who are responsible for the project.
 
-- `employees[].name: string`<br>
+- `employees[].name: string`<br/>
   The name of an employee.
 
-- `employees[].department: string`<br>
+- `employees[].department: string`<br/>
   The employee's department.
 
 ### withOptionalParameter()
@@ -127,7 +127,7 @@ withOptionalParameter(somebody?: string): void
 
 **Parameters**
 
-- `somebody?: string`<br>
+- `somebody?: string`<br/>
   Somebody's name.
 
 ### withOptionalParameterAndDefaultValue()
@@ -142,7 +142,7 @@ withOptionalParameterAndDefaultValue(somebody?: string = 'John Doe'): void
 
 **Parameters**
 
-- `somebody?: string = 'John Doe'`<br>
+- `somebody?: string = 'John Doe'`<br/>
   Somebody's name.
 
 ### withMultipleType()
@@ -157,7 +157,7 @@ withMultipleType(somebody?: string | string[] = John Doe): void
 
 **Parameters**
 
-- `somebody?: string | string[] = John Doe`<br>
+- `somebody?: string | string[] = John Doe`<br/>
   Somebody's name, or an array of names.
 
 ### withAnyType()
@@ -172,7 +172,7 @@ withAnyType(somebody: any): void
 
 **Parameters**
 
-- `somebody: any`<br>
+- `somebody: any`<br/>
   Whatever you want.
 
 ### withSpreadNotation()
@@ -188,7 +188,7 @@ withSpreadNotation(...num: number[]): unknow
 
 **Parameters**
 
-- `...num: number[]`<br>
+- `...num: number[]`<br/>
   A positive or negative number.
 
 ### doSomethingAsynchronously()
@@ -203,5 +203,5 @@ doSomethingAsynchronously(cb: requestCallback): void
 
 **Parameters**
 
-- `cb: requestCallback`<br>
+- `cb: requestCallback`<br/>
   The callback that handles the response.
