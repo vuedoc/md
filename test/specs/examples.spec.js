@@ -38,6 +38,6 @@ describe('examples', () => {
     const filename = getFilePath(`${fixture}.example.vue`);
     const expected = getFileContent(`${fixture}.output.md`);
 
-    return vuedoc.md({ filename }).then((component) => expect(component).toEqual(expected));
+    return vuedoc.md({ filenames: [ filename ] }).then((component) => expect(component).toEqual(expected));
   }));
 });
