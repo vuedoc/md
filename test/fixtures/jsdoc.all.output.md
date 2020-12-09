@@ -2,10 +2,10 @@
 
 ## Events
 
-| Name       | Description                                                                                                                       |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `created`  | Emitted the event `created` when loaded Multilign<br>**Arguments**<br><ul><li>**`status: any`** — The finishing status</li></ul>  |
-| `finished` | Emitted the event `finished` when loaded Multilign<br>**Arguments**<br><ul><li>**`status: any`** — The finishing status</li></ul> |
+| Name       | Description                                                                                                                         |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `created`  | Emitted the event `created` when loaded Multilign<br/>**Arguments**<br/><ul><li>**`status: any`** — The finishing status</li></ul>  |
+| `finished` | Emitted the event `finished` when loaded Multilign<br/>**Arguments**<br/><ul><li>**`status: any`** — The finishing status</li></ul> |
 
 ## Methods
 
@@ -21,19 +21,19 @@ set(id: string, name?: string, order?: number = 1, values?: string | string[], .
 
 **Parameters**
 
-- `id: string`<br>
+- `id: string`<br/>
   The checkbox ID
 
-- `name?: string`<br>
+- `name?: string`<br/>
   The checkbox name
 
-- `order?: number = 1`<br>
+- `order?: number = 1`<br/>
   The checkbox order
 
-- `values?: string | string[]`<br>
+- `values?: string | string[]`<br/>
   The checkbox values
 
-- `...rest?: any`<br>
+- `...rest?: any`<br/>
   The rest options
 
 - `...rest: unknow[]`

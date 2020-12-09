@@ -130,10 +130,10 @@ describe('issues', () => {
         '',
         '**Parameters**',
         '',
-        '- `schema: object`<br>',
+        '- `schema: object`<br/>',
         '  The JSON Schema object to load',
         '',
-        '- `model: Number | String | Array | Object | Boolean = undefined`<br>',
+        '- `model: Number | String | Array | Object | Boolean = undefined`<br/>',
         '  The initial data for the schema.'
       ].join('\n');
 

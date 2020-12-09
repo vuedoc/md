@@ -48,7 +48,7 @@ regexObj.exec(str: string): any[]
 
 **Parameters**
 
-- `str: string`<br>
+- `str: string`<br/>
   The string against which to match the regular expression.
 
 **Return value**
