@@ -45,9 +45,14 @@ function renderFile(filename, options) {
   });
 }
 
-function render({ stream, reduce = true, ...options }) {
+function render({ stream, filename, reduce = true, ...options }) {
   if (!options.parsing) {
     options.parsing = {};
+  }
+
+  // compatibility with previous versions
+  if (filename && !options.filenames) {
+    options.filenames = [ filename ];
   }
 
   return validator

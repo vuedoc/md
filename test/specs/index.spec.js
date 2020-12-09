@@ -140,6 +140,64 @@ describe('vuedoc', () => {
     return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
   });
 
+  it('should successfully render with only one file', () => {
+    const ignore = [ 'name' ];
+    const options = {
+      filenames: [
+        join(__dirname, '../fixtures/join.component.1.js'),
+      ],
+      parsing: {
+        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+      },
+    };
+
+    const expected = [
+      '# Props',
+      '',
+      '| Name                | Type                      | Description                                        | Default |',
+      '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+      '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+      '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+      '',
+      '# Events',
+      '',
+      '| Name      | Description                                 |',
+      '| --------- | ------------------------------------------- |',
+      '| `created` | Emitted when the component has been created |',
+      '',
+    ].join('\n');
+
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
+
+  it('should successfully render with options.filename', () => {
+    const ignore = [ 'name' ];
+    const options = {
+      filename: join(__dirname, '../fixtures/join.component.1.js'),
+      parsing: {
+        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+      },
+    };
+
+    const expected = [
+      '# Props',
+      '',
+      '| Name                | Type                      | Description                                        | Default |',
+      '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+      '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+      '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+      '',
+      '# Events',
+      '',
+      '| Name      | Description                                 |',
+      '| --------- | ------------------------------------------- |',
+      '| `created` | Emitted when the component has been created |',
+      '',
+    ].join('\n');
+
+    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
+
   it('should successfully generate doc with options.wordwrap', () => {
     const options = {
       wordwrap: 5,
