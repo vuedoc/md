@@ -169,7 +169,7 @@ describe('vuedoc', () => {
     return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
   });
 
-  it('should successfully generate doc with options.wordwrap === false', () => {
+  it('should successfully generate doc with options.wordwrap === 0', () => {
     const options = {
       wordwrap: 0,
       parsing: {
@@ -219,6 +219,19 @@ describe('vuedoc', () => {
     ].join('\n');
 
     return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+  });
+
+  it('should successfully throw an error with missing filenames and parser.filecontent', (done) => {
+    const options = {
+      parsing: {},
+    };
+
+    vuedoc.md(options)
+      .then(() => done(new Error('should throw an error with missing filenames and parser.filecontent')))
+      .catch(({ message }) => {
+        expect(message.search(/^Invalid options\. Missing options\.filenames$/)).not.toBe(-1);
+        done();
+      });
   });
 
   it('should successfully generate doc with @typeref', () => {

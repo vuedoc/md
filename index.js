@@ -17,14 +17,14 @@ function renderFile(filename, options) {
       ? options.stream(filename)
       : options.stream;
 
+    if (component.errors.length) {
+      component.errors.forEach((message) => process.stderr.write(`Err: ${message}\n`));
+      reject(new Error(component.errors[0]));
+
+      return;
+    }
+
     if (stream) {
-      if (component.errors.length) {
-        component.errors.forEach((message) => process.stderr.write(`Err: ${message}\n`));
-        reject(new Error(component.errors[0]));
-
-        return;
-      }
-
       renderer.emiter
         .on(Markdown.Event.write, (text) => stream.write(text))
         .on(Markdown.Event.end, () => {
@@ -32,12 +32,6 @@ function renderFile(filename, options) {
           resolve();
         });
     } else {
-      if (component.errors.length) {
-        reject(new Error(component.errors[0]));
-
-        return;
-      }
-
       let document = '';
 
       renderer.emiter
