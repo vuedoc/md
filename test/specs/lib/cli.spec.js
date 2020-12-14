@@ -755,6 +755,62 @@ describe('lib/CLI', () => {
         .then(() => expect(streamContent).toEqual(expected));
     });
 
+    it('should successfully generate multiple components documentation', () => {
+      const expected = [
+        '# join.component.1',
+        '',
+        '## Props',
+        '',
+        '| Name                | Type                      | Description                                        | Default |',
+        '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
+        '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+        '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+        '',
+        '## Events',
+        '',
+        '| Name      | Description                                 |',
+        '| --------- | ------------------------------------------- |',
+        '| `created` | Emitted when the component has been created |',
+        '',
+        '# checkbox',
+        '',
+        '**Author:** Sébastien',
+        '',
+        'A simple checkbox component',
+        '',
+        '- **license** - MIT',
+        '- **input**',
+        '',
+        '## Slots',
+        '',
+        '| Name      | Description                             |',
+        '| --------- | --------------------------------------- |',
+        '| `default` |                                         |',
+        '| `label`   | Use this slot to set the checkbox label |',
+        '',
+        '## Props',
+        '',
+        '| Name               | Type      | Description            |',
+        '| ------------------ | --------- | ---------------------- |',
+        '| `model` *required* | `Array`   | The checkbox model     |',
+        '| `disabled`         | `Boolean` | Initial checkbox state |',
+        '',
+        '## Events',
+        '',
+        '| Name     | Description                                |',
+        '| -------- | ------------------------------------------ |',
+        '| `loaded` | Emitted when the component has been loaded |',
+        '',
+        '',
+      ].join('\n');
+
+      const file1 = path.join(fixturesPath, 'join.component.1.js');
+      const file2 = path.join(fixturesPath, 'join.component.2.vue');
+
+      return cli.exec([ file1, file2 ])
+        .then(() => expect(streamContent).toEqual(expected));
+    });
+
     it('should successfully generate doc with multiple authors', () => {
       const expected = [
         '**Authors:**',
