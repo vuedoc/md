@@ -79,27 +79,25 @@ describe('vuedoc', () => {
   });
 
   it('should successfully render multiple files', () => {
-    const ignore = [ 'name' ];
     const options = {
       filenames: [
         join(__dirname, '../fixtures/join.component.1.js'),
         join(__dirname, '../fixtures/join.component.2.vue'),
       ],
-      parsing: {
-        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
-      },
     };
 
     const expected = [
       [
-        '# Props',
+        '# join.component.1',
+        '',
+        '## Props',
         '',
         '| Name                | Type                      | Description                                        | Default |',
         '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
         '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
         '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
         '',
-        '# Events',
+        '## Events',
         '',
         '| Name      | Description                                 |',
         '| --------- | ------------------------------------------- |',
@@ -107,6 +105,8 @@ describe('vuedoc', () => {
         '',
       ].join('\n'),
       [
+        '# checkbox',
+        '',
         '**Author:** Sébastien',
         '',
         'A simple checkbox component',
@@ -114,21 +114,21 @@ describe('vuedoc', () => {
         '- **license** - MIT',
         '- **input**',
         '',
-        '# Slots',
+        '## Slots',
         '',
         '| Name      | Description                             |',
         '| --------- | --------------------------------------- |',
         '| `default` |                                         |',
         '| `label`   | Use this slot to set the checkbox label |',
         '',
-        '# Props',
+        '## Props',
         '',
         '| Name               | Type      | Description            |',
         '| ------------------ | --------- | ---------------------- |',
         '| `model` *required* | `Array`   | The checkbox model     |',
         '| `disabled`         | `Boolean` | Initial checkbox state |',
         '',
-        '# Events',
+        '## Events',
         '',
         '| Name     | Description                                |',
         '| -------- | ------------------------------------------ |',
