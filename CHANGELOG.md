@@ -1,3 +1,7 @@
+## Vuedoc Markdown v3.1.1
+
+This release adds fixes the options object reference corruption issue (#42).
+
 ## Vuedoc Markdown v3.1.0
 
 This release adds the support of Vuedoc Parser 3.1.0 and fixes some bugs:

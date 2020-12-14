@@ -8,7 +8,7 @@ const schema = require('./lib/config.schema');
 const jsv = new JsonSchemav();
 const validator = jsv.compile(schema);
 
-function renderFile(filename, options) {
+function renderFile(filename, keepStreamOpen, { ...options }) {
   return ({ warnings = [], ...component }) => new Promise((resolve, reject) => {
     warnings.forEach((message) => process.stderr.write(`Warn: ${message}\n`));
 
@@ -28,7 +28,10 @@ function renderFile(filename, options) {
       renderer.emiter
         .on(Markdown.Event.write, (text) => stream.write(text))
         .on(Markdown.Event.end, () => {
-          stream.end();
+          if (!keepStreamOpen) {
+            stream.end();
+          }
+
           resolve();
         });
     } else {
@@ -68,16 +71,18 @@ function render({ stream, filename, reduce = true, ...options }) {
           const merge = require('deepmerge');
 
           return [
-            Promise.all(parsers).then(merge.all).then(renderFile(null, renderOptions)),
+            Promise.all(parsers).then(merge.all).then(renderFile(null, false, renderOptions)),
           ];
         }
 
-        return parsers.map((promise, index) => promise.then(renderFile(filenames[index], renderOptions)));
+        return parsers.map((promise, index) => {
+          return promise.then(renderFile(filenames[index], index !== filenames.length - 1, renderOptions));
+        });
       }
 
       if (parsingOptions.filecontent) {
         return [
-          vuedoc.parse(parsingOptions).then(renderFile(null, renderOptions)),
+          vuedoc.parse(parsingOptions).then(renderFile(null, false, renderOptions)),
         ];
       }
 
