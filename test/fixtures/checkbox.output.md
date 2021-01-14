@@ -48,11 +48,11 @@ A simple checkbox component
 
 ## Computed Properties
 
-| Name                 | Description                                                                                             |
-| -------------------- | ------------------------------------------------------------------------------------------------------- |
-| `id`                 | The component identifier. Generated using the `initialValue` data.<br/>**Dependencies:** `initialValue` |
-| `changed`            | **Dependencies:** `currentValue`, `initialValue`                                                        |
-| `withNoDependencies` | &nbsp;                                                                                                  |
+| Name                 | Type     | Description                                                                                             |
+| -------------------- | -------- | ------------------------------------------------------------------------------------------------------- |
+| `id`                 | `string` | The component identifier. Generated using the `initialValue` data.<br/>**Dependencies:** `initialValue` |
+| `changed`            | `object` | **Dependencies:** `currentValue`, `initialValue`                                                        |
+| `withNoDependencies` | `string` | &nbsp;                                                                                                  |
 
 ## Events
 

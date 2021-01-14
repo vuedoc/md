@@ -223,4 +223,51 @@ describe('issues', () => {
       return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
     });
   });
+
+  describe('vuedoc/parser#85 - Multiline default breaks table', () => {
+    it('should successfully render multiline prop value', () => {
+      const parsing = {
+        filecontent: `
+          <template>
+            <div>
+
+            </div>
+          </template>
+
+          <script lang='ts'>
+            import mixins         from 'vue-typed-mixins'
+            import {PropOptions}  from 'vue'
+
+            const Vue = mixins()
+            export default Vue.extend({
+              name: "TestComponent",
+              props: {
+                testProp: {
+                  type: Object,
+                  default: () => ({
+                    a: 1,
+                    b: 2,
+                  })
+                } as PropOptions<Record<string, any>>,
+                testProp2: String,
+              },
+            })
+          </script>
+        `
+      };
+
+      const expected = [
+        '# TestComponent',
+        '',
+        '## Props',
+        '',
+        '| Name         | Type                  | Description | Default                   |',
+        '| ------------ | --------------------- | ----------- | ------------------------- |',
+        '| `test-prop`  | `Record<string, any>` |             | `() => ({ a: 1, b: 2, })` |',
+        '| `test-prop2` | `String`              |             | &nbsp;                    |',
+      ].join('\n');
+
+      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+    });
+  });
 });

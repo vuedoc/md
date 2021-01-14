@@ -1,3 +1,12 @@
+## Vuedoc Markdown v3.2.0
+
+This release adds the support of Vuedoc Parser 3.2.0 which adds automatic
+type detection of computed properties.
+
+**Changes**
+
+- Render column type for computed properties
+
 ## Vuedoc Markdown v3.1.1
 
 This release adds fixes the options object reference corruption issue (#42).
