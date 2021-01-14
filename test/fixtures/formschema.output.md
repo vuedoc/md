@@ -33,8 +33,8 @@
 
 ## Computed Properties
 
-| Name        | Description                                                                                                                                                    |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fieldId`   | **Dependencies:** `id`                                                                                                                                         |
-| `options`   | **Dependencies:** `schema`, `initialModel`, `name`, `fieldId`, `descriptor`, `components`, `bracketedObjectInputName`, `emitInputEvent`, `validator`, `update` |
-| `listeners` | **Dependencies:** `$listeners`, `parser`                                                                                                                       |
+| Name        | Type     | Description                                                                                                                                                    |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fieldId`   | `string` | **Dependencies:** `id`                                                                                                                                         |
+| `options`   | `object` | **Dependencies:** `schema`, `initialModel`, `name`, `fieldId`, `descriptor`, `components`, `bracketedObjectInputName`, `emitInputEvent`, `validator`, `update` |
+| `listeners` | `unknow` | **Dependencies:** `$listeners`, `parser`                                                                                                                       |
