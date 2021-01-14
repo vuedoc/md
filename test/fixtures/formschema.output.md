@@ -23,13 +23,13 @@
 
 ## Data
 
-| Name           | Type             | Description | Initial value                |
-| -------------- | ---------------- | ----------- | ---------------------------- |
-| `key`          | `any`            |             | `undefined`                  |
-| `ref`          | `CallExpression` |             | `UniqueId.get('formschema')` |
-| `initialModel` | `any`            |             | `undefined`                  |
-| `ready`        | `boolean`        |             | `false`                      |
-| `parser`       | `any`            |             | `null`                       |
+| Name           | Type      | Description | Initial value                |
+| -------------- | --------- | ----------- | ---------------------------- |
+| `key`          | `any`     |             | `undefined`                  |
+| `ref`          | `unknow`  |             | `UniqueId.get('formschema')` |
+| `initialModel` | `any`     |             | `undefined`                  |
+| `ready`        | `boolean` |             | `false`                      |
+| `parser`       | `unknow`  |             | `null`                       |
 
 ## Computed Properties
 
