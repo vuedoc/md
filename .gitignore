@@ -38,3 +38,6 @@ jspm_packages
 
 # Dolphin file
 .directory
+
+# CodelineX
+.codeline

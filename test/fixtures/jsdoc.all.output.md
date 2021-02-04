@@ -2,10 +2,10 @@
 
 ## Events
 
-| Name       | Description                                                                                                                         |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `created`  | Emitted the event `created` when loaded Multilign<br/>**Arguments**<br/><ul><li>**`status: any`** — The finishing status</li></ul>  |
-| `finished` | Emitted the event `finished` when loaded Multilign<br/>**Arguments**<br/><ul><li>**`status: any`** — The finishing status</li></ul> |
+| Name       | Description                                                                                                                                                     |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `created`  | Emitted the event `created` when loaded Multilign<br/>**Arguments**<br/><ul><li>**`true: boolean`**</li><li>**`status: any`** — The finishing status</li></ul>  |
+| `finished` | Emitted the event `finished` when loaded Multilign<br/>**Arguments**<br/><ul><li>**`true: boolean`**</li><li>**`status: any`** — The finishing status</li></ul> |
 
 ## Methods
 
@@ -16,7 +16,7 @@ Set the checkbox ID
 **Syntax**
 
 ```typescript
-set(id: string, name?: string, order?: number = 1, values?: string | string[], ...rest: unknow[]): boolean
+set(id: string, name?: string, order?: number = 1, values?: string | string[], ...rest: unknown[]): boolean
 ```
 
 **Parameters**
@@ -36,7 +36,7 @@ set(id: string, name?: string, order?: number = 1, values?: string | string[], .
 - `...rest?: any`<br/>
   The rest options
 
-- `...rest: unknow[]`
+- `...rest: unknown[]`
 
 **Return value**
 

@@ -62,7 +62,7 @@ const newStr = str.replace(pattern|substr, newSubstr|callback)
 
 **Parameters**
 
-- `str: unknow`
+- `str: unknown`
 
 - `newSubstr: String`<br/>
   The String that replaces the substring specified by the specified regexp or

@@ -26,15 +26,15 @@
 | Name           | Type      | Description | Initial value                |
 | -------------- | --------- | ----------- | ---------------------------- |
 | `key`          | `any`     |             | `undefined`                  |
-| `ref`          | `unknow`  |             | `UniqueId.get('formschema')` |
+| `ref`          | `unknown` |             | `UniqueId.get('formschema')` |
 | `initialModel` | `any`     |             | `undefined`                  |
 | `ready`        | `boolean` |             | `false`                      |
-| `parser`       | `unknow`  |             | `null`                       |
+| `parser`       | `unknown` |             | `null`                       |
 
 ## Computed Properties
 
-| Name        | Type     | Description                                                                                                                                                    |
-| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fieldId`   | `string` | **Dependencies:** `id`                                                                                                                                         |
-| `options`   | `object` | **Dependencies:** `schema`, `initialModel`, `name`, `fieldId`, `descriptor`, `components`, `bracketedObjectInputName`, `emitInputEvent`, `validator`, `update` |
-| `listeners` | `unknow` | **Dependencies:** `$listeners`, `parser`                                                                                                                       |
+| Name        | Type      | Description                                                                                                                                                    |
+| ----------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fieldId`   | `string`  | **Dependencies:** `id`                                                                                                                                         |
+| `options`   | `object`  | **Dependencies:** `schema`, `initialModel`, `name`, `fieldId`, `descriptor`, `components`, `bracketedObjectInputName`, `emitInputEvent`, `validator`, `update` |
+| `listeners` | `unknown` | **Dependencies:** `$listeners`, `parser`                                                                                                                       |
