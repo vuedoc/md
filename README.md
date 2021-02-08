@@ -47,32 +47,32 @@ Prop Types support
 ## Command line usage
 
 ```sh
-# display the vuedoc.md version
-vuedoc.md --version
+# display the Vuedoc Markdown version
+vuedoc-md --version
 
 # this print documentation in the standard output
-vuedoc.md components/textarea.vue
+vuedoc-md components/textarea.vue
 
 # generate a Markdown documentation in a file docs/textarea.md
-vuedoc.md components/textarea.vue --output docs/
+vuedoc-md components/textarea.vue --output docs/
 
 # generate a Markdown documentation all components
-vuedoc.md components/*.vue --output docs/
+vuedoc-md components/*.vue --output docs/
 
 # update the API section of README.md with generated documentation
-vuedoc.md components/textarea.vue --section "API" --output README.md
+vuedoc-md components/textarea.vue --section "API" --output README.md
 
 # combine generated documentations of all components into one
-vuedoc.md --join components/*.vue --output README.md
+vuedoc-md --join components/*.vue --output README.md
 
 # using pipe
-cat components/textarea.vue | vuedoc.md
+cat components/textarea.vue | vuedoc-md
 
 # using a configuration file
-vuedoc.md --config vuedoc.config.js components/*.vue
+vuedoc-md --config vuedoc.config.js components/*.vue
 
 # using the configuration file vuedoc.config.js
-vuedoc.md -c components/*.vue
+vuedoc-md -c components/*.vue
 ```
 
 Bellow an output sample of [test/fixtures/textarea.example.vue](test/fixtures/textarea.example.vue):
@@ -142,7 +142,7 @@ const newStr = str.replace(pattern|substr, newSubstr|callback)
 
 **Parameters**
 
-- **`str: unknow`**
+- **`str: unknown`**
 
 - **`newSubstr: String`**<br/>
   The String that replaces the substring specified by the specified regexp or
@@ -209,9 +209,9 @@ module.exports = {
 And then:
 
 ```sh
-vuedoc.md --config vuedoc.config.js components/*.vue
+vuedoc-md --config vuedoc.config.js components/*.vue
 # or
-vuedoc.md -c components/*.vue
+vuedoc-md -c components/*.vue
 ```
 
 See [Vuedoc Parser documentation](https://gitlab.com/vuedoc/parser#options)

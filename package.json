@@ -4,7 +4,8 @@
   "description": "Generate a Markdown Documentation for a Vue file component",
   "main": "index.js",
   "bin": {
-    "vuedoc.md": "./bin/cli.js"
+    "vuedoc.md": "./bin/cli.js",
+    "vuedoc-md": "./bin/cli.js"
   },
   "scripts": {
     "test": "jest --coverage",
