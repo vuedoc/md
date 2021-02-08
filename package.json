@@ -33,7 +33,7 @@
   },
   "homepage": "https://gitlab.com/vuedoc/md",
   "dependencies": {
-    "@textlint/markdown-to-ast": "^6.3.1",
+    "@textlint/markdown-to-ast": "^6.3.2",
     "ast-to-markdown": "^1.0.0",
     "deepmerge": "^4.2.2",
     "jsonschemav": "^1.0.7",
