@@ -25,9 +25,9 @@
 
 | Name           | Type      | Description | Initial value                |
 | -------------- | --------- | ----------- | ---------------------------- |
-| `key`          | `any`     |             | `undefined`                  |
+| `key`          | `unknown` |             | `undefined`                  |
 | `ref`          | `unknown` |             | `UniqueId.get('formschema')` |
-| `initialModel` | `any`     |             | `undefined`                  |
+| `initialModel` | `unknown` |             | `undefined`                  |
 | `ready`        | `boolean` |             | `false`                      |
 | `parser`       | `unknown` |             | `null`                       |
 

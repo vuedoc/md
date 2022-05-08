@@ -2,7 +2,10 @@
 
 Generate a Markdown Documentation for a Vue file
 
-[![npm](https://img.shields.io/npm/v/@vuedoc/md.svg)](https://www.npmjs.com/package/@vuedoc/md) [![Build status](https://gitlab.com/vuedoc/md/badges/master/pipeline.svg)](https://gitlab.com/vuedoc/md/pipelines) [![Test coverage](https://gitlab.com/vuedoc/md/badges/master/coverage.svg)](https://gitlab.com/vuedoc/md/-/jobs)
+[![npm](https://img.shields.io/npm/v/@vuedoc/md.svg)](https://www.npmjs.com/package/@vuedoc/md)
+[![Build status](https://gitlab.com/vuedoc/md/badges/main/pipeline.svg)](https://gitlab.com/vuedoc/md/pipelines?ref=main)
+[![Test coverage](https://gitlab.com/vuedoc/md/badges/main/coverage.svg)](https://gitlab.com/vuedoc/md/-/jobs)
+[![Buy me a beer](https://img.shields.io/badge/Buy%20me-a%20beer-1f425f.svg)](https://www.buymeacoffee.com/demsking)
 
 ## Table of Contents
 
@@ -22,6 +25,9 @@ Generate a Markdown Documentation for a Vue file
 - [License](#license)
 
 ## Install
+
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
+: Node 16+ is needed to use it and it must be imported instead of required.
 
 ```sh
 # using in your project
@@ -75,7 +81,7 @@ vuedoc-md --config vuedoc.config.js components/*.vue
 vuedoc-md -c components/*.vue
 ```
 
-Bellow an output sample of [test/fixtures/textarea.example.vue](test/fixtures/textarea.example.vue):
+Bellow an output sample of [test/fixtures/textarea.example.vue](https://gitlab.com/vuedoc/md/blob/main/test/fixtures/textarea.example.vue):
 
 ````md
 # MyTextarea
@@ -192,18 +198,18 @@ A new string, with some or all matches of a pattern replaced by a replacement.
 
 ```js
 // vuedoc.config.js
-const Vuedoc = require('@vuedoc/md')
-const TypePugLoader = require('@vuedoc/parser/loader/pug')
+import { Loader } from '@vuedoc/parser';
+import { TypePugLoader } from '@vuedoc/parser/loaders/pug';
 
-module.exports = {
+export default {
   output: 'docs/',
   parsing: {
     features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
     loaders: [
-      Vuedoc.Parser.Loader.extend('pug', TypePugLoader)
-    ]
-  }
-}
+      Loader.extend('pug', TypePugLoader),
+    ],
+  },
+};
 ```
 
 And then:
@@ -230,21 +236,22 @@ for parsing options.
 | `join`      | Boolean                 | Combine generated documentation for multiple component files into only one                                                                                      |
 | `filenames` | String[]                | List of component filenames to parse and render. If `options.join === true`, `options.filenames` will parsing will be joined and rendered as a single component |
 | `wordwrap`  | Integer                 | The width of the text before wrapping to a new line. Set to `0` to disable word wrapping. Default is `80`                                                       |
-| `labels`    | Record<I18nKey, String> | I18n labels for translation. See [`@vuedoc/md/lib/I18n`](lib/I18n.js)                                                                                           |
+| `labels`    | Record<I18nKey, String> | I18n labels for translation. See [`@vuedoc/md/I18n`](https://gitlab.com/vuedoc/md/blob/main/lib/I18n.js)                                                        |
 
 **Usage**
 
 ```js
-const vuedoc = require('@vuedoc/md')
+import { renderComponent } from '@vuedoc/md';
+
 const options = {
   join: true,
   filenames: [
     'components/input.mixin.vue',
     'components/checkbox.vue',
-  ]
-}
+  ],
+};
 
-vuedoc.md(options)
+renderComponent(options)
   .then((document) => console.log(document))
   .catch((err) => console.error(err))
 ```
@@ -252,8 +259,9 @@ vuedoc.md(options)
 **Overwrite the default Vuedoc Parser configuration**
 
 ```js
-const Vuedoc = require('@vuedoc/md')
-const TypePugLoader = require('@vuedoc/parser/loader/pug')
+import { renderComponent } from '@vuedoc/md';
+import { TypePugLoader } from '@vuedoc/parser/loaders/pug';
+import { Loader } from '@vuedoc/parser';
 
 const options = {
   filenames: [
@@ -262,14 +270,14 @@ const options = {
   parsing: {
     features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
     loaders: [
-      Vuedoc.Parser.Loader.extend('pug', TypePugLoader)
-    ]
-  }
-}
+      Loader.extend('pug', TypePugLoader),
+    ],
+  },
+};
 
-Vuedoc.md(options)
+renderComponent(options)
   .then((document) => console.log(document))
-  .catch((err) => console.error(err))
+  .catch((err) => console.error(err));
 ```
 
 See [Vuedoc Parser documentation](https://gitlab.com/vuedoc/parser#options)
@@ -291,7 +299,7 @@ export default {
      * The input format callback
      * @public
      */
-    format: Function
+    format: Function,
   },
   methods: {
     /**
@@ -303,9 +311,9 @@ export default {
      * This will be ignored on parsing and rendering
      * @protected
      */
-    commit() {}
-  }
-}
+    commit() {},
+  },
+};
 ```
 
 ## Specific Tags for Props
@@ -323,10 +331,10 @@ export default {
      * @typeref https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
      */
     descriptor: {
-      type: Object
-    }
-  }
-}
+      type: Object,
+    },
+  },
+};
 ```
 
 This will render:
@@ -348,10 +356,10 @@ export default {
      * @typeref https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
      */
     value: {
-      type: [Number, String]
-    }
-  }
-}
+      type: [Number, String],
+    },
+  },
+};
 ```
 
 ## Examples
@@ -360,38 +368,46 @@ Vuedoc Markdown has been used to generate documentation of bellow components:
 
 ### Generate a documentation for an SFC component
 
-| Component file                                                            | Markdown output                                                       |
-|---------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| [test/fixtures/checkbox.example.vue](test/fixtures/checkbox.example.vue)  | [test/fixtures/checkbox.output.md](test/fixtures/checkbox.output.md)  |
-| [test/fixtures/textarea.example.vue](test/fixtures/textarea.example.vue)  | [test/fixtures/textarea.output.md](test/fixtures/textarea.output.md)  |
+| Component file                                                                                                   | Markdown output                                                                                              |
+|------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| [test/fixtures/checkbox.example.vue](https://gitlab.com/vuedoc/md/blob/main/test/fixtures/checkbox.example.vue)  | [test/fixtures/checkbox.output.md](https://gitlab.com/vuedoc/md/blob/main/test/fixtures/checkbox.output.md)  |
+| [test/fixtures/textarea.example.vue](https://gitlab.com/vuedoc/md/blob/main/test/fixtures/textarea.example.vue)  | [test/fixtures/textarea.output.md](https://gitlab.com/vuedoc/md/blob/main/test/fixtures/textarea.output.md)  |
 
 ### Generate a MDN-like documentation for a method
 
-| Component file                                                                | Markdown output                                                           |
-|-------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| [test/fixtures/mdn.event.example.vue](test/fixtures/mdn.event.example.vue)    | [test/fixtures/mdn.event.output.md](test/fixtures/mdn.event.output.md)    |
-| [test/fixtures/mdn.string.example.vue](test/fixtures/mdn.string.example.vue)  | [test/fixtures/mdn.string.output.md](test/fixtures/mdn.string.output.md)  |
-| [test/fixtures/mdn.regexp.example.vue](test/fixtures/mdn.regexp.example.vue)  | [test/fixtures/mdn.regexp.output.md](test/fixtures/.output.md)            |
+| Component file                                                                                                       | Markdown output                                                                                        |
+|----------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| [test/fixtures/mdn.event.example.vue](https://gitlab.com/vuedoc/md/blob/main/test/fixtures/mdn.event.example.vue)    | [test/fixtures/mdn.event.output.md](https://gitlab.com/vuedoc/md/blob/main/test/fixtures/mdn.event.output.md)  |
+| [test/fixtures/mdn.string.example.vue](https://gitlab.com/vuedoc/md/blob/main/test/fixtures/mdn.string.example.vue)  | [test/fixtures/mdn.string.output.md](https://gitlab.com/vuedoc/md/blob/main/test/fixtures/mdn.string.output.md) |
+| [test/fixtures/mdn.regexp.example.vue](https://gitlab.com/vuedoc/md/blob/main/test/fixtures/mdn.regexp.example.vue)  | [test/fixtures/mdn.regexp.output.md](https://gitlab.com/vuedoc/md/blob/main/test/fixtures/.output.md)  |
 
-Find more examples here: [test/fixtures](test/fixtures)
+Find more examples here: [test/fixtures](https://gitlab.com/vuedoc/md/blob/main/test/fixtures)
 
 ## Related projects
 
 - `jsdoc-vuedoc`: https://github.com/ccqgithub/jsdoc-vuedoc
 - `rollup-plugin-vuedoc`: https://github.com/h-ikeda/rollup-plugin-vuedoc
 
+## Development Setup
+
+1. [Install Nix Package Manager](https://nixos.org/manual/nix/stable/installation/installing-binary.html)
+
+2. [Install `direnv` with your OS package manager](https://direnv.net/docs/installation.html#from-system-packages)
+
+3. [Hook it `direnv` into your shell](https://direnv.net/docs/hook.html)
+
+4. At the top-level of your project run:
+
+   ```sh
+   direnv allow
+   ```
+
+   > The next time your launch your terminal and enter the top-level of your
+   > project, `direnv` will check for changes.
+
 ## Contribute
 
-Contributions to Vuedoc Markdown are welcome. Here is how you can contribute:
-
-1. [Submit bugs or a feature request](https://gitlab.com/vuedoc/md/issues) and
-   help us verify fixes as they are checked in
-2. Create your working branch from the `dev` branch: `git checkout dev -b feature/my-awesome-feature`
-3. Install development dependencies: `npm run install:dev`
-4. Write code for a bug fix or for your new awesome feature
-5. Write test cases for your changes
-6. [Submit merge requests](https://gitlab.com/vuedoc/md/merge_requests) for bug
-   fixes and features and discuss existing proposals
+Please follow [CONTRIBUTING.md](https://gitlab.com/vuedoc/md/blob/main/CONTRIBUTING.md).
 
 ## Versioning
 
@@ -410,5 +426,5 @@ See [SemVer.org](https://semver.org/) for more details.
 ## License
 
 Under the MIT license.
-See [LICENSE](https://gitlab.com/vuedoc/md/blob/master/LICENSE) file for more
+See [LICENSE](https://gitlab.com/vuedoc/md/blob/main/LICENSE) file for more
 details.

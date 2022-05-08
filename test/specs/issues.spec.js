@@ -1,10 +1,10 @@
-const vuedoc = require('../..');
+import { renderMarkdown } from '../../index.js';
 
 /* global describe it expect */
 
 describe('issues', () => {
   describe('#21 - undefined default value is rendering as a non string', () => {
-    it('undefined default value is rendering as a non string', () => {
+    it('undefined default value is rendering as a non string', async () => {
       const filecontent = `
         <script>
           export default {
@@ -24,15 +24,17 @@ describe('issues', () => {
         '',
         '| Name      | Type      | Description | Default     |',
         '| --------- | --------- | ----------- | ----------- |',
-        '| `v-model` | `Boolean` |             | `undefined` |'
+        '| `v-model` | `Boolean` |             | `undefined` |',
       ].join('\n');
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+      const doc = await renderMarkdown({ parsing });
+
+      return expect(doc.trim()).toEqual(expected);
     });
   });
 
   describe('#7 - Spread Operator not working in component methods', () => {
-    it('should parse without errors', () => {
+    it('should parse without errors', async () => {
       const parsing = {
         filecontent: `
           <script>
@@ -48,17 +50,18 @@ describe('issues', () => {
               }
             }
           </script>
-        `
+        `,
       };
 
       const expected = [].join('\n');
+      const doc = await renderMarkdown({ parsing });
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+      return expect(doc.trim()).toEqual(expected);
     });
   });
 
   describe('#27 - feat: consider handling local functions as not part of the component doc', () => {
-    it('should parse without errors', () => {
+    it('should parse without errors', async () => {
       const parsing = {
         filecontent: `
           <template>
@@ -81,17 +84,18 @@ describe('issues', () => {
 
           <style lang="css" scoped>
           </style>
-        `
+        `,
       };
 
       const expected = [].join('\n');
+      const doc = await renderMarkdown({ parsing });
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+      return expect(doc.trim()).toEqual(expected);
     });
   });
 
-  describe('#19 - vuedoc.md does not render default param values for function', () => {
-    it('should render default param values for function', () => {
+  describe('#19 - renderMarkdown does not render default param values for function', () => {
+    it('should render default param values for function', async () => {
       const parsing = {
         filecontent: `
           <script>
@@ -111,7 +115,7 @@ describe('issues', () => {
               }
             }
           </script>
-        `
+        `,
       };
 
       const expected = [
@@ -134,15 +138,17 @@ describe('issues', () => {
         '  The JSON Schema object to load',
         '',
         '- `model: Number | String | Array | Object | Boolean = undefined`<br/>',
-        '  The initial data for the schema.'
+        '  The initial data for the schema.',
       ].join('\n');
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+      const doc = await renderMarkdown({ parsing });
+
+      return expect(doc.trim()).toEqual(expected);
     });
   });
 
   describe('#36 - Property with multiple type options destroys table layout', () => {
-    it('should render default param values for function', () => {
+    it('should render default param values for function', async () => {
       const parsing = {
         filecontent: `
           <script>
@@ -159,7 +165,7 @@ describe('issues', () => {
               }
             }
           </script>
-        `
+        `,
       };
 
       const expected = [
@@ -167,15 +173,17 @@ describe('issues', () => {
         '',
         '| Name       | Type             | Description   | Default |',
         '| ---------- | ---------------- | ------------- | ------- |',
-        '| `datetime` | `string or Date` | (Description) | `null`  |'
+        '| `datetime` | `string or Date` | (Description) | `null`  |',
       ].join('\n');
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+      const doc = await renderMarkdown({ parsing });
+
+      return expect(doc.trim()).toEqual(expected);
     });
   });
 
   describe('vuedoc/parser#83 - Parser issue with !(...)', () => {
-    it('should render without errors', () => {
+    it('should render without errors', async () => {
       const parsing = {
         filecontent: `
           <script>
@@ -201,7 +209,7 @@ describe('issues', () => {
                 })
             }
           </script>
-        `
+        `,
       };
 
       const expected = [
@@ -220,12 +228,14 @@ describe('issues', () => {
         '```',
       ].join('\n');
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+      const doc = await renderMarkdown({ parsing });
+
+      return expect(doc.trim()).toEqual(expected);
     });
   });
 
   describe('vuedoc/parser#85 - Multiline default breaks table', () => {
-    it('should successfully render multiline prop value', () => {
+    it('should successfully render multiline prop value', async () => {
       const parsing = {
         filecontent: `
           <template>
@@ -253,7 +263,7 @@ describe('issues', () => {
               },
             })
           </script>
-        `
+        `,
       };
 
       const expected = [
@@ -267,7 +277,9 @@ describe('issues', () => {
         '| `test-prop2` | `String`              |             | &nbsp;                    |',
       ].join('\n');
 
-      return vuedoc.md({ parsing }).then((doc) => expect(doc.trim()).toEqual(expected));
+      const doc = await renderMarkdown({ parsing });
+
+      return expect(doc.trim()).toEqual(expected);
     });
   });
 });

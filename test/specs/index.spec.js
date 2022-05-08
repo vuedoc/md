@@ -1,26 +1,23 @@
 /* eslint-disable max-len */
 /* global describe it beforeEach expect */
 
-const assert = require('assert');
-const { join } = require('path');
-const { Parser } = require('@vuedoc/parser/lib/parser/Parser');
+import assert from 'assert';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import { Parser } from '@vuedoc/parser';
+import { renderMarkdown } from '../../index.js';
 
-const vuedoc = require('../..');
-
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const filename = join(__dirname, '../fixtures/checkbox.example.vue');
 
 describe('vuedoc', () => {
   let doc = null;
-  const ignore = [ 'name', 'description' ];
+  const ignore = ['name', 'description'];
   const features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature));
-  const options = { filenames: [ filename ], parsing: { features } };
+  const options = { filenames: [filename], parsing: { features } };
 
-  beforeEach(() => {
-    return vuedoc.md(options)
-      .then((_doc) => {
-        doc = _doc;
-      })
-      .catch((err) => { throw err; });
+  beforeEach(async () => {
+    doc = await renderMarkdown(options);
   });
 
   it('should render without main title', () => {
@@ -29,16 +26,16 @@ describe('vuedoc', () => {
 
   it('should render without description', () => assert.strictEqual(/A simple checkbox component/.test(doc), false));
 
-  it('should successfully joined parsed files', () => {
-    const ignore = [ 'name' ];
+  it('should successfully joined parsed files', async () => {
+    const ignore = ['name'];
     const options = {
       join: true,
       filenames: [
         join(__dirname, '../fixtures/join.component.1.js'),
-        join(__dirname, '../fixtures/join.component.2.vue')
+        join(__dirname, '../fixtures/join.component.2.vue'),
       ],
       parsing: {
-        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature)),
       },
     };
 
@@ -75,10 +72,12 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+    const component = await renderMarkdown(options);
+
+    return expect(component).toEqual(expected);
   });
 
-  it('should successfully render multiple files', () => {
+  it('should successfully render multiple files', async () => {
     const options = {
       filenames: [
         join(__dirname, '../fixtures/join.component.1.js'),
@@ -137,17 +136,19 @@ describe('vuedoc', () => {
       ].join('\n'),
     ];
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+    const component = await renderMarkdown(options);
+
+    return expect(component).toEqual(expected);
   });
 
-  it('should successfully render with only one file', () => {
-    const ignore = [ 'name' ];
+  it('should successfully render with only one file', async () => {
+    const ignore = ['name'];
     const options = {
       filenames: [
         join(__dirname, '../fixtures/join.component.1.js'),
       ],
       parsing: {
-        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature)),
       },
     };
 
@@ -167,15 +168,17 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+    const component = await renderMarkdown(options);
+
+    return expect(component).toEqual(expected);
   });
 
-  it('should successfully render with options.filename', () => {
-    const ignore = [ 'name' ];
+  it('should successfully render with options.filename', async () => {
+    const ignore = ['name'];
     const options = {
       filename: join(__dirname, '../fixtures/join.component.1.js'),
       parsing: {
-        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature))
+        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature)),
       },
     };
 
@@ -195,10 +198,12 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+    const component = await renderMarkdown(options);
+
+    return expect(component).toEqual(expected);
   });
 
-  it('should successfully generate doc with options.wordwrap', () => {
+  it('should successfully generate doc with options.wordwrap', async () => {
     const options = {
       wordwrap: 5,
       parsing: {
@@ -224,10 +229,12 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+    const component = await renderMarkdown(options);
+
+    return expect(component).toEqual(expected);
   });
 
-  it('should successfully generate doc with options.wordwrap === 0', () => {
+  it('should successfully generate doc with options.wordwrap === 0', async () => {
     const options = {
       wordwrap: 0,
       parsing: {
@@ -276,7 +283,9 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+    const component = await renderMarkdown(options);
+
+    return expect(component).toEqual(expected);
   });
 
   it('should successfully throw an error with missing filenames and parser.filecontent', (done) => {
@@ -284,7 +293,7 @@ describe('vuedoc', () => {
       parsing: {},
     };
 
-    vuedoc.md(options)
+    renderMarkdown(options)
       .then(() => done(new Error('should throw an error with missing filenames and parser.filecontent')))
       .catch(({ message }) => {
         expect(message.search(/^Invalid options\. Missing options\.filenames$/)).not.toBe(-1);
@@ -292,7 +301,7 @@ describe('vuedoc', () => {
       });
   });
 
-  it('should successfully generate doc with @typeref', () => {
+  it('should successfully generate doc with @typeref', async () => {
     const options = {
       parsing: {
         filecontent: `
@@ -323,10 +332,12 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+    const component = await renderMarkdown(options);
+
+    return expect(component).toEqual(expected);
   });
 
-  it('should successfully generate doc with @version, @since, @category, @deprecated, @see and @author', () => {
+  it('should successfully generate doc with @version, @since, @category, @deprecated, @see and @author', async () => {
     const options = {
       parsing: {
         filecontent: `
@@ -386,10 +397,12 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+    const component = await renderMarkdown(options);
+
+    return expect(component).toEqual(expected);
   });
 
-  it('should successfully generate doc with @description, @desc and @example', () => {
+  it('should successfully generate doc with @description, @desc and @example', async () => {
     const options = {
       parsing: {
         filecontent: `
@@ -492,10 +505,12 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+    const component = await renderMarkdown(options);
+
+    return expect(component).toEqual(expected);
   });
 
-  it('should successfully generate doc with @kind function', () => {
+  it('should successfully generate doc with @kind function', async () => {
     const options = {
       parsing: {
         filecontent: `
@@ -541,6 +556,8 @@ describe('vuedoc', () => {
       '',
     ].join('\n');
 
-    return vuedoc.md(options).then((component) => expect(component).toEqual(expected));
+    const component = await renderMarkdown(options);
+
+    return expect(component).toEqual(expected);
   });
 });

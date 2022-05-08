@@ -6,16 +6,18 @@
 /* eslint-disable no-console */
 /* global jest beforeEach afterEach */
 
-const path = require('path');
-const child = require('child_process');
-const stream = require('stream');
-const assert = require('assert');
+import fs from 'fs';
+import path from 'path';
+import stream from 'stream';
+import assert from 'assert';
 
-const { Parser } = require('@vuedoc/parser/lib/parser/Parser');
-const { spawn } = require('child_process');
+import { fileURLToPath } from 'url';
+import { Parser } from '@vuedoc/parser';
+import { spawn } from 'child_process';
+import { name, version } from '../../../package.json';
+import { exec, findSectionNode, parseArgs, processRawContent, processWithoutOutputOption, processWithOutputOption, silenceExec, validateOptions } from '../../../lib/CLI.js';
 
-const fs = require('fs');
-const cli = require('../../../lib/CLI');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const fixturesPath = path.join(__dirname, '../../fixtures');
 const readmefile = path.join(fixturesPath, 'README.md');
@@ -54,8 +56,8 @@ const defaultOptions = {
   reduce: false,
   filenames: [],
   parsing: {
-    features: Parser.SUPPORTED_FEATURES
-  }
+    features: Parser.SUPPORTED_FEATURES,
+  },
 };
 
 const voidfile = '/tmp/void.vue';
@@ -73,7 +75,7 @@ fs.$setMockFiles({
     '# API\n',
     '**WIP**\n\n',
     '# License\n\n',
-    'MIT'
+    'MIT',
   ].join(''),
   [readme2file]: [
     '# Sample\n\n',
@@ -81,7 +83,7 @@ fs.$setMockFiles({
     '###### API\n',
     '**WIP**\n\n',
     '# License\n\n',
-    'MIT'
+    'MIT',
   ].join(''),
   [componentWordwrapFalse]: `
     <script>
@@ -100,7 +102,7 @@ fs.$setMockFiles({
         }
       }
     </script>
-  `
+  `,
 });
 
 /* global describe it expect */
@@ -135,25 +137,21 @@ describe('lib/CLI', () => {
       const options = { ...defaultOptions, section };
 
       it('should failed with missing --output option', () => {
-        assert.throws(
-          () => cli.validateOptions(options), /--output is required/
-        );
+        assert.throws(() => validateOptions(options), /--output is required/);
       });
 
       it('should failed with invalid --output option value', () => {
         const output = fixturesPath;
         const _options = { ...options, output };
 
-        assert.throws(
-          () => cli.validateOptions(_options), /--output value must be an existing file/
-        );
+        assert.throws(() => validateOptions(_options), /--output value must be an existing file/);
       });
 
       it('should successfully validate', () => {
         const output = readmefile;
         const _options = { ...options, output };
 
-        assert.doesNotThrow(() => cli.validateOptions(_options));
+        assert.doesNotThrow(() => validateOptions(_options));
       });
     });
 
@@ -165,22 +163,20 @@ describe('lib/CLI', () => {
         const output = fixturesPath;
         const _options = { ...options, output };
 
-        assert.throws(
-          () => cli.validateOptions(_options), /--output value must be a file when using --join/
-        );
+        assert.throws(() => validateOptions(_options), /--output value must be a file when using --join/);
       });
 
       it('should successfully validate', () => {
         const output = readmefile;
         const _options = { ...options, output };
 
-        assert.doesNotThrow(() => cli.validateOptions(_options));
+        assert.doesNotThrow(() => validateOptions(_options));
       });
     });
 
     describe('with right options', () => {
       it('should successfully validate', () => {
-        assert.doesNotThrow(() => cli.validateOptions(defaultOptions));
+        assert.doesNotThrow(() => validateOptions(defaultOptions));
       });
     });
   });
@@ -192,13 +188,12 @@ describe('lib/CLI', () => {
       options = {};
     });
 
-    [ '-v', '--version' ].forEach((arg) => describe(arg, () => {
+    ['-v', '--version'].forEach((arg) => describe(arg, () => {
       it(`should display package version with ${arg}`, (done) => {
-        const exec = path.join(__dirname, '../../../bin/cli.js');
-        const args = [ arg ];
-        const proc = child.spawn(exec, args, { stdio: 'pipe' });
+        const exec = path.join(__dirname, '../../../bin/js');
+        const args = [arg];
+        const proc = spawn(exec, args, { stdio: 'pipe' });
 
-        const { name, version } = require('../../../package.json');
         const expected = `${name} v${version}\n`;
 
         proc.stderr.once('data', done);
@@ -210,57 +205,57 @@ describe('lib/CLI', () => {
       });
     }));
 
-    [ '-c', '--config' ].forEach((arg) => describe(arg, () => {
+    ['-c', '--config'].forEach((arg) => describe(arg, () => {
       it('should successfully parse with missing config value', () => {
-        const argv = [ arg ];
+        const argv = [arg];
 
-        assert.doesNotThrow(() => cli.parseArgs(argv));
+        assert.doesNotThrow(() => parseArgs(argv));
       });
 
       it('should failed with invalid config value', () => {
-        const argv = [ arg, 'no found file' ];
+        const argv = [arg, 'no found file'];
 
-        assert.throws(() => cli.parseArgs(argv), /Cannot find module/);
+        assert.throws(() => parseArgs(argv), /Cannot find module/);
       });
 
       it('should successfully set the parsing config option', () => {
-        const argv = [ arg, vuedocConfigFile ];
+        const argv = [arg, vuedocConfigFile];
 
         assert.doesNotThrow(() => {
-          options = cli.parseArgs(argv);
+          options = parseArgs(argv);
         });
 
         const expected = { ...defaultOptions,
           wordwrap: 110,
           parsing: {
             ...defaultOptions.parsing,
-            features: [ 'name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods' ],
-            loaders: []
+            features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
+            loaders: [],
           } };
 
         expect(options).toEqual(expected);
       });
     }));
 
-    [ '-l', '--level' ].forEach((arg) => describe(arg, () => {
+    ['-l', '--level'].forEach((arg) => describe(arg, () => {
       it('should failed with missing level value', () => {
-        const argv = [ arg ];
+        const argv = [arg];
 
-        assert.throws(() => cli.parseArgs(argv), /Missing level value/);
+        assert.throws(() => parseArgs(argv), /Missing level value/);
       });
 
       it('should failed with invalid level value', () => {
-        const argv = [ arg, 'hello.vue' ];
+        const argv = [arg, 'hello.vue'];
 
-        assert.throws(() => cli.parseArgs(argv), /Invalid level value/);
+        assert.throws(() => parseArgs(argv), /Invalid level value/);
       });
 
       it('should successfully set the level option', () => {
         const level = 2;
-        const argv = [ arg, level ];
+        const argv = [arg, level];
 
         assert.doesNotThrow(() => {
-          options = cli.parseArgs(argv);
+          options = parseArgs(argv);
         });
 
         const expected = { ...defaultOptions, level };
@@ -269,25 +264,25 @@ describe('lib/CLI', () => {
       });
     }));
 
-    [ '-w', '--wordwrap' ].forEach((arg) => describe(arg, () => {
+    ['-w', '--wordwrap'].forEach((arg) => describe(arg, () => {
       it('should failed with missing wordwrap value', () => {
-        const argv = [ arg ];
+        const argv = [arg];
 
-        assert.throws(() => cli.parseArgs(argv), /Missing wordwrap value/);
+        assert.throws(() => parseArgs(argv), /Missing wordwrap value/);
       });
 
       it('should failed with invalid wordwrap value', () => {
-        const argv = [ arg, 'hello.vue' ];
+        const argv = [arg, 'hello.vue'];
 
-        assert.throws(() => cli.parseArgs(argv), /Invalid wordwrap value/);
+        assert.throws(() => parseArgs(argv), /Invalid wordwrap value/);
       });
 
       it('should successfully set the wordwrap option', () => {
         const wordwrap = 110;
-        const argv = [ arg, wordwrap ];
+        const argv = [arg, wordwrap];
 
         assert.doesNotThrow(() => {
-          options = cli.parseArgs(argv);
+          options = parseArgs(argv);
         });
 
         const expected = { ...defaultOptions, wordwrap };
@@ -296,19 +291,19 @@ describe('lib/CLI', () => {
       });
     }));
 
-    [ '-o', '--output' ].forEach((arg) => describe(arg, () => {
+    ['-o', '--output'].forEach((arg) => describe(arg, () => {
       it('should failed with missing level value', () => {
-        const argv = [ arg ];
+        const argv = [arg];
 
-        assert.throws(() => cli.parseArgs(argv), /Missing output value/);
+        assert.throws(() => parseArgs(argv), /Missing output value/);
       });
 
       it('should successfully set the output option', () => {
         const output = fixturesPath;
-        const argv = [ arg, output ];
+        const argv = [arg, output];
 
         assert.doesNotThrow(() => {
-          options = cli.parseArgs(argv);
+          options = parseArgs(argv);
         });
 
         const expected = { ...defaultOptions, output };
@@ -317,11 +312,11 @@ describe('lib/CLI', () => {
       });
     }));
 
-    [ '-s', '--section' ].forEach((arg) => describe(arg, () => {
+    ['-s', '--section'].forEach((arg) => describe(arg, () => {
       it('should failed with missing level value', () => {
-        const argv = [ arg ];
+        const argv = [arg];
 
-        assert.throws(() => cli.parseArgs(argv), /Missing section value/);
+        assert.throws(() => parseArgs(argv), /Missing section value/);
       });
 
       it('should successfully set the section option', () => {
@@ -329,11 +324,11 @@ describe('lib/CLI', () => {
         const output = readmefile;
         const argv = [
           arg, section,
-          '--output', output
+          '--output', output,
         ];
 
         assert.doesNotThrow(() => {
-          options = cli.parseArgs(argv);
+          options = parseArgs(argv);
         });
 
         const expected = { ...defaultOptions, section, output };
@@ -342,12 +337,12 @@ describe('lib/CLI', () => {
       });
     }));
 
-    [ '-j', '--join' ].forEach((arg) => describe(arg, () => {
+    ['-j', '--join'].forEach((arg) => describe(arg, () => {
       it('should successfully set the join option', () => {
-        const argv = [ arg ];
+        const argv = [arg];
 
         assert.doesNotThrow(() => {
-          options = cli.parseArgs(argv);
+          options = parseArgs(argv);
         });
 
         const expected = { ...defaultOptions, join: true };
@@ -359,15 +354,15 @@ describe('lib/CLI', () => {
     defaultOptions.parsing.features.forEach((feature) => {
       describe(`--ignore-${feature}`, () => {
         it(`should successfully set the ignore-${feature} option`, () => {
-          const argv = [ `--ignore-${feature}` ];
+          const argv = [`--ignore-${feature}`];
           const expected = { ...defaultOptions,
             parsing: {
               ...defaultOptions.parsing,
-              features: defaultOptions.parsing.features.filter((item) => item !== feature)
+              features: defaultOptions.parsing.features.filter((item) => item !== feature),
             } };
 
           assert.doesNotThrow(() => {
-            const options = cli.parseArgs(argv);
+            const options = parseArgs(argv);
 
             expect(options).toEqual(expected);
           });
@@ -377,12 +372,12 @@ describe('lib/CLI', () => {
 
     describe('filenames', () => {
       it('should successfully set files', () => {
-        const filenames = [ '/tmp/checkbox.vue', '/tmp/textarea.vue' ];
+        const filenames = ['/tmp/checkbox.vue', '/tmp/textarea.vue'];
         const argv = filenames;
         const expected = { ...defaultOptions, filenames };
 
         assert.doesNotThrow(() => {
-          const options = cli.parseArgs(argv);
+          const options = parseArgs(argv);
 
           expect(options).toEqual(expected);
         });
@@ -398,15 +393,15 @@ describe('lib/CLI', () => {
     });
 
     it('should failed with missing files', () => {
-      assert.throws(() => cli.parseArgs([], true), /Missing filename/);
+      assert.throws(() => parseArgs([], true), /Missing filename/);
     });
 
     it('should successfully set files', () => {
-      const filenames = [ '/tmp/checkbox.vue', '/tmp/textarea.vue' ];
+      const filenames = ['/tmp/checkbox.vue', '/tmp/textarea.vue'];
       const argv = filenames;
 
       assert.doesNotThrow(() => {
-        options = cli.parseArgs(argv, true);
+        options = parseArgs(argv, true);
       });
 
       const expected = { ...defaultOptions, filenames };
@@ -424,10 +419,10 @@ describe('lib/CLI', () => {
           {
             type: 'Str',
             value: section,
-            raw: section
-          }
+            raw: section,
+          },
         ],
-        raw: `# ${section}`
+        raw: `# ${section}`,
       };
       const tree = {
         type: 'Document',
@@ -435,14 +430,14 @@ describe('lib/CLI', () => {
           {
             type: 'Str',
             value: 'Text',
-            raw: 'Text'
+            raw: 'Text',
           },
-          node
+          node,
         ],
-        raw: `Text\n\n# ${section}`
+        raw: `Text\n\n# ${section}`,
       };
       const expected = node;
-      const foundNode = tree.children.find(cli.findSectionNode(section));
+      const foundNode = tree.children.find(findSectionNode(section));
 
       assert.ok(foundNode);
       assert.deepEqual(foundNode, expected);
@@ -459,7 +454,7 @@ describe('lib/CLI', () => {
         <script>var invalid js code = !</script>
       `;
 
-      return cli.processRawContent(argv, componentRawContent)
+      return processRawContent(argv, componentRawContent)
         .then(() => done(new Error()))
         .catch(() => done());
     });
@@ -468,7 +463,7 @@ describe('lib/CLI', () => {
       const argv = [];
       const componentRawContent = fs.readFileSync(checkboxfile).toString();
 
-      return cli.processRawContent(argv, componentRawContent);
+      return processRawContent(argv, componentRawContent);
     });
   });
 
@@ -477,7 +472,7 @@ describe('lib/CLI', () => {
 
     describe('should successfully generate the component documentation', () => {
       const voidfile = '/tmp/void.vue';
-      const filenames = [ voidfile ];
+      const filenames = [voidfile];
 
       it('with --section', () => {
         const section = 'API';
@@ -489,10 +484,10 @@ describe('lib/CLI', () => {
           '## void\n\n',
           'Void component\n\n',
           '# License\n\n',
-          'MIT\n'
+          'MIT\n',
         ].join('');
 
-        return cli.processWithOutputOption(options).then(() => {
+        return processWithOutputOption(options).then(() => {
           expect(fs.readFileSync(output, 'utf8')).toEqual(expected);
         });
       });
@@ -508,10 +503,10 @@ describe('lib/CLI', () => {
           '###### void\n\n',
           'Void component\n\n',
           '# License\n\n',
-          'MIT\n'
+          'MIT\n',
         ].join('');
 
-        return cli.processWithOutputOption(options).then(() => {
+        return processWithOutputOption(options).then(() => {
           expect(fs.readFileSync(output, 'utf8')).toEqual(expected);
         });
       });
@@ -521,7 +516,7 @@ describe('lib/CLI', () => {
         const level = 3;
         const options = { output, filenames, section, level };
 
-        return cli.processWithOutputOption(options).then(() => {
+        return processWithOutputOption(options).then(() => {
           const content = fs.readFileSync(output, 'utf8');
 
           expect(content.search(/\n### void/)).not.toBe(-1);
@@ -532,14 +527,14 @@ describe('lib/CLI', () => {
       it('should successfully generate the component documentation', () => {
         const options = { output, filenames };
 
-        return cli.processWithOutputOption(options);
+        return processWithOutputOption(options);
       });
 
       it('should successfully generate the component documentation with output directory', () => {
         const output = fixturesPath;
         const options = { output, filenames };
 
-        return cli.processWithOutputOption(options);
+        return processWithOutputOption(options);
       });
 
       it('with --join', () => {
@@ -547,7 +542,7 @@ describe('lib/CLI', () => {
         const file1 = path.join(fixturesPath, 'join.component.1.js');
         const file2 = path.join(fixturesPath, 'join.component.2.vue');
 
-        const filenames = [ file1, file2 ];
+        const filenames = [file1, file2];
         const options = { join, filenames };
 
         const expected = [
@@ -586,17 +581,17 @@ describe('lib/CLI', () => {
           '',
         ].join('\n');
 
-        return cli.processWithOutputOption(options)
+        return processWithOutputOption(options)
           .then(() => expect(streamContent).toBe(expected));
       });
     });
 
     describe('should failed to generate the component documentation', () => {
       it('without not found file', (done) => {
-        const filenames = [ notfoundfile ];
+        const filenames = [notfoundfile];
         const options = { output, filenames };
 
-        cli.processWithOutputOption(options)
+        processWithOutputOption(options)
           .then(() => done(new Error()))
           .catch(() => done());
       });
@@ -605,17 +600,17 @@ describe('lib/CLI', () => {
 
   describe('processWithoutOutputOption(options)', () => {
     it('should failed to generate the component documentation', (done) => {
-      const options = { filenames: [ notfoundfile ] };
+      const options = { filenames: [notfoundfile] };
 
-      cli.processWithoutOutputOption(options)
+      processWithoutOutputOption(options)
         .then(() => done(new Error()))
         .catch(() => done());
     });
 
     it('should successfully generate the component documentation', () => {
-      const options = { filenames: [ checkboxfile ] };
+      const options = { filenames: [checkboxfile] };
 
-      return cli.processWithoutOutputOption(options);
+      return processWithoutOutputOption(options);
     });
 
     it('should successfully generate the component documentation with --join', () => {
@@ -623,7 +618,7 @@ describe('lib/CLI', () => {
       const file1 = path.join(fixturesPath, 'join.component.1.js');
       const file2 = path.join(fixturesPath, 'join.component.2.vue');
 
-      const filenames = [ file1, file2 ];
+      const filenames = [file1, file2];
       const options = { join, filenames };
 
       const expected = [
@@ -662,7 +657,7 @@ describe('lib/CLI', () => {
         '',
       ].join('\n');
 
-      return cli.processWithoutOutputOption(options)
+      return processWithoutOutputOption(options)
         .then(() => expect(streamContent).toEqual(expected));
     });
   });
@@ -673,15 +668,14 @@ describe('lib/CLI', () => {
       const filename = checkboxfile;
       const componentRawContent = fs.readFileSync(filename).toString();
 
-      return cli.exec(argv, componentRawContent);
+      return exec(argv, componentRawContent);
     });
   });
 
   describe('exec(argv)', () => {
     it('should successfully print version with --version', (done) => {
-      const { version } = require('../../../package');
       const expected = `@vuedoc/md v${version}\n`;
-      const cli = spawn('node', [ 'bin/cli.js', '--version' ]);
+      const cli = spawn('node', ['bin/js', '--version']);
 
       cli.stdout.on('data', (data) => {
         expect(data.toString()).toEqual(expected);
@@ -690,7 +684,7 @@ describe('lib/CLI', () => {
     });
 
     it('should successfully handle invalid vuedoc config file error', () => {
-      return cli.exec([ '-c', invalidVuedocConfigFile, checkboxfile ])
+      return exec(['-c', invalidVuedocConfigFile, checkboxfile])
         .then(() => Promise.reject(new Error('Should failed with invalid vuedoc config file')))
         .catch((err) => {
           expect(err.message).toEqual('Invalid options');
@@ -699,18 +693,18 @@ describe('lib/CLI', () => {
           expect(err.errors[0].errors).toEqual([
             {
               keyword: 'minimum',
-              message: 'invalid data'
-            }
+              message: 'invalid data',
+            },
           ]);
         });
     });
 
     it('should successfully generate the component documentation with --output', () => {
-      return cli.exec([ checkboxfile, '--output', fixturesPath ]);
+      return exec([checkboxfile, '--output', fixturesPath]);
     });
 
     it('should successfully generate the component documentation', () => {
-      return cli.exec([ checkboxfile ]);
+      return exec([checkboxfile]);
     });
 
     it('should successfully generate the joined components documentation', () => {
@@ -751,7 +745,7 @@ describe('lib/CLI', () => {
       const file1 = path.join(fixturesPath, 'join.component.1.js');
       const file2 = path.join(fixturesPath, 'join.component.2.vue');
 
-      return cli.exec([ '--ignore-name', '--join', file1, file2 ])
+      return exec(['--ignore-name', '--join', file1, file2])
         .then(() => expect(streamContent).toEqual(expected));
     });
 
@@ -807,7 +801,7 @@ describe('lib/CLI', () => {
       const file1 = path.join(fixturesPath, 'join.component.1.js');
       const file2 = path.join(fixturesPath, 'join.component.2.vue');
 
-      return cli.exec([ file1, file2 ])
+      return exec([file1, file2])
         .then(() => expect(streamContent).toEqual(expected));
     });
 
@@ -859,7 +853,7 @@ describe('lib/CLI', () => {
 
       const file = path.join(fixturesPath, 'component.authors.vue');
 
-      return cli.exec([ '--ignore-name', file ])
+      return exec(['--ignore-name', file])
         .then(() => expect(streamContent).toEqual(expected));
     });
 
@@ -889,22 +883,22 @@ describe('lib/CLI', () => {
         '',
       ].join('\n');
 
-      return cli.exec([ '--wordwrap', 'false', componentWordwrapFalse ])
+      return exec(['--wordwrap', 'false', componentWordwrapFalse])
         .then(() => expect(streamContent).toEqual(expected));
     });
   });
 
   describe('silenceExec(argv)', () => {
     it('should successfully generate the component documentation with --output', () => {
-      return cli.silenceExec([ checkboxfile ]);
+      return silenceExec([checkboxfile]);
     });
 
     it('should failed with an exception', async () => {
-      await cli.silenceExec([]);
+      await silenceExec([]);
       expect(streamContent.search(/Missing filenames/)).not.toBe(-1);
     });
 
-    it('should failed promise error catching', () => cli.silenceExec([ notfoundfile ]));
+    it('should failed promise error catching', () => silenceExec([notfoundfile]));
   });
 
   describe('parsing warnings output', () => {
@@ -934,7 +928,7 @@ describe('lib/CLI', () => {
         </script>
       `;
 
-      await cli.processRawContent(argv, componentRawContent);
+      await processRawContent(argv, componentRawContent);
       expect(streamContent.search(/Warn: Invalid JSDoc syntax: '{Object} {name, val} - foo event param description'/)).not.toBe(-1);
     });
   });

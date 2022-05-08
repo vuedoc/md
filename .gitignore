@@ -41,3 +41,6 @@ jspm_packages
 
 # CodelineX
 .codeline
+
+# Nix
+.nix-node
