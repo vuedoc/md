@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-/* eslint-disable global-require */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-restricted-properties */
@@ -7,27 +6,29 @@
 /* global jest beforeEach afterEach */
 
 import fs from 'fs';
-import path from 'path';
-import stream from 'stream';
 import assert from 'assert';
 
 import { fileURLToPath } from 'url';
 import { Parser } from '@vuedoc/parser';
 import { spawn } from 'child_process';
-import { name, version } from '../../../package.json';
+import { readFile } from 'fs/promises';
 import { exec, findSectionNode, parseArgs, processRawContent, processWithoutOutputOption, processWithOutputOption, silenceExec, validateOptions } from '../../../lib/CLI.js';
+import { dirname, join } from 'path';
+import { Writable } from 'stream';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const fixturesPath = path.join(__dirname, '../../fixtures');
-const readmefile = path.join(fixturesPath, 'README.md');
-const readme2file = path.join(fixturesPath, 'README2.md');
-const notfoundfile = path.join(fixturesPath, 'notfound.vue');
-const checkboxfile = path.join(fixturesPath, 'checkbox.example.vue');
+const packageFilename = join(__dirname, '../../../package.json');
+const { name, version } = JSON.parse(await readFile(packageFilename));
+const fixturesPath = join(__dirname, '../../fixtures');
+const readmefile = join(fixturesPath, 'README.md');
+const readme2file = join(fixturesPath, 'README2.md');
+const notfoundfile = join(fixturesPath, 'notfound.vue');
+const checkboxfile = join(fixturesPath, 'checkbox.example.vue');
 
 let streamContent = '';
 
-class OutputStream extends stream.Writable {
+class OutputStream extends Writable {
   _write(chunk, enc, next) {
     streamContent += chunk.toString();
     next();
@@ -61,9 +62,9 @@ const defaultOptions = {
 };
 
 const voidfile = '/tmp/void.vue';
-const vuedocConfigFile = path.join(fixturesPath, 'vuedoc.config.js');
-const invalidVuedocConfigFile = path.join(fixturesPath, 'vuedoc.invalid.config.js');
-const componentWordwrapFalse = path.join(fixturesPath, 'component.wordwrap.false.vue');
+const vuedocConfigFile = join(fixturesPath, 'vuedoc.config.js');
+const invalidVuedocConfigFile = join(fixturesPath, 'vuedoc.invalid.config.js');
+const componentWordwrapFalse = join(fixturesPath, 'component.wordwrap.false.vue');
 
 jest.mock('fs');
 
@@ -190,7 +191,7 @@ describe('lib/CLI', () => {
 
     ['-v', '--version'].forEach((arg) => describe(arg, () => {
       it(`should display package version with ${arg}`, (done) => {
-        const exec = path.join(__dirname, '../../../bin/js');
+        const exec = join(__dirname, '../../../bin/js');
         const args = [arg];
         const proc = spawn(exec, args, { stdio: 'pipe' });
 
@@ -539,8 +540,8 @@ describe('lib/CLI', () => {
 
       it('with --join', () => {
         const join = true;
-        const file1 = path.join(fixturesPath, 'join.component.1.js');
-        const file2 = path.join(fixturesPath, 'join.component.2.vue');
+        const file1 = join(fixturesPath, 'join.component.1.js');
+        const file2 = join(fixturesPath, 'join.component.2.vue');
 
         const filenames = [file1, file2];
         const options = { join, filenames };
@@ -615,8 +616,8 @@ describe('lib/CLI', () => {
 
     it('should successfully generate the component documentation with --join', () => {
       const join = true;
-      const file1 = path.join(fixturesPath, 'join.component.1.js');
-      const file2 = path.join(fixturesPath, 'join.component.2.vue');
+      const file1 = join(fixturesPath, 'join.component.1.js');
+      const file2 = join(fixturesPath, 'join.component.2.vue');
 
       const filenames = [file1, file2];
       const options = { join, filenames };
@@ -742,8 +743,8 @@ describe('lib/CLI', () => {
         '',
       ].join('\n');
 
-      const file1 = path.join(fixturesPath, 'join.component.1.js');
-      const file2 = path.join(fixturesPath, 'join.component.2.vue');
+      const file1 = join(fixturesPath, 'join.component.1.js');
+      const file2 = join(fixturesPath, 'join.component.2.vue');
 
       return exec(['--ignore-name', '--join', file1, file2])
         .then(() => expect(streamContent).toEqual(expected));
@@ -798,8 +799,8 @@ describe('lib/CLI', () => {
         '',
       ].join('\n');
 
-      const file1 = path.join(fixturesPath, 'join.component.1.js');
-      const file2 = path.join(fixturesPath, 'join.component.2.vue');
+      const file1 = join(fixturesPath, 'join.component.1.js');
+      const file2 = join(fixturesPath, 'join.component.2.vue');
 
       return exec([file1, file2])
         .then(() => expect(streamContent).toEqual(expected));
@@ -851,7 +852,7 @@ describe('lib/CLI', () => {
         '',
       ].join('\n');
 
-      const file = path.join(fixturesPath, 'component.authors.vue');
+      const file = join(fixturesPath, 'component.authors.vue');
 
       return exec(['--ignore-name', file])
         .then(() => expect(streamContent).toEqual(expected));
