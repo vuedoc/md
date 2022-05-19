@@ -4,7 +4,7 @@ import { MISSING_FILENAME_MESSAGE, silenceExec } from '../lib/CLI.js';
 
 if (process.argv.length < 3) {
   process.stderr.write(MISSING_FILENAME_MESSAGE);
-  process.exit(1);
+  process.exit(-1);
 }
 
 const args = process.argv.slice(2);

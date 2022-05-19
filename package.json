@@ -62,9 +62,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.22.1",
     "gimtoc": "^2.0.0",
-    "jest": "^28.0.3",
-    "memfs": "^3.2.0",
-    "node-notifier": "^10.0.1"
+    "jest": "^28.1.0"
   },
   "engines": {
     "node": ">=16.6"

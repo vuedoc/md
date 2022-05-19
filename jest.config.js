@@ -1,8 +1,10 @@
 export default {
   expand: true,
-  notify: true,
   testMatch: [
     '<rootDir>/test/specs/**/*.spec.js',
+  ],
+  testPathIgnorePatterns: [
+    '<rootDir>/test/specs/lib/cli.spec.js',
   ],
   collectCoverageFrom: [
     'index.js',

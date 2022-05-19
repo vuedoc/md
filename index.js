@@ -1,7 +1,7 @@
 import { parseComponent } from '@vuedoc/parser';
 import merge from 'deepmerge';
 import JsonSchemav from 'jsonschemav';
-import ValidationError from 'jsonschemav/lib/error';
+import ValidationError from 'jsonschemav/lib/error.js';
 import schema from './lib/config.schema.js';
 import { render, Event } from './lib/Markdown.js';
 
@@ -90,8 +90,8 @@ export async function renderMarkdown({ stream, filename, reduce = true, ...optio
 
     const docs = await Promise.all(output);
 
-    if (reduce) {
-      return docs.length === 1 ? docs[0] : docs;
+    if (reduce && docs.length === 1) {
+      return docs[0];
     }
 
     return docs;

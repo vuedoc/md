@@ -13,7 +13,7 @@ export default {
     value: { type: Object, default: () => ({}) },
   },
 
-  created () {
+  created() {
     /**
      * Emitted when the component has been created
      */

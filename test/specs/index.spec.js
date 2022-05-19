@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
-/* global describe it beforeEach expect */
 
 import assert from 'assert';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { Parser } from '@vuedoc/parser';
+import { describe, it, expect, beforeEach } from '@jest/globals';
 import { renderMarkdown } from '../../index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

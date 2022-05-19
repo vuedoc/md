@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
-/* global describe it expect */
 
 import { readFile } from 'fs/promises';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import { describe, it, expect } from '@jest/globals';
 import { renderMarkdown } from '../../index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

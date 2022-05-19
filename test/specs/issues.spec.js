@@ -1,6 +1,5 @@
+import { describe, it, expect } from '@jest/globals';
 import { renderMarkdown } from '../../index.js';
-
-/* global describe it expect */
 
 describe('issues', () => {
   describe('#21 - undefined default value is rendering as a non string', () => {
