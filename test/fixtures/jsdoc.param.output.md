@@ -9,7 +9,7 @@ Name only
 **Syntax**
 
 ```typescript
-nameOnly(somebody: unknow): void
+nameOnly(somebody: unknown): void
 ```
 
 ### nameAndType()
@@ -183,7 +183,7 @@ Returns the sum of all numbers passed to the function.
 **Syntax**
 
 ```typescript
-withSpreadNotation(...num: number[]): unknow
+withSpreadNotation(...num: number[]): unknown
 ```
 
 **Parameters**

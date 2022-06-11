@@ -3,20 +3,20 @@ export default {
     /**
      * The JSON Schema object. Use the `v-if` directive
      */
-    schema: { type: [ Object, Promise ], required: true },
+    schema: { type: [Object, Promise], required: true },
 
     /**
      * Use this directive to create two-way data bindings
      * @model
      * @default {}
      */
-    value: { type: Object, default: () => ({}) }
+    value: { type: Object, default: () => ({}) },
   },
 
-  created () {
+  created() {
     /**
      * Emitted when the component has been created
      */
     this.$emit('created');
-  }
+  },
 };

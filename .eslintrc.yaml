@@ -1,0 +1,136 @@
+---
+root: true
+env:
+  node: true
+extends:
+  - eslint:recommended
+  - airbnb-base
+parserOptions:
+  ecmaVersion: 13
+  sourceType: module
+rules:
+  arrow-body-style: 'off'
+  array-bracket-spacing:
+    - error
+    - never
+  arrow-parens:
+    - error
+    - always
+  block-scoped-var: error
+  comma-dangle:
+    - error
+    - arrays: always-multiline
+      objects: always-multiline
+      imports: never
+      exports: never
+      functions: never
+  complexity:
+    - error
+    - max: 40
+  class-methods-use-this: 'off'
+  default-case: 'off'
+  global-require: 'off'
+  guard-for-in: 'off'
+  import/default: 'off'
+  import/extensions:
+    - 'error'
+    - 'always'
+    - ignorePackages: true
+  import/named: 'off'
+  import/no-cycle: 'off'
+  import/no-dynamic-require: 'off'
+  import/no-extraneous-dependencies: 'off'
+  import/no-named-as-default: 'off'
+  import/no-named-as-default-member: 'off'
+  import/no-unresolved:
+    - 'error'
+  import/order: 'off'
+  import/prefer-default-export: 'off'
+  jest/expect-expect: 'off'
+  lines-between-class-members: 'off'
+  no-console: error
+  no-continue: 'off'
+  no-debugger: error
+  no-fallthrough: 'off'
+  no-lonely-if: error
+  no-nested-ternary: 'off'
+  no-param-reassign: 'off'
+  no-plusplus: 'off'
+  no-prototype-builtins: 'off'
+  no-underscore-dangle: 'off'
+  no-use-before-define: 'off'
+  no-restricted-syntax: 'off'
+  no-shadow: 'off'
+  no-useless-constructor: 'off'
+  no-var: error
+  max-classes-per-file: 'off'
+  max-len:
+    - error
+    - code: 128
+      comments: 128
+      tabWidth: 2
+      ignoreUrls: true
+      ignoreStrings: true
+      ignoreRegExpLiterals: true
+      ignoreTemplateLiterals: true
+      ignorePattern: '(@returns|@param)'
+  object-curly-newline: 'off'
+  object-shorthand: 'off'
+  padding-line-between-statements:
+    - error
+    - blankLine: always
+      prev: block-like
+      next: '*'
+    - blankLine: always
+      prev: '*'
+      next: block-like
+    - blankLine: any
+      prev: block-like
+      next:
+        - block-like
+        - break
+    - blankLine: always
+      prev: '*'
+      next:
+        - return
+    - blankLine: always
+      prev:
+        - const
+        - let
+        - var
+        - function
+      next: '*'
+    - blankLine: always
+      prev:
+        - import
+      next:
+        - export
+    - blankLine: any
+      prev:
+        - const
+        - let
+        - var
+      next:
+        - const
+        - let
+        - var
+    - blankLine: always
+      prev: directive
+      next: '*'
+    - blankLine: any
+      prev: directive
+      next: directive
+  prefer-destructuring: 'off'
+  prefer-template: 'off'
+  quotes:
+    - error
+    - single
+    - avoidEscape: true
+  semi:
+    - error
+    - always
+  space-before-function-paren:
+    - error
+    - anonymous: never
+      named: never
+      asyncArrow: always

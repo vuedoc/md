@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 
-const cli = require('../lib/CLI');
+import { MISSING_FILENAME_MESSAGE, silenceExec } from '../lib/CLI.js';
 
 if (process.argv.length < 3) {
-  process.stderr.write(cli.MISSING_FILENAME_MESSAGE);
-  process.exit(1);
+  process.stderr.write(MISSING_FILENAME_MESSAGE);
+  process.exit(-1);
 }
 
 const args = process.argv.slice(2);
 
 if (process.argv.length > 2) {
-  cli.silenceExec(args);
+  silenceExec(args);
 } else {
   process.stdin.setEncoding('utf8');
 
@@ -25,5 +25,5 @@ if (process.argv.length > 2) {
     }
   });
 
-  process.stdin.on('end', () => cli.silenceExec(args, input));
+  process.stdin.on('end', () => silenceExec(args, input));
 }

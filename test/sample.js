@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 
-const ast = require('@textlint/markdown-to-ast');
-const inject = require('md-node-inject');
-const toMarkdown = require('ast-to-markdown');
-const path = require('path');
-const vuedoc = require('..');
+import ast from '@textlint/markdown-to-ast';
+import inject from 'md-node-inject';
+import toMarkdown from 'ast-to-markdown';
+import path from 'path';
+import * as vuedoc from '..';
+import { fileURLToPath } from 'url';
 
 const mdContent = `
 # Sample
@@ -16,8 +17,9 @@ Description
 MIT
 `;
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const options = {
-  filename: path.join(__dirname, 'test/fixtures/checkbox.vue')
+  filename: path.join(__dirname, 'test/fixtures/checkbox.vue'),
 };
 
 vuedoc.md(options)

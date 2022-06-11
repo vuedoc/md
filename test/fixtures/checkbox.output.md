@@ -56,10 +56,10 @@ A simple checkbox component
 
 ## Events
 
-| Name      | Description                                                                                            |
-| --------- | ------------------------------------------------------------------------------------------------------ |
-| `loaded`  | Emitted when the component has been loaded                                                             |
-| `enabled` | Emitted the event `enabled` when loaded Multilign<br/>**Arguments**<br/><ul><li>**`x: any`**</li></ul> |
+| Name      | Description                                                                                                   |
+| --------- | ------------------------------------------------------------------------------------------------------------- |
+| `loaded`  | Emitted when the component has been loaded                                                                    |
+| `enabled` | Emitted the event `enabled` when loaded Multilign<br/>**Arguments**<br/><ul><li>**`true: boolean`**</li></ul> |
 
 ## Methods
 
@@ -108,5 +108,5 @@ Enable the checkbox
 **Syntax**
 
 ```typescript
-enable(value: unknow): void
+enable(value: unknown): void
 ```

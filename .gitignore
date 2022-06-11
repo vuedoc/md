@@ -38,3 +38,9 @@ jspm_packages
 
 # Dolphin file
 .directory
+
+# CodelineX
+.codeline
+
+# Nix
+.nix-node

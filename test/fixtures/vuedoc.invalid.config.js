@@ -1,9 +1,9 @@
 // invalid config: options.level should be >= 1
 
-module.exports = {
+export default {
   level: 0,
   parsing: {
-    features: [ 'name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods' ],
-    loaders: []
-  }
+    features: ['name', 'description', 'keywords', 'slots', 'model', 'props', 'events', 'methods'],
+    loaders: [],
+  },
 };

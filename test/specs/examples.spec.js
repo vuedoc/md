@@ -1,16 +1,19 @@
 /* eslint-disable max-len */
-/* global describe it expect */
 
-const fs = require('fs');
-const path = require('path');
-const vuedoc = require('../..');
+import { readFile } from 'fs/promises';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import { describe, it, expect } from '@jest/globals';
+import { renderMarkdown } from '../../index.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function getFilePath(filename) {
-  return path.join(__dirname, '../fixtures', filename);
+  return join(__dirname, '../fixtures', filename);
 }
 
 function getFileContent(filename) {
-  return fs.readFileSync(getFilePath(filename), 'utf8');
+  return readFile(getFilePath(filename), 'utf8');
 }
 
 const fixtures = [
@@ -22,7 +25,7 @@ const fixtures = [
   'jsdoc.returns',
   'mdn.event',
   'mdn.regexp',
-  'mdn.string'
+  'mdn.string',
 ];
 
 // Update snapshots
@@ -30,14 +33,14 @@ const fixtures = [
 //   const filename = getFilePath(`${fixture}.example.vue`);
 //   const snapshotFilename = getFilePath(`${fixture}.output.md`);
 
-//   vuedoc.md({ filename }).then((component) => fs.writeFileSync(snapshotFilename, component));
+//   renderMarkdown({ filename }).then((component) => fs.writeFileSync(snapshotFilename, component));
 // });
 
 describe('examples', () => {
-  fixtures.forEach((fixture) => it(`should successfully render ${fixture}`, () => {
+  fixtures.forEach((fixture) => it(`should successfully render ${fixture}`, async () => {
     const filename = getFilePath(`${fixture}.example.vue`);
-    const expected = getFileContent(`${fixture}.output.md`);
+    const expected = await getFileContent(`${fixture}.output.md`);
 
-    return vuedoc.md({ filenames: [ filename ] }).then((component) => expect(component).toEqual(expected));
+    return renderMarkdown({ filenames: [filename] }).then((component) => expect(component).toEqual(expected));
   }));
 });
