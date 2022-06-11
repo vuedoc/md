@@ -20,6 +20,7 @@ Generate a Markdown Documentation for a Vue file
   * [Generate a documentation for an SFC component](#generate-a-documentation-for-an-sfc-component)
   * [Generate a MDN-like documentation for a method](#generate-a-mdn-like-documentation-for-a-method)
 - [Related projects](#related-projects)
+- [Development Setup](#development-setup)
 - [Contribute](#contribute)
 - [Versioning](#versioning)
 - [License](#license)
