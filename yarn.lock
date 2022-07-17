@@ -10,7 +10,7 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@b613/utils@^1.0.0-beta17":
+"@b613/utils@^1.0.0-beta21":
   version "1.0.0-beta21"
   resolved "https://registry.yarnpkg.com/@b613/utils/-/utils-1.0.0-beta21.tgz#b75d2b47780a21489809493a7390246eafdbfea4"
   integrity sha512-OUvU9c8XiH+GISiecz/dEhwykDSRn5NY+ejhppjGCTarEHvvDqcqWaTYGTspzWkHdiqSxZKKV+cJeoLNGFnJPw==
@@ -710,12 +710,12 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@vuedoc/parser@^4.0.0-beta7":
-  version "4.0.0-beta7"
-  resolved "https://registry.yarnpkg.com/@vuedoc/parser/-/parser-4.0.0-beta7.tgz#cb4a27a3b11cf89ed208936d62d528154e0c6670"
-  integrity sha512-/tYxmw3OzjO6KEQ8p+jDG3OIcsGf+VEjIzq8IEo1qCCZYZDmbhOCCd//g6un0yI7CR+/lggutfThH+fj8lqZyg==
+"@vuedoc/parser@^4.0.0-beta8":
+  version "4.0.0-beta8"
+  resolved "https://registry.yarnpkg.com/@vuedoc/parser/-/parser-4.0.0-beta8.tgz#6df3919eb32350857f24be85a6e2b513521326fb"
+  integrity sha512-6r061Zy0Scj6lUIXHqcXvgKcttSa8N4L1VrdTYG5clM3j1Pwyplm+QOU5IIBsR7XnW834oz102ynWSWnqDcJTw==
   dependencies:
-    "@b613/utils" "^1.0.0-beta17"
+    "@b613/utils" "^1.0.0-beta21"
     "@babel/parser" "^7.15.5"
     vue-template-compiler "^2.6.14"
 

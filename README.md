@@ -49,8 +49,6 @@ npm install --global @vuedoc/parser @vuedoc/md
 - Support of JSDoc, Class Component, Vue Property Decorator, TypeDoc
 - Support of `@description`, `@desc` and `@example`
 
-Prop Types support
-
 ## Command line usage
 
 ```sh
