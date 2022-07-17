@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 import assert from 'assert';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -58,10 +56,10 @@ describe('vuedoc', () => {
       '',
       '| Name                | Type                      | Description                                        | Default |',
       '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
-      '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
-      '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
-      '| `model` *required*  | `Array`                   | The checkbox model                                 |         |',
-      '| `disabled`          | `Boolean`                 | Initial checkbox state                             | &nbsp;  |',
+      '| `schema` *required* | `object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+      '| `v-model`           | `object`                  | Use this directive to create two-way data bindings | `{}`    |',
+      '| `model` *required*  | `array`                   | The checkbox model                                 |         |',
+      '| `disabled`          | `boolean`                 | Initial checkbox state                             | &nbsp;  |',
       '',
       '# Events',
       '',
@@ -93,8 +91,8 @@ describe('vuedoc', () => {
         '',
         '| Name                | Type                      | Description                                        | Default |',
         '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
-        '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
-        '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+        '| `schema` *required* | `object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+        '| `v-model`           | `object`                  | Use this directive to create two-way data bindings | `{}`    |',
         '',
         '## Events',
         '',
@@ -124,8 +122,8 @@ describe('vuedoc', () => {
         '',
         '| Name               | Type      | Description            |',
         '| ------------------ | --------- | ---------------------- |',
-        '| `model` *required* | `Array`   | The checkbox model     |',
-        '| `disabled`         | `Boolean` | Initial checkbox state |',
+        '| `model` *required* | `array`   | The checkbox model     |',
+        '| `disabled`         | `boolean` | Initial checkbox state |',
         '',
         '## Events',
         '',
@@ -157,8 +155,8 @@ describe('vuedoc', () => {
       '',
       '| Name                | Type                      | Description                                        | Default |',
       '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
-      '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
-      '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+      '| `schema` *required* | `object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+      '| `v-model`           | `object`                  | Use this directive to create two-way data bindings | `{}`    |',
       '',
       '# Events',
       '',
@@ -187,8 +185,8 @@ describe('vuedoc', () => {
       '',
       '| Name                | Type                      | Description                                        | Default |',
       '| ------------------- | ------------------------- | -------------------------------------------------- | ------- |',
-      '| `schema` *required* | `Object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
-      '| `v-model`           | `Object`                  | Use this directive to create two-way data bindings | `{}`    |',
+      '| `schema` *required* | `object` &#124; `Promise` | The JSON Schema object. Use the `v-if` directive   |         |',
+      '| `v-model`           | `object`                  | Use this directive to create two-way data bindings | `{}`    |',
       '',
       '# Events',
       '',
@@ -328,7 +326,7 @@ describe('vuedoc', () => {
       '',
       '| Name      | Type                                                                                                                                                                                                           | Description         |',
       '| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |',
-      '| `v-model` | [`Number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) &#124; [`String`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | Initial input value |',
+      '| `v-model` | [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) &#124; [`string`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | Initial input value |',
       '',
     ].join('\n');
 
@@ -552,7 +550,7 @@ describe('vuedoc', () => {
       '',
       '| Name        | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Default |',
       '| ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |',
-      '| `validator` | `Function` | The validator function to use to validate data before to emit the `input` event.<br/>**Syntax**<br/><code class="language-typescript">function validator(field: GenericField): Promise&lt;boolean&gt;</code><br/>**Parameters**<br/><ul><li>`field: GenericField` The field that requests validation</li><li>`field.id: string` The input ID attribute value</li><li>`field.name: string` The input name attribute value</li><li>`field.value: any` The input value for validation</li><li>`field.schema: JsonSchema` The JSON Schema object of the input</li><li>`field.required: boolean` Boolean indicating whether or not the field is mandatory</li><li>`field.hasChildren: boolean` Boolean indicating whether or not the field has children</li><li>`field.initialValue: any` The initial input value</li><li>`field.messages: Message[]` The input value for validation</li></ul>**Return value**<br/>A promise that return `true` if validation success and `false` otherwise<br/> | `null`  |',
+      '| `validator` | `function` | The validator function to use to validate data before to emit the `input` event.<br/>**Syntax**<br/><code class="language-typescript">function validator(field: GenericField): Promise&lt;boolean&gt;</code><br/>**Parameters**<br/><ul><li>`field: GenericField` The field that requests validation</li><li>`field.id: string` The input ID attribute value</li><li>`field.name: string` The input name attribute value</li><li>`field.value: any` The input value for validation</li><li>`field.schema: JsonSchema` The JSON Schema object of the input</li><li>`field.required: boolean` Boolean indicating whether or not the field is mandatory</li><li>`field.hasChildren: boolean` Boolean indicating whether or not the field has children</li><li>`field.initialValue: any` The initial input value</li><li>`field.messages: Message[]` The input value for validation</li></ul>**Return value**<br/>A promise that return `true` if validation success and `false` otherwise<br/> | `null`  |',
       '',
     ].join('\n');
 

@@ -1,6 +1,4 @@
-/* eslint-disable max-len */
-
-import { readFile } from 'fs/promises';
+import { readFile, writeFile } from 'fs/promises';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { describe, it, expect } from '@jest/globals';
@@ -33,7 +31,7 @@ const fixtures = [
 //   const filename = getFilePath(`${fixture}.example.vue`);
 //   const snapshotFilename = getFilePath(`${fixture}.output.md`);
 
-//   renderMarkdown({ filename }).then((component) => fs.writeFileSync(snapshotFilename, component));
+//   renderMarkdown({ filename }).then((component) => writeFile(snapshotFilename, component));
 // });
 
 describe('examples', () => {
