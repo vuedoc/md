@@ -23,7 +23,7 @@ describe('issues', () => {
         '',
         '| Name      | Type      | Description | Default     |',
         '| --------- | --------- | ----------- | ----------- |',
-        '| `v-model` | `Boolean` |             | `undefined` |',
+        '| `v-model` | `boolean` |             | `undefined` |',
       ].join('\n');
 
       const doc = await renderMarkdown({ parsing });
@@ -270,10 +270,10 @@ describe('issues', () => {
         '',
         '## Props',
         '',
-        '| Name         | Type                  | Description | Default                   |',
-        '| ------------ | --------------------- | ----------- | ------------------------- |',
-        '| `test-prop`  | `Record<string, any>` |             | `() => ({ a: 1, b: 2, })` |',
-        '| `test-prop2` | `String`              |             | &nbsp;                    |',
+        '| Name         | Type                  | Description | Default         |',
+        '| ------------ | --------------------- | ----------- | --------------- |',
+        '| `test-prop`  | `Record<string, any>` |             | `{"a":1,"b":2}` |',
+        '| `test-prop2` | `string`              |             | &nbsp;          |',
       ].join('\n');
 
       const doc = await renderMarkdown({ parsing });

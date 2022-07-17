@@ -1,0 +1,4 @@
+{
+  "jest.jestCommandLine": "yarn test",
+  "jest.showCoverageOnLoad": true
+}
