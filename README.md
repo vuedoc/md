@@ -48,6 +48,7 @@ npm install --global @vuedoc/parser @vuedoc/md
 - Generate documentation for component methods
 - Support of JSDoc, Class Component, Vue Property Decorator, TypeDoc
 - Support of `@description`, `@desc` and `@example`
+- Composition API support (from version Vuedoc Parser 4.0.0-beta8)
 
 ## Command line usage
 
