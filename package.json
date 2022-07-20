@@ -53,10 +53,10 @@
     "word-wrap": "^1.2.3"
   },
   "peerDependencies": {
-    "@vuedoc/parser": "^4.0.0-beta8"
+    "@vuedoc/parser": "^4.0.0-beta9"
   },
   "devDependencies": {
-    "@vuedoc/parser": "^4.0.0-beta8",
+    "@vuedoc/parser": "^4.0.0-beta9",
     "eslint": "^8.14.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",

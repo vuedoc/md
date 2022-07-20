@@ -710,10 +710,10 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@vuedoc/parser@^4.0.0-beta8":
-  version "4.0.0-beta8"
-  resolved "https://registry.yarnpkg.com/@vuedoc/parser/-/parser-4.0.0-beta8.tgz#6df3919eb32350857f24be85a6e2b513521326fb"
-  integrity sha512-6r061Zy0Scj6lUIXHqcXvgKcttSa8N4L1VrdTYG5clM3j1Pwyplm+QOU5IIBsR7XnW834oz102ynWSWnqDcJTw==
+"@vuedoc/parser@^4.0.0-beta9":
+  version "4.0.0-beta9"
+  resolved "https://registry.yarnpkg.com/@vuedoc/parser/-/parser-4.0.0-beta9.tgz#ff489135f6182e40e809eb6f505131f1217794ae"
+  integrity sha512-VzO/m2/S8EjbHacV1KE51Bo/LbML/7f2KmQYGZHucJKRAbpMPNwJkglR1di22VECy66pRcAti6/v+IaaEBpJOg==
   dependencies:
     "@b613/utils" "^1.0.0-beta21"
     "@babel/parser" "^7.15.5"
