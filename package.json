@@ -58,6 +58,7 @@
     "@vuedoc/parser": "^4.0.0-beta10"
   },
   "devDependencies": {
+    "@vitest/coverage-c8": "^0.22.1",
     "@vuedoc/parser": "^4.0.0-beta10",
     "c8": "^7.12.0",
     "eslint": "^8.23.0",

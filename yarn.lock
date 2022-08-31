@@ -283,6 +283,14 @@
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.6.tgz#250a7b16c3b91f672a24552ec64678eeb1d3a08d"
   integrity sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==
 
+"@vitest/coverage-c8@^0.22.1":
+  version "0.22.1"
+  resolved "https://registry.yarnpkg.com/@vitest/coverage-c8/-/coverage-c8-0.22.1.tgz#d91b3487caca570a815899943c1939fe421fc114"
+  integrity sha512-KOOYpO7EGpaF+nD8GD+Y05D0JtZp12NUu6DdLXvBPqSOPo2HkZ7KNBtfR0rb6gOy3NLtGiWTYTzCwhajgb2HlA==
+  dependencies:
+    c8 "^7.12.0"
+    vitest "0.22.1"
+
 "@vuedoc/parser@^4.0.0-beta10":
   version "4.0.0-beta10"
   resolved "https://registry.yarnpkg.com/@vuedoc/parser/-/parser-4.0.0-beta10.tgz#acd0945cfbbe59626cf54c9962f9d706d169e66d"
@@ -2742,7 +2750,7 @@ vitest-mock-process@^1.0.4:
   dependencies:
     deep-clone-fn "^1.1.0"
 
-vitest@^0.22.1:
+vitest@0.22.1, vitest@^0.22.1:
   version "0.22.1"
   resolved "https://registry.yarnpkg.com/vitest/-/vitest-0.22.1.tgz#3122e6024bf782ee9aca53034017af7adb009c32"
   integrity sha512-+x28YTnSLth4KbXg7MCzoDAzPJlJex7YgiZbUh6YLp0/4PqVZ7q7/zyfdL0OaPtKTpNiQFPpMC8Y2MSzk8F7dw==
