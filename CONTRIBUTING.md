@@ -37,6 +37,23 @@ Therefore:
   would have expected.
 * A detailed description of the behavior that you expect.
 
+## Development Setup
+
+1. [Install Nix Package Manager](https://nixos.org/manual/nix/stable/installation/installing-binary.html)
+
+2. [Install `direnv` with your OS package manager](https://direnv.net/docs/installation.html#from-system-packages)
+
+3. [Hook it `direnv` into your shell](https://direnv.net/docs/hook.html)
+
+4. At the top-level of your project run:
+
+   ```sh
+   direnv allow
+   ```
+
+   > The next time your launch your terminal and enter the top-level of your
+   > project, `direnv` will check for changes.
+
 ## Contribute
 
 Contributions to Vuedoc Markdown are welcome. Here is how you can contribute:

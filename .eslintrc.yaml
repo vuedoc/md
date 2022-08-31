@@ -5,6 +5,7 @@ env:
 extends:
   - eslint:recommended
   - airbnb-base
+  - plugin:import/recommended
 parserOptions:
   ecmaVersion: 13
   sourceType: module
@@ -43,7 +44,7 @@ rules:
   import/no-named-as-default: 'off'
   import/no-named-as-default-member: 'off'
   import/no-unresolved:
-    - 'error'
+    - 'off'
   import/order: 'off'
   import/prefer-default-export: 'off'
   jest/expect-expect: 'off'

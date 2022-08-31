@@ -16,11 +16,11 @@ Generate a Markdown Documentation for a Vue file
 - [Programmatic Usage](#programmatic-usage)
 - [Documentation Syntax](#documentation-syntax)
 - [Specific Tags for Props](#specific-tags-for-props)
+- [Using Plugins](#using-plugins)
 - [Examples](#examples)
   * [Generate a documentation for an SFC component](#generate-a-documentation-for-an-sfc-component)
   * [Generate a MDN-like documentation for a method](#generate-a-mdn-like-documentation-for-a-method)
 - [Related projects](#related-projects)
-- [Development Setup](#development-setup)
 - [Contribute](#contribute)
 - [Versioning](#versioning)
 - [License](#license)
@@ -362,6 +362,36 @@ export default {
 };
 ```
 
+## Using Plugins
+
+To use a plugin, it needs to be added to the `devDependencies` of the project
+and included in the plugins array in the `vuedoc.config.js` config file.
+For example, to provide support of Vue Router, the official
+[`@vuedoc/vue-router-plugin`](https://gitlab.com/vuedoc/vue-router-plugin)
+can be used:
+
+```sh
+$ npm add -D @vuedoc/vue-router-plugin
+```
+
+```js
+// vuedoc.config.js
+import { Loader } from '@vuedoc/parser';
+import { VueRouterPlugin } from '@vuedoc/vue-router-plugin';
+
+export default {
+  output: 'docs/',
+  parsing: {
+    plugins: [
+      VueRouterPlugin,
+    ],
+  },
+};
+```
+
+You can found the list of official plugins on the
+[Vuedoc Parser documentation](https://gitlab.com/vuedoc/md/blob/main/README.md#official-plugins).
+
 ## Examples
 
 Vuedoc Markdown has been used to generate documentation of bellow components:
@@ -387,23 +417,6 @@ Find more examples here: [test/fixtures](https://gitlab.com/vuedoc/md/blob/main/
 
 - `jsdoc-vuedoc`: https://github.com/ccqgithub/jsdoc-vuedoc
 - `rollup-plugin-vuedoc`: https://github.com/h-ikeda/rollup-plugin-vuedoc
-
-## Development Setup
-
-1. [Install Nix Package Manager](https://nixos.org/manual/nix/stable/installation/installing-binary.html)
-
-2. [Install `direnv` with your OS package manager](https://direnv.net/docs/installation.html#from-system-packages)
-
-3. [Hook it `direnv` into your shell](https://direnv.net/docs/hook.html)
-
-4. At the top-level of your project run:
-
-   ```sh
-   direnv allow
-   ```
-
-   > The next time your launch your terminal and enter the top-level of your
-   > project, `direnv` will check for changes.
 
 ## Contribute
 

@@ -1,4 +1,4 @@
-import { describe, it, expect } from '@jest/globals';
+import { describe, it, expect } from 'vitest';
 import { renderMarkdown } from '../../index.js';
 
 describe('issues', () => {
@@ -136,7 +136,7 @@ describe('issues', () => {
         '- `schema: object`<br/>',
         '  The JSON Schema object to load',
         '',
-        '- `model: Number | String | Array | Object | Boolean = undefined`<br/>',
+        '- `model: number | string | array | object | boolean = undefined`<br/>',
         '  The initial data for the schema.',
       ].join('\n');
 

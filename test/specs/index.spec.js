@@ -1,8 +1,7 @@
-import assert from 'assert';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { Parser } from '@vuedoc/parser';
-import { describe, it, expect, beforeEach } from '@jest/globals';
+import { VuedocParser } from '@vuedoc/parser';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { renderMarkdown } from '../../index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -11,7 +10,7 @@ const filename = join(__dirname, '../fixtures/checkbox.example.vue');
 describe('vuedoc', () => {
   let doc = null;
   const ignore = ['name', 'description'];
-  const features = Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature));
+  const features = VuedocParser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature));
   const options = { filenames: [filename], parsing: { features } };
 
   beforeEach(async () => {
@@ -19,10 +18,10 @@ describe('vuedoc', () => {
   });
 
   it('should render without main title', () => {
-    assert.strictEqual(/# checkbox/.test(doc), false);
+    expect(doc).not.toMatch(/# checkbox/);
   });
 
-  it('should render without description', () => assert.strictEqual(/A simple checkbox component/.test(doc), false));
+  it('should render without description', () => expect(doc).not.toMatch(/A simple checkbox component/));
 
   it('should successfully joined parsed files', async () => {
     const ignore = ['name'];
@@ -33,7 +32,7 @@ describe('vuedoc', () => {
         join(__dirname, '../fixtures/join.component.2.vue'),
       ],
       parsing: {
-        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature)),
+        features: VuedocParser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature)),
       },
     };
 
@@ -146,7 +145,7 @@ describe('vuedoc', () => {
         join(__dirname, '../fixtures/join.component.1.js'),
       ],
       parsing: {
-        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature)),
+        features: VuedocParser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature)),
       },
     };
 
@@ -176,7 +175,7 @@ describe('vuedoc', () => {
     const options = {
       filename: join(__dirname, '../fixtures/join.component.1.js'),
       parsing: {
-        features: Parser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature)),
+        features: VuedocParser.SUPPORTED_FEATURES.filter((feature) => !ignore.includes(feature)),
       },
     };
 
@@ -286,17 +285,12 @@ describe('vuedoc', () => {
     return expect(component).toEqual(expected);
   });
 
-  it('should successfully throw an error with missing filenames and parser.filecontent', (done) => {
+  it('should successfully throw an error with missing filenames and parser.filecontent', () => {
     const options = {
       parsing: {},
     };
 
-    renderMarkdown(options)
-      .then(() => done(new Error('should throw an error with missing filenames and parser.filecontent')))
-      .catch(({ message }) => {
-        expect(message.search(/^Invalid options\. Missing options\.filenames$/)).not.toBe(-1);
-        done();
-      });
+    expect(() => renderMarkdown(options)).rejects.toThrow(/^Invalid options\. Missing options\.filenames$/);
   });
 
   it('should successfully generate doc with @typeref', async () => {

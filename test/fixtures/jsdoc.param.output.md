@@ -64,7 +64,7 @@ withParameterProperties(employee: Object): void
 
 **Parameters**
 
-- `employee: Object`<br/>
+- `employee: object`<br/>
   The employee who is responsible for the project.
 
 - `employee.name: string`<br/>
@@ -85,7 +85,7 @@ withDestructuringParameter(employee: Object): void
 
 **Parameters**
 
-- `employee: Object`<br/>
+- `employee: object`<br/>
   The employee who is responsible for the project.
 
 - `employee.name: string`<br/>
@@ -106,7 +106,7 @@ withPropertiesOfValuesInAnArray(employees: Object[]): void
 
 **Parameters**
 
-- `employees: Object[]`<br/>
+- `employees: object[]`<br/>
   The employees who are responsible for the project.
 
 - `employees[].name: string`<br/>
