@@ -1,6 +1,6 @@
 {
   "name": "@vuedoc/md",
-  "version": "4.0.0-beta5",
+  "version": "4.0.0-beta6",
   "description": "Generate a Markdown Documentation for a Vue file component",
   "type": "module",
   "exports": {
