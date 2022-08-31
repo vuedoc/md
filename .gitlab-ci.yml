@@ -1,8 +1,5 @@
 image: node:lts-alpine
 
-include:
-  - template: SAST.gitlab-ci.yml
-
 stages:
   - tests
   - security
@@ -31,42 +28,21 @@ tests & coverage:
     paths:
       - coverage/
 
-dependencies check:
+security audit:
   stage: security
-  needs: &tests-jobs
+  needs:
     - code quality
     - dependencies outdated
     - tests & coverage
   script:
-    - yarn audit --production
-
-sast:
-  stage: security
-  needs: *tests-jobs
-
-pages:
-  stage: publish
-  needs: &security-jobs
-    - tests & coverage
-    - dependencies check
-  dependencies:
-    - tests & coverage
-  script:
-    - mv coverage/ public/
-  artifacts:
-    paths:
-      - public
-    expire_in: 30 days
-  only:
-    - main
-  environment:
-    name: coverage report
-    url: https://vuedoc.gitlab.io/md
+    - yarn audit --level high --groups dependencies
 
 package:
   stage: publish
-  needs: *security-jobs
+  needs:
+    - security audit
   script:
+    - yarn install
     - yarn pack
   artifacts:
     paths:
@@ -74,13 +50,12 @@ package:
 
 publish:
   stage: publish
-  needs: *security-jobs
+  needs:
+    - security audit
   only:
     - tags
     - triggers
   script:
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+    - yarn install
     - yarn publish
-  environment:
-    name: npm
-    url: https://www.npmjs.com/package/@vuedoc/md
