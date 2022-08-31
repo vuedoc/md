@@ -1,20 +1,22 @@
 {
   "name": "@vuedoc/md",
-  "version": "4.0.0-beta5",
+  "version": "4.0.0-beta6",
   "description": "Generate a Markdown Documentation for a Vue file component",
   "type": "module",
   "exports": {
     ".": "./index.js",
     "./schema/options": "./lib/config.schema.js",
-    "./Markdown": "./lib/Markdown.js",
-    "./I18n": "./lib/I18n.js"
+    "./markdown": "./lib/Markdown.js",
+    "./i18n": "./lib/I18n.js"
   },
   "bin": {
     "vuedoc.md": "./bin/cli.js",
     "vuedoc-md": "./bin/cli.js"
   },
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage",
+    "test": "vitest",
+    "testx": "node ./bin/cli.js -j ./useMouse.ts ./component.vue",
+    "coverage": "vitest run --coverage",
     "lint": "eslint .",
     "gimtoc": "gimtoc -f README.md -s 'Table of Contents' -o README.md"
   },
@@ -53,16 +55,20 @@
     "word-wrap": "^1.2.3"
   },
   "peerDependencies": {
-    "@vuedoc/parser": "^4.0.0-beta9"
+    "@vuedoc/parser": "^4.0.0-beta11"
   },
   "devDependencies": {
-    "@vuedoc/parser": "^4.0.0-beta9",
-    "eslint": "^8.14.0",
+    "@vitest/coverage-c8": "^0.22.1",
+    "@vuedoc/parser": "^4.0.0-beta11",
+    "c8": "^7.12.0",
+    "eslint": "^8.23.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.22.1",
     "gimtoc": "^2.0.0",
-    "jest": "^28.1.0"
+    "vite": "^3.0.9",
+    "vitest": "^0.22.1",
+    "vitest-mock-process": "^1.0.4"
   },
   "engines": {
     "node": ">=16.6"

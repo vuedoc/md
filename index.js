@@ -1,9 +1,10 @@
 import { parseComponent } from '@vuedoc/parser';
+import { render, Event } from './lib/Markdown.js';
+
 import merge from 'deepmerge';
 import JsonSchemav from 'jsonschemav';
 import ValidationError from 'jsonschemav/lib/error.js';
 import schema from './lib/config.schema.js';
-import { render, Event } from './lib/Markdown.js';
 
 const jsv = new JsonSchemav();
 const validator = jsv.compile(schema);

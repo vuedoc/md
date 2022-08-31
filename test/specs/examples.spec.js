@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'fs/promises';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { describe, it, expect } from '@jest/globals';
+import { describe, it, expect } from 'vitest';
 import { renderMarkdown } from '../../index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
