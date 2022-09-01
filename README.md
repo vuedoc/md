@@ -367,17 +367,17 @@ export default {
 To use a plugin, it needs to be added to the `devDependencies` of the project
 and included in the plugins array in the `vuedoc.config.js` config file.
 For example, to provide support of Vue Router, the official
-[`@vuedoc/vue-router-plugin`](https://gitlab.com/vuedoc/vue-router-plugin)
+[`@vuedoc/plugin-vue-router`](https://gitlab.com/vuedoc/plugin-vue-router)
 can be used:
 
 ```sh
-$ npm add -D @vuedoc/vue-router-plugin
+$ npm add -D @vuedoc/plugin-vue-router
 ```
 
 ```js
 // vuedoc.config.js
 import { Loader } from '@vuedoc/parser';
-import { VueRouterPlugin } from '@vuedoc/vue-router-plugin';
+import { VueRouterPlugin } from '@vuedoc/plugin-vue-router';
 
 export default {
   output: 'docs/',
@@ -390,7 +390,7 @@ export default {
 ```
 
 You can found the list of official plugins on the
-[Vuedoc Parser documentation](https://gitlab.com/vuedoc/md/blob/main/README.md#official-plugins).
+[Vuedoc Parser documentation](https://gitlab.com/vuedoc/parser/blob/main/README.md#official-plugins).
 
 ## Examples
 
