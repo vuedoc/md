@@ -1,6 +1,6 @@
 {
   "name": "@vuedoc/md",
-  "version": "4.0.0-beta6",
+  "version": "4.0.0-beta7",
   "description": "Generate a Markdown Documentation for a Vue file component",
   "type": "module",
   "exports": {
@@ -55,11 +55,11 @@
     "word-wrap": "^1.2.3"
   },
   "peerDependencies": {
-    "@vuedoc/parser": "^4.0.0-beta11"
+    "@vuedoc/parser": "^4.0.0-beta12"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "^0.22.1",
-    "@vuedoc/parser": "^4.0.0-beta11",
+    "@vuedoc/parser": "^4.0.0-beta12",
     "c8": "^7.12.0",
     "eslint": "^8.23.0",
     "eslint-config-airbnb": "^19.0.4",

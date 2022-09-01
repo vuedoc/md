@@ -291,10 +291,10 @@
     c8 "^7.12.0"
     vitest "0.22.1"
 
-"@vuedoc/parser@^4.0.0-beta11":
-  version "4.0.0-beta11"
-  resolved "https://registry.yarnpkg.com/@vuedoc/parser/-/parser-4.0.0-beta11.tgz#89471842b82e6490623b9f8fbf45b8db6da87059"
-  integrity sha512-6T/EuILhpmshsXWSwWxQ2PXGmS0sKcXJtCNMSCdIXPmlbUYkuXIyWzhuR3nnFtkP8KuSoyMrVskIyJWdOpll5g==
+"@vuedoc/parser@^4.0.0-beta12":
+  version "4.0.0-beta12"
+  resolved "https://registry.yarnpkg.com/@vuedoc/parser/-/parser-4.0.0-beta12.tgz#fc1ad9551047b9cbc71fe3f114e103fef9ffdaf6"
+  integrity sha512-QUkU+Qnc7rtEWPP86gALUrXUzXbBnYljSCf/vDb9Dlgc4hafZ9AbsCDccX8HObpDv6HqBzy9wfowTZodt0sdmA==
   dependencies:
     "@b613/utils" "^1.0.0-beta21"
     "@babel/parser" "^7.18.11"
