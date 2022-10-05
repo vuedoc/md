@@ -30,12 +30,24 @@ Generate a Markdown Documentation for a Vue file
 This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
 : Node 16+ is needed to use it and it must be imported instead of required.
 
+**NPM**
+
 ```sh
 # using in your project
-npm install --save @vuedoc/parser @vuedoc/md
+npm install --legacy-peer-deps @vuedoc/parser @vuedoc/md
 
 # using in command line
-npm install --global @vuedoc/parser @vuedoc/md
+npm install --legacy-peer-deps --global @vuedoc/parser @vuedoc/md
+```
+
+**Yarn**
+
+```sh
+# using in your project
+yarn add @vuedoc/parser @vuedoc/md
+
+# using in command line
+yarn global add @vuedoc/parser @vuedoc/md
 ```
 
 ## Features
